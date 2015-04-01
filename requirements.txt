@@ -1,0 +1,4 @@
+webassets
+cssmin
+pelican
+markdown

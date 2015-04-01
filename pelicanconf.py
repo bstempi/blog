@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- #
+from __future__ import unicode_literals
+
+AUTHOR = u'Brian Stempin'
+SITENAME = u"Brian Stempin's Blog"
+SITEURL = 'http://brianstempin.com'
+
+PATH = 'content'
+
+THEME = 'theme/'
+
+TIMEZONE = 'US/Eastern'
+
+DEFAULT_LANG = u'en'
+
+# Blogroll
+LINKS = ()
+
+# Social widget
+SOCIAL = (('GitHub', 'https://github.com/bstempi'),
+          ('LinkedIn', 'https://www.linkedin.com/in/brianstempin'),
+          ('Facebook', 'https://www.facebook.com/brian.stempin'),
+          ('Twitter', 'https://twitter.com/bstempi'),
+         )
+
+# For when I have one
+# SITELOGO = 'images/my_site_logo.png'
+
+# For when I have one
+# FAVICON = 'images/favicon.png'
+
+# Currently doesn't work; Put in PR to fix this.
+CUSTOM_CSS = 'static/custom.css'
+
+HIDE_SITENAME = True
+
+DEFAULT_PAGINATION = 5
+
+# Uncomment following line if you want document-relative URLs when developing
+RELATIVE_URLS = True
+
+STATIC_PATHS = ['images', 'pdfs', 'extra/custom.css']
+
+EXTRA_PATH_METADATA = {
+    'extra/custom.css': {'path': 'static/custom.css'}
+}
