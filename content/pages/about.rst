@@ -8,9 +8,9 @@ About Me
 
 Well, you know my name now...that's a good start.
 
-I live in the Philadelphia suburbs and recently graduated from \ `Temple
-University <http://www.temple.edu>`__ as an Information Science and
-Technology major.  Here are some of the interesting academic things that
+I live in Philadelphia and I'm a \ `Temple
+University <http://www.temple.edu>`__ alumnus with an Information Science and
+Technology BS.  Here are some of the interesting academic things that
 I do (did):
 
 -  I maintain the official Java starter for `Vindinium <http://vindinium.org>`__
