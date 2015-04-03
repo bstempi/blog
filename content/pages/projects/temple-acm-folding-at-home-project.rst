@@ -4,6 +4,7 @@ Folding @Home
 :author: bstempi
 :slug: temple-acm-folding-at-home
 :status: hidden
+:url: projects/temple-acm’s-foldinghome-project/
 :save_as: projects/temple-acm’s-foldinghome-project/index.html
 
 When I first started participating in `Temple University's

@@ -1,6 +1,8 @@
 Title: Resume
 Modified: 2015-04-01 16:00
 Slug: resume
+Url: resume/
+Save_as: resume/index.html
 
 Brian M. Stempin, Software Engineer
 ====================================

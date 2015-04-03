@@ -1,1 +1,6 @@
-.profile-pic: { align: right; }
+.profile-pic { align: right; }
+
+@media (min-width: 768px) { #sidebar-wrapper { width: 300px; } }
+@media (min-width: 768px) { #wrapper { padding-left: 300px; } }
+@media (min-width: 768px) { #menu-toggle { left: 280px; } }
+.sidebar-nav { width: 300px; }

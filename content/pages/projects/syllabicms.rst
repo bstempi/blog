@@ -4,6 +4,7 @@ SyllabiCMS
 :author: bstempi
 :slug: syllabicms
 :status: hidden
+:url: projects/syllabicms/
 :save_as: projects/syllabicms/index.html
 
 In the summer of 2009, Temple's `CIS

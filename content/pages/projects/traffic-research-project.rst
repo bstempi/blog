@@ -4,6 +4,7 @@ Traffic Research Project
 :author: bstempi
 :slug: traffic-research-project
 :status: hidden
+:url: projects/traffic-research-project/
 :save_as: projects/traffic-research-project/index.html
 
 During the past few semesters, I've been working with Prof. `Slobodan
