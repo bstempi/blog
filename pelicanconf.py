@@ -44,10 +44,11 @@ DEFAULT_PAGINATION = 5
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 
-STATIC_PATHS = ['images', 'pdfs', 'extra/custom.css']
+STATIC_PATHS = ['images', 'pdfs', 'extra/custom.css', 'extra/CNAME']
 
 EXTRA_PATH_METADATA = {
-    'extra/custom.css': {'path': 'static/custom.css'}
+    'extra/custom.css': {'path': 'static/custom.css'},
+    'extra/CNAME': {'path': 'CNAME'},
 }
 
 ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}/'
