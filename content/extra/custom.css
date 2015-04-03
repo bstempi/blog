@@ -4,3 +4,10 @@
 @media (min-width: 768px) { #wrapper { padding-left: 300px; } }
 @media (min-width: 768px) { #menu-toggle { left: 280px; } }
 .sidebar-nav { width: 300px; }
+
+@media print {
+     #menu-toggle { display: none; }
+     #sidebar-wrapper { display: none; }
+     #sidebar-wrapper-small { display: none; }
+     .pagination { display: none; }
+}
