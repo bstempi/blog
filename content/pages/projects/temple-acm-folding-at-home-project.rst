@@ -4,7 +4,7 @@ Folding @Home
 :author: bstempi
 :slug: temple-acm-folding-at-home
 :status: hidden
-:save_as: projects/temple-acm-folding-at-home.html
+:save_as: projects/temple-acm’s-foldinghome-project/index.html
 
 When I first started participating in `Temple University's
 ACM <http://acm.temple.edu/>`__ chapter, we used to do a yearly

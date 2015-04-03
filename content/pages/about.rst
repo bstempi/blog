@@ -3,6 +3,7 @@ About Me
 :date: 2010-02-15 18:43
 :author: bstempi
 :slug: about
+:save_as: about/index.html
 
 Well, you know my name now...that's a good start.
 

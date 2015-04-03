@@ -3,8 +3,9 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'Brian Stempin'
-SITENAME = u"Brian Stempin's Blog"
+SITENAME = u"BMS's Blog"
 SITEURL = 'http://brianstempin.com'
+SITESUBTITLE = 'Because my crap has to live somewhere'
 
 PATH = 'content'
 
@@ -23,6 +24,9 @@ SOCIAL = (('GitHub', 'https://github.com/bstempi'),
           ('Facebook', 'https://www.facebook.com/brian.stempin'),
           ('Twitter', 'https://twitter.com/bstempi'),
          )
+
+FEED_ALL_ATOM = 'feeds/all.atom.xml'
+FEED_ALL_RSS = 'feeds/all.rss.xml'
 
 # For when I have one
 # SITELOGO = 'images/my_site_logo.png'
@@ -45,3 +49,12 @@ STATIC_PATHS = ['images', 'pdfs', 'extra/custom.css']
 EXTRA_PATH_METADATA = {
     'extra/custom.css': {'path': 'static/custom.css'}
 }
+
+ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}/'
+ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
+
+# Share
+SHARE = True
+
+#Google Analytics
+#GOOGLE_ANALYTICS='UA-8040053-2'

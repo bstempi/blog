@@ -4,7 +4,7 @@ Temple ACM LAN Parties
 :author: bstempi
 :slug: temple-acm-lan-parties
 :status: hidden
-:save_as: projects/temple-acm-lan-parties.html
+:save_as: projects/temple-acm-lan-parties/index.html
 
 During my time in the `Temple University ACM <http://acm.temple.edu>`__,
 we threw a few `LAN

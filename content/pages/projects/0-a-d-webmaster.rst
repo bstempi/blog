@@ -6,7 +6,7 @@
 :tags: 0AD, Wildfire Games
 :slug: 0-a-d-webmaster
 :status: hidden
-:save_as: projects/0-a-d-webmaster.html
+:save_as: projects/0-a-d-webmaster/index.html
 
 |Wildfire Games|
 

@@ -4,7 +4,7 @@ SyllabiCMS
 :author: bstempi
 :slug: syllabicms
 :status: hidden
-:save_as: projects/syllabicms.html
+:save_as: projects/syllabicms/index.html
 
 In the summer of 2009, Temple's `CIS
 department <http://www.temple.edu/cis>`__ handed me a project.  They
