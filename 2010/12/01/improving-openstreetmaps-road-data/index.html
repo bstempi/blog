@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="OpenStreetMap,PostGIS,QGis,SQL" />
+        <meta name="description" content="In my GIS work, I use OpenStreetMap as my source of road map information.  It was better documented and better labeled than the data that I was getting from the MNDOT.  Though OSM has been great to me, it hasn&#39;t come without its flaws.  In my work, I rely ..." />
+
+    <title>Improving OpenStreetMap's Road Data - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2010/12/01/improving-openstreetmaps-road-data/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2010/12/01/improving-openstreetmaps-road-data/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2010/12/01/improving-openstreetmaps-road-data/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2010/12/01/improving-openstreetmaps-road-data/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2010/12/01/improving-openstreetmaps-road-data/"
+                           rel="bookmark"
+                           title="Permalink to Improving OpenStreetMap's Road Data">
+                            Improving OpenStreetMap's Road Data
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-12-01T07:51:00-05:00"> Wed 01 December 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/openstreetmap.html">OpenStreetMap</a> /                 <a href="../../../../tag/postgis.html">PostGIS</a> /                 <a href="../../../../tag/qgis.html">QGis</a> /                 <a href="../../../../tag/sql.html">SQL</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>In my <a class="reference external" href="http://gis.brianstempin.com">GIS</a> work, I use
+<a class="reference external" href="http://openstreetmap.com">OpenStreetMap</a> as my source of road map
+information. &nbsp;It was better documented and better labeled than the data
+that I was getting from the <a class="reference external" href="http://www.dot.state.mn.us/">MNDOT</a>.
+&nbsp;Though OSM has been great to me, it hasn't come without its flaws. &nbsp;In
+my work, I rely on roads being physically connected. &nbsp;That is, if two
+roads don't touch, then I assume that you cannot simply travel from one
+to the other. &nbsp;Unfortunately, OSM data has several breaks in it. &nbsp;This
+became horribly apparent when I released my first demo (I won't link to
+it because it's horrible). &nbsp;When a user would click two points, they
+would sometimes (a lot of times) get crazy routes. &nbsp;Sometimes short
+routes would fail altogether! &nbsp;This is simply unacceptable. &nbsp;I could try
+to overcome this in my software, but I'm not that smart. &nbsp;There are
+plenty of places that roads come close together without allowing a
+driver to hop from one to the other. &nbsp;So, I decided to search for ways
+to fix the data. &nbsp;In this case, I'm searching for dead ends.</p>
+<div class="section" id="searching-with-sql">
+<h2>Searching with SQL</h2>
+<p>I have all of my OSM data in a PostgreSQL database, so I thought that it
+would be easiest to write a crafty query to find places where there are
+&quot;dangling roads&quot; (where a road's start point or end point touches
+nothing else). &nbsp;My first shot at the query was overly inclusive. &nbsp;If
+there was a single object in the whole dataset that didn't overlap with
+a given road's start/end, then it was selected. &nbsp;The result was me
+selecting every single road's start/end point. &nbsp;Not what I wanted :p.
+&nbsp;Fortunately, the people on the <a class="reference external" href="http://postgis.refractions.net/mailman/listinfo/postgis-users">PostGIS user's
+list</a>
+don't get headaches as easily as I do. &nbsp; A little help revealed that my
+query was much more effective if I reversed my logic. &nbsp;After being shown
+how to reverse my query and then adding my own performance enhancement,
+I generated the following:</p>
+<pre class="literal-block">
+(
+SELECT osm_id
+FROM myosmdata t1
+WHERE osm_id NOT IN (
+-- list all ids where the startpoint intersects something.
+SELECT t1.osm_id
+FROM&nbsp;myosmdata&nbsp;t1, myosmdata t2
+WHERE t1.osm_id &lt;&gt; t2.osm_id
+AND t2.way &amp;&amp; t1.way
+AND ST_Intersects(ST_StartPoint(t1.way), t2.way)
+)
+UNION
+(
+SELECT osm_id
+FROM&nbsp;myosmdata&nbsp;t1
+WHERE osm_id NOT IN (
+-- list all ids where the endpoint intersects something.
+SELECT t1.osm_id
+FROM myosmdata t1, myosmdata t2
+WHERE t1.osm_id &lt;&gt; t2.osm_id
+AND t2.way &amp;&amp; t1.way
+AND ST_Intersects(ST_EndPoint(t1.way), t2.way)
+)
+</pre>
+<p>Awesome! &nbsp;Within a few seconds, I had the ID of all the terminal points
+on my highway (yeah, I'm only looking at highways, not the whole map).
+&nbsp;Now what?</p>
+</div>
+<div class="section" id="visualizing">
+<h2>Visualizing</h2>
+<p>These IDs, in and of themselves, don't do much for me. &nbsp;They tell me
+what roads to look at, but I need more than that. &nbsp;If I want to verify
+them and eventually fix them, I need to see them. &nbsp;So, I modified my
+query a bit:</p>
+<pre class="literal-block">
+(
+SELECT osm_id, ST_StartPoint(way)
+FROM myosmdata t1
+WHERE osm_id NOT IN (
+-- list all ids where the startpoint intersects something.
+SELECT t1.osm_id
+FROM&nbsp;myosmdata&nbsp;t1, myosmdata t2
+WHERE t1.osm_id &lt;&gt; t2.osm_id
+AND t2.way &amp;&amp; t1.way
+AND ST_Intersects(ST_StartPoint(t1.way), t2.way)
+)
+UNION
+(
+SELECT osm_id, ST_EndPoint(way)
+FROM&nbsp;myosmdata&nbsp;t1
+WHERE osm_id NOT IN (
+-- list all ids where the endpoint intersects something.
+SELECT t1.osm_id
+FROM myosmdata t1, myosmdata t2
+WHERE t1.osm_id &lt;&gt; t2.osm_id
+AND t2.way &amp;&amp; t1.way
+AND ST_Intersects(ST_EndPoint(t1.way), t2.way)
+)
+</pre>
+<p>This gives me the ID of the road and creates a geometry that represents
+the exact point that I need to observe. &nbsp;So, I created a table with 3
+columns: &nbsp;an id (integer), the geometry (geometry), and a message
+(text). &nbsp;I used the above query to populate my table. &nbsp;Cool...now I have
+some geometries to look at...time to fire up QGIS!</p>
+<p>Once I fired up QGIS, I added a few layers. &nbsp;In order from bottom to
+top: &nbsp;all of the roads, my highways table, and the table that we just
+created (lets call it, the &quot;points of interest&quot; table). &nbsp;In QGIS, I get
+something that looks like this:</p>
+<p><a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/11/1.png"><img alt="QGIS screenshot" src="http://www.brianstempin.com/wp-content/uploads/2010/11/1-300x168.png" /></a></p>
+<p>The light green roads are the entire road dataset, the black roads are
+the ones that I've defined as highways, and the blue-green dots are the
+points of interested. &nbsp;Sweet!</p>
+</div>
+<div class="section" id="sifting-through-the-display">
+<h2>Sifting Through the Display</h2>
+<p>Though the display is cool, it's meant to be functional. &nbsp;Here's the
+plan: &nbsp;we can zoom into a group of points of interest. &nbsp;If they look
+like legitimate dead ends, we'll simply remove them from the table. &nbsp;If
+they're actually problems, we'll note them. &nbsp;Simple enough, but how will
+we do this? &nbsp;QGIS is awesome because it also allows us to edit the
+datasets. &nbsp;Simply click on the &quot;points of interest&quot; layer (named
+something else in my picture), and then go to Layer-&gt; Toggle Editing.
+&nbsp;Now, we can simply remove points that don't belong. &nbsp;If we find a point
+that we confirmed is bad, we can click on the information button, select
+that point, right click in the information dialog, and select &quot;edit
+feature form.&quot; &nbsp;This allows us to edit the feature's metadata. &nbsp;In this
+case, the metadata are the other columns in the table. &nbsp;We're interested
+in the &quot;message&quot; field. &nbsp;For the sake of simplicity, I tried to keep it
+simple and always wrote, &quot;confirmed bad&quot; when I found a bad node. &nbsp;Cool,
+yeah?</p>
+</div>
+<div class="section" id="improving-the-visualization-and-workflow">
+<h2>Improving the Visualization and Workflow</h2>
+<p>Due to all of the zooming in and out, I sometimes found myself
+reexamining the same point two or three times by accident. &nbsp;In order to
+avoid this, I modified my display. &nbsp;You can right click on your &quot;points
+of interest&quot; layer and click &quot;properties&quot; to get to the styling
+attributes. &nbsp;Under, &quot;legend type,&quot; select, &quot;unique value,&quot; and then
+under, &quot;classification field,&quot; select the name of the messages column.
+&nbsp;Then, click &quot;classify.&quot; &nbsp;If you were cool like me and were consistent
+with your message, you should only have two or three classifications.
+&nbsp;After some work, my map looks like this:</p>
+<p><a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/11/2.png"><img alt="QIS screenshot" src="http://www.brianstempin.com/wp-content/uploads/2010/11/2-300x168.png" /></a></p>
+<p>I know which points that I've evaluated and which ones that I've already
+confirmed.</p>
+</div>
+<div class="section" id="other-notes">
+<h2>Other Notes</h2>
+<p>Once I've finished identifying my dangling roads, I'll go to OSM and
+submit the fixes. &nbsp;Since I've never done that before, I don't want to
+cover it here. &nbsp;I'd rather save the embarrassment of stumbling through
+the process for myself.</p>
+<p>As you're editing, you might notice that the database isn't being
+updated. &nbsp;Your changes won't be submitted until you either click the
+&quot;Toggle Editing&quot; button again or until you close QGIS. &nbsp;At that point
+you'll be prompted. &nbsp;If you choose to save,the edits will be committed
+to the database and will be visible to other queries.</p>
+<p>The email thread where I begged for help (and in poor English I might
+add...I should sleep more often) can be found
+<a class="reference external" href="http://postgis.refractions.net/pipermail/postgis-users/2010-November/thread.html">here</a>.
+&nbsp;The subject is, &quot;Query to select dangling line segments.&quot;</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'improving-openstreetmaps-road-data';
+        var disqus_url = '../../../../2010/12/01/improving-openstreetmaps-road-data/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

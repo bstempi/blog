@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/community.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2014-03-25T12:29:00-04:00</updated><entry><title>Because Enterprise</title><link href="http://brianstempin.com/2014/03/25/because-enterprise/" rel="alternate"></link><updated>2014-03-25T12:29:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2014-03-25:2014/03/25/because-enterprise/</id><summary type="html">&lt;p&gt;I came across an interesting and fun project on GitHub a few months back
+called &lt;a class="reference external" href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition"&gt;FizzBuzz Enterprise
+Edition&lt;/a&gt;.
+&amp;nbsp;FizzBuzz is supposed to be a &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Fizz_buzz#Other_uses"&gt;simple programming
+exercise&lt;/a&gt;. &amp;nbsp;FBEE
+is supposed to be a joke that pokes fun at &amp;quot;enterprise developers&amp;quot; by
+terribly over-complicating this problem&lt;/p&gt;
+&lt;div class="section" id="you-know-buzz-words"&gt;
+&lt;h2&gt;You Know, Buzz Words&lt;/h2&gt;
+&lt;p&gt;There were places that I worked that used, loved, and worshipped certain
+tools for no good reason. &amp;nbsp;Many of these tools had qualities worth
+loving; but that's not why they were loved. &amp;nbsp;They were loved for
+being&amp;nbsp;&lt;em&gt;enterprise. &amp;nbsp;&lt;/em&gt;&amp;quot;WTF does that even mean?&amp;quot; some might ask. &amp;nbsp;Dare
+not ask this out-loud unless you want a hurricane of buzzwords to come
+your way. &amp;nbsp;Most people can't give you much of an answer, myself
+included. &amp;nbsp;I will try to define it nonetheless with a story.&lt;/p&gt;
+&lt;p&gt;I once worked with someone who loved the Spring Framework, specifically
+its caching framework, which is a wrapper on EHCache. &amp;nbsp;This person
+loved, loved, loved it. &amp;nbsp;They claimed that it made coding much easier
+and made the app run faster. &amp;nbsp;It was like fairy dust for Java. &amp;nbsp;After
+rooting around their code, I discovered that fairy dust didn't fix
+stupidity.&lt;em&gt;&amp;nbsp;&amp;nbsp;&lt;/em&gt;This individual's code would periodically query the
+database, build maps from the response, and cache them to prevent
+further database hits. &amp;nbsp;The problem was that these maps were never
+addressed by key -- they were traversed linearly. &amp;nbsp;It was the worst of
+two worlds: &amp;nbsp;a slow building structure that was being queried in a slow
+way. &amp;nbsp;You see, the keys were just a concatenated string of several of
+the values within its respective entry. &amp;nbsp;No part of the application had
+enough data to recreate this key. &amp;nbsp;Ever. &amp;nbsp;It was an order of magnitude
+faster to query the database for a specific item than it was to try to
+search this unsorted heap of shit.&lt;/p&gt;
+&lt;p&gt;But, it was enterprise, and thus it was unquestionably better. &amp;nbsp;Also,
+this seasoned developer didn't know what a hash map was.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="mocking-that-mindset"&gt;
+&lt;h2&gt;Mocking That Mindset&lt;/h2&gt;
+&lt;p&gt;That's what this project is all about. &amp;nbsp;It mocks people who want
+enterprise-y things just because its&amp;nbsp;&lt;em&gt;enterprise&lt;/em&gt;. &amp;nbsp;It mocks PHBs who
+throw buzzwords around until someone gets hit in the eye. &amp;nbsp;It mocks
+people who abstract for no reason. &amp;nbsp;It mocks people who think that
+caches, and in turn, hash maps, are&amp;nbsp;&lt;em&gt;fucking&lt;/em&gt;&amp;nbsp;&lt;em&gt;magic.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="contribute"&gt;
+&lt;h2&gt;Contribute&lt;/h2&gt;
+&lt;p&gt;I did, and so should you! &amp;nbsp;I had my &lt;a class="reference external" href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition/pull/124"&gt;first pull
+request&lt;/a&gt;
+accepted some time ago. &amp;nbsp;In this particular PR, I conquered the Java
+vendor-lock-in that is&amp;nbsp;&lt;strong&gt;System.out.println&lt;/strong&gt;! &amp;nbsp;Battling vendor and
+API lock-in is my favorite hobby. &amp;nbsp;There are plenty of other great
+tickets, such as getting FBEE to run on a map/reduce framework,
+WebSphere, and Java 1.4.&lt;/p&gt;
+&lt;p&gt;But seriously, its a great way to help you calibrate how much
+abstraction is &amp;quot;just right.&amp;quot; &amp;nbsp;So often, we have people telling us to
+abstract more and to be more modular. &amp;nbsp;No one really speaks much to how
+one should choose their battles or where to stop. &amp;nbsp;FBEE is a good tool
+because it reminds you of what's ridiculous and what &amp;quot;too far&amp;quot; looks
+like. &amp;nbsp;Take a read through the code and the tickets, and you'll find
+plenty of golden nuggets.&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="GitHub"></category><category term="humor"></category><category term="Java"></category></entry><entry><title>Why I Love Community Data Sources</title><link href="http://brianstempin.com/2013/08/13/why-i-love-community-data-sources/" rel="alternate"></link><updated>2013-08-13T06:03:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-08-13:2013/08/13/why-i-love-community-data-sources/</id><summary type="html">&lt;p&gt;I'll make this one short:&lt;/p&gt;
+&lt;p&gt;On my &lt;a class="reference external" href="http://www.brianstempin.com/readings/"&gt;Readings&lt;/a&gt; page, I use a
+WordPress &lt;a class="reference external" href="http://wordpress.org/plugins/openbook-book-data/"&gt;plugin&lt;/a&gt;
+that allows me to show off the books that I've read. &amp;nbsp;At the moment, I'm
+pulling my data from &lt;a class="reference external" href="http://openlibrary.org/"&gt;OpenLibrary.org&lt;/a&gt; (an
+&lt;a class="reference external" href="http://archive.org/"&gt;Internet Archive&lt;/a&gt; project). &amp;nbsp;The last book that
+I read had no cover listed, and one of the other covers was smaller than
+the rest. &amp;nbsp;Because it's a community data source, I was able to register
+for an account and upload cover images. &amp;nbsp;Instant fix! &amp;nbsp;Not only is it
+fixed for me, but it's fixed for anyone else who uses data about those
+books from OpenLibrary. &amp;nbsp;I think it's really cool that I'm able to go
+&amp;quot;fix the data.&amp;quot; &amp;nbsp;That's something I could have never done if I was
+pulling the metadata and cover images from Amazon or another closed
+source.&lt;/p&gt;
+&lt;p&gt;I feel empowered.&lt;/p&gt;
+</summary><category term="OpenLibraray"></category><category term="reading"></category></entry><entry><title>Donating My VPC CPU Time</title><link href="http://brianstempin.com/2013/04/02/donating-my-vpc-cpu-time/" rel="alternate"></link><updated>2013-04-02T21:47:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-04-02:2013/04/02/donating-my-vpc-cpu-time/</id><summary type="html">&lt;p&gt;When I was the VP of the &lt;a class="reference external" href="http://acm.temple.edu"&gt;Temple ACM&lt;/a&gt;, &lt;a class="reference external" href="http://timjhenry.com/"&gt;Tim
+Henry&lt;/a&gt; and I headed up an effort to get other
+ACMers to participate in the
+&lt;a class="reference external" href="http://folding.stanford.edu/"&gt;Folding&amp;#64;Home&lt;/a&gt; project. &amp;nbsp;In short, this
+project is a way to donate spare CPU cycles to scientists working on
+computationally difficult problems.&lt;/p&gt;
+&lt;p&gt;A few weeks ago, I found myself bothered by how little I've put my
+&lt;a class="reference external" href="http://www.linode.com/"&gt;Linode&lt;/a&gt; to use. &amp;nbsp;For a while, I was using it
+quite a bit, and then life came along and gave me an upper-cut. &amp;nbsp;So,
+I've decided to go back to donating CPU time to scientific projects.
+&amp;nbsp;I'm using &lt;a class="reference external" href="http://boinc.berkeley.edu/"&gt;BOINC&lt;/a&gt; since it allows me to
+donate to several projects at once and has a pretty awesome Linux
+client.&lt;/p&gt;
+&lt;p&gt;If you have spare CPU time floating around, I'd encourage you to do the
+same!&lt;/p&gt;
+</summary><category term="ACM"></category><category term="BOINC"></category><category term="Linode"></category></entry><entry><title>0 A.D. Wins Project of the Month on Sourceforge</title><link href="http://brianstempin.com/2012/07/07/0-a-d-wins-project-of-the-month-on-sourceforge/" rel="alternate"></link><updated>2012-07-07T17:31:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-07-07:2012/07/07/0-a-d-wins-project-of-the-month-on-sourceforge/</id><summary type="html">&lt;p&gt;I almost forgot to brag: 0 A.D. was Sourceforge's Project of the Month
+in June. Check out the post here:
+&lt;a class="reference external" href="https://sourceforge.net/blog/zero-ad-potm-june-2012/"&gt;https://sourceforge.net/blog/zero-ad-potm-june-2012/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It feels pretty good to be on a team that's being recognized by the rest
+of the open source community. &amp;nbsp;Also, this podcast was the first time
+that I've ever heard Erik or Aviv speak. &amp;nbsp;Now I have a voice to read
+their posts in!&lt;/p&gt;
+</summary><category term="0 A.D."></category><category term="games"></category><category term="Wildfire Games"></category></entry><entry><title>Working Hard on the 0 A.D. Website</title><link href="http://brianstempin.com/2012/01/16/working-hard-on-the-0-a-d-website/" rel="alternate"></link><updated>2012-01-16T23:57:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-01-16:2012/01/16/working-hard-on-the-0-a-d-website/</id><summary type="html">&lt;p&gt;Shortly before Christmas, I got this message from
+&lt;a class="reference external" href="https://www.facebook.com/feneur"&gt;Erik&lt;/a&gt;, the producer of &lt;a class="reference external" href="http://wildfiregames.com/0ad"&gt;0
+A.D.&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I hope things are well with you. Have you still gotten a moment or
+two for 0 A.D. or have you become too busy? We've been trying to
+contact you via PM/email, but haven't got any response, so it's hard
+to know the case of things.&lt;/p&gt;
+&lt;p&gt;If you do have a moment or two we have things we could use your help
+with. Both some forum upgrades etc, but more importantly/hopefully
+more interesting as well we are finally getting closer to a new web
+site. We do have a designer working on the design, and a web
+development applicant who might be able to help out with the
+technical stuff. But naturally it would feel a lot better if you
+would be in charge of the technical side as we know and trust you.&lt;/p&gt;
+&lt;p&gt;Either way I hope you will have a good Christmas and regardless of
+whether or not your current situation allows you to help out I'll be
+grateful for a reply so we know how things are&amp;nbsp;:)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;D'awwwwwww.&lt;/p&gt;
+&lt;p&gt;Since then, I've gotten pretty serious about getting a new site
+delivered. &amp;nbsp;We've been making a more&amp;nbsp;conscious&amp;nbsp;effort to stay organized,
+work hard, and get something tangible accomplished. &amp;nbsp;If you follow the
+project's progress at all, you'll see that we've recently closed
+a&lt;a class="reference external" href="http://trac.wildfiregames.com/query?group=status&amp;amp;component=Website+%2F+Forum&amp;amp;order=priority"&gt;bunch of website
+tickets&lt;/a&gt;,
+mostly revolving around the new site. &amp;nbsp;Barring any major setbacks, we'll
+keep pushing forward!&lt;/p&gt;
+&lt;p&gt;Shameless plug: &amp;nbsp;If you have ever had an interest in joining a F/OSS
+group, are looking for something to put on the resume, or just have too
+much time on your hands, hit me up! &amp;nbsp;We could always use more help.&lt;/p&gt;
+</summary><category term="geek"></category><category term="Wildfire Games"></category></entry><entry><title>Parting Ways with the Philadelphia BDPA</title><link href="http://brianstempin.com/2011/09/10/parting-ways-with-the-philadelphia-bdpa/" rel="alternate"></link><updated>2011-09-10T12:13:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-09-10:2011/09/10/parting-ways-with-the-philadelphia-bdpa/</id><summary type="html">&lt;p&gt;Yeah, I'm sorry to say it, but it must happen. &amp;nbsp;Unfortunately, I will
+not be participating in the 2011-2012 BDPA HSCC program.&lt;/p&gt;
+&lt;div class="section" id="what-gives"&gt;
+&lt;h2&gt;What Gives?&lt;/h2&gt;
+&lt;p&gt;In short: &amp;nbsp;I don't think the program is improving. &amp;nbsp;It improved
+wonderfully for my first year or two, and then went stagnant. &amp;nbsp;To be a
+little more clear, the circumstances have improved (volunteers, outside
+involvement, etc), but the program (the impact we have on the kids, how
+well we treat our students and alum, our ability to organize) has not.
+&amp;nbsp;I believe that our&amp;nbsp;curriculum&amp;nbsp;changes are going to wound the program
+and undo the last few years of work that we've (myself, the other
+volunteers, officers, and others who've contributed) put in. &amp;nbsp;Quite
+frankly, I think the curriculum is nothing short of embarrassing.
+&amp;nbsp;Giving up almost every Saturday for 6 months at a time without any
+call-outs or mishaps is not easy or comfortable. &amp;nbsp;It's a
+welcome&amp;nbsp;sacrifice&amp;nbsp;when it's making an impact and when things are getting
+better. &amp;nbsp;I no longer think that's the case.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="so-stop-being-a-wuss-and-change-the-curriculum"&gt;
+&lt;h2&gt;So, Stop Being a Wuss and Change the Curriculum!&lt;/h2&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;No!&lt;/div&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;I'm supposed to be part of a team. &amp;nbsp;That means that I'm supposed to
+trust others and that others are supposed to trust me so that we can
+achieve maximum cooperation. &amp;nbsp;I can't give up every Saturday, be one
+of the central hubs of communication, and undo everyone's mistakes. &amp;nbsp;I
+have to trust that my team mates, my partners in crime, will fill in
+and do what they're supposed to do. &amp;nbsp;After seeing what has gone into
+that curriculum, which was written by a Java programmer and adjusted
+by a professor with a masters degree in education, I've lost that
+trust. &amp;nbsp;It was that awful.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="what-was-so-awful-about-it"&gt;
+&lt;h2&gt;What Was So Awful About It?&lt;/h2&gt;
+&lt;p&gt;Without actually showing the document, which I think would be unethical,
+it lays out a plan for teaching Java, HTML, CSS, JSP, SQL, cyber
+security, mobile apps, and their respective tools (Eclipse, MySql admin
+tools, etc etc words words words) in less than one calendar year.&lt;/p&gt;
+&lt;p&gt;Let that settle in for a moment.&lt;/p&gt;
+&lt;p&gt;While looking at the 2011 HSCC programming problem, I thought to myself:
+&amp;quot;Self, this problem is probably difficult for a lot of the kids that I
+went to Temple with.&amp;quot; &amp;nbsp;The problem's not hard because it's a difficult
+problem. &amp;nbsp;It just uses a ton of different technologies that the kids
+have to be competent in and have to be able to orchestrate together. &amp;nbsp;In
+order for students to troubleshoot their own compilation and run-time
+issues, they need to have a good handle on all of those different
+layers. &amp;nbsp;They have to understand the non-obvious things. &amp;nbsp;That simply
+takes time. &amp;nbsp;To get to the point where someone could do this type of
+project at Temple, one had to take 8+ computer science related classes.
+&amp;nbsp;That means that if you were a college student, you'd have to pack (and
+possibly overload) 2 full semesters of nothing but computer stuff to get
+there. &amp;nbsp;Even if someone did this, you can probably guess why they'd have
+a hard time. &amp;nbsp;Some of those classes happen in sequence for a reason --
+you need to gain understanding in one so that it can be applied to
+another.&lt;/p&gt;
+&lt;p&gt;The &amp;quot;everything in one year&amp;quot; approach is simply unreasonable and wrong.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="why-the-public-announcement"&gt;
+&lt;h2&gt;Why the Public Announcement?&lt;/h2&gt;
+&lt;p&gt;First and foremost, this is a big deal to me. &amp;nbsp;I've poured a lot of
+heart into this program. &amp;nbsp;This is not being taken lightly at all. &amp;nbsp;If
+I'm going to go through the trouble of separation, then I need to have
+it clearly stated why. &amp;nbsp;Secondly, I want kids who participated to know.
+&amp;nbsp;It's a tough choice for me -- I almost feel like I'm abandoning them.
+&amp;nbsp;I want them to know that I refuse to waste their time on something that
+I think is not going to benefit them. &amp;nbsp;I want to have an impact on them.
+&amp;nbsp;Thirdly, I hope that other chapters and members see this and get
+something from it. &amp;nbsp;Even if people disagree with my actions and my
+reasons, I hope that I've caused people to take a look at their values
+and goals related to this program.&lt;/p&gt;
+&lt;p&gt;With that, I wish everyone involved the best and hope that they all
+prove me wrong.&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="BDPA"></category><category term="HSCC"></category><category term="teaching"></category><category term="volunteering"></category></entry><entry><title>0 A.D. Alpha 4 Daedalus</title><link href="http://brianstempin.com/2011/03/15/0-a-d-alpha-4-daedalus/" rel="alternate"></link><updated>2011-03-15T21:49:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-03-15:2011/03/15/0-a-d-alpha-4-daedalus/</id><summary type="html">&lt;div class="section" id="holy-crap"&gt;
+&lt;h2&gt;Holy Crap!&lt;/h2&gt;
+&lt;p&gt;Yeah, right?! &amp;nbsp;&lt;a class="reference external" href="http://www.wildfiregames.com/0ad"&gt;This game&lt;/a&gt; has come
+such a long way since I joined the team back in July of 2010. &amp;nbsp;I don't
+think that there's any moment where I've been more excited to be a part
+of this game!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="sweet-moves-brah"&gt;
+&lt;h2&gt;Sweet Moves, Brah&lt;/h2&gt;
+&lt;p&gt;I sat down tonight and played the AI (experimental) in a game. &amp;nbsp;I
+haven't had that much fun in quite some time. &amp;nbsp;Despite being a simple
+AI, it gave me a run for my money at first. &amp;nbsp;It definitely did a better
+job at building with the initial resources. &amp;nbsp;It was also the first to
+have an army and to attack. &amp;nbsp;I thought I was done for! &amp;nbsp;Fortunately for
+me, it was pretty good at ignoring anything other than my town hall. &amp;nbsp;If
+the AI sent soldiers to attack me, I could attack them while they were
+in transit without fear of retaliation. &amp;nbsp;The didn't begin to attack
+until they reached their objective: &amp;nbsp;my town hall. &amp;nbsp;Once I realized
+that, I came pack for the pwn.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="awesome-landscapes"&gt;
+&lt;h2&gt;Awesome Landscapes&lt;/h2&gt;
+&lt;p&gt;I'm pretty blown away by the graphics. &amp;nbsp;If you want to get a good look
+at the units and buildings, you can mouse-wheel forward to zoom in. &amp;nbsp;The
+units look great, the landscape is awesome, and the water effects are
+really top-notch. &amp;nbsp;I've noticed a few graphics glitches here and there,
+so it could definitely use some more polishing, but over all I'm really
+impressed. &amp;nbsp;For some reason, the landscapes were the biggest thing to
+catch my eye. &amp;nbsp;They look so much nicer than what I remember seeing in
+any of the Age of Empires games (I think &lt;a class="reference external" href="http://www.microsoft.com/games/ageofmythology/"&gt;Age of
+Mythology&lt;/a&gt; was the
+last one that I played).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="getting-smoother"&gt;
+&lt;h2&gt;Getting Smoother&lt;/h2&gt;
+&lt;p&gt;When I first tried the game back in July, I remember having a hard time
+playing. &amp;nbsp;Part of it was my hardware, but I remember having a lot of
+glitches and lag once I moved onto a different machine. &amp;nbsp;Since then,
+things seemed to have gotten much better. &amp;nbsp;There's still the occasional
+glitch or lag here-and-there, but it doesn't really take that much away
+from the game play. &amp;nbsp;Don't get me wrong -- I found a few things that I
+found a little frustrating. &amp;nbsp;The fun definitely out-weighs the
+frustration, though. &amp;nbsp;I was pretty impressed&amp;nbsp;once I started using the
+rotate and zoom features while I was micro-managing some of my units.
+&amp;nbsp;The zoom/rotate is really smooth and looks really nice.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="get-to-it"&gt;
+&lt;h2&gt;Get to It&lt;/h2&gt;
+&lt;p&gt;I'd highly recommend going and playing 0 A.D. &amp;nbsp;You can &lt;a class="reference external" href="http://wildfiregames.com/0ad/page.php?p=14425"&gt;download the
+game here&lt;/a&gt; and find
+the forums here: &amp;nbsp;&lt;a class="reference external" href="http://www.wildfiregames.com/forum"&gt;http://www.wildfiregames.com/forum&lt;/a&gt;. &amp;nbsp;While you're at
+it: &amp;nbsp;make sure to enable the anonymous feedback. &amp;nbsp;It helps us know what
+kind of graphics hardware our users are running, which helps us to make
+the game better.&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="0AD"></category><category term="Wildfire Games"></category></entry><entry><title>Moodle 2.0 Upgrade</title><link href="http://brianstempin.com/2011/03/08/moodle-2-0-upgrade/" rel="alternate"></link><updated>2011-03-08T23:45:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-03-08:2011/03/08/moodle-2-0-upgrade/</id><summary type="html">&lt;p&gt;I've mentioned before that I teach a class of high schoolers how to
+program in Java. &amp;nbsp;In order to make things manageable and to make the
+most of my time with the kids, I use &lt;a class="reference external" href="http://moodle.org"&gt;Moodle&lt;/a&gt;to
+organize, store, distribute all of my course content. &amp;nbsp;I've fallen in
+love with it! &amp;nbsp;It can auto-grade my&amp;nbsp;quizzes, serve as a file repository,
+allow the students to keep notes, and track student progress.&lt;/p&gt;
+&lt;div class="section" id="praises"&gt;
+&lt;h2&gt;Praises&lt;/h2&gt;
+&lt;p&gt;As this year's &lt;a class="reference external" href="http://hscc.bdpaphilly.org"&gt;BDPA HSCC program&lt;/a&gt; has
+started taking off, I started looking at Moodle 2.0 and found some
+things that were quite attractive to me:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;New default theme. &amp;nbsp;I like the new theme more than the old one. &amp;nbsp;The
+menus are much easier to navigate and it has a nicer overall
+appearance.&lt;/li&gt;
+&lt;li&gt;New wiki plugin. &amp;nbsp;I started using a course to allow all of the
+coordinators to communicate. &amp;nbsp;Within this course, I started a forum,
+a wiki, and a few file folders. &amp;nbsp;Moodle 2.0's wiki is much nicer than
+1.9's and allows for the use of Creole for creating and styling
+content, which makes it easier for me to collaborate with my fellow
+volunteers.&lt;/li&gt;
+&lt;li&gt;New editor. &amp;nbsp;Moodle 1.9 used a text editor that didn't render in
+Chrome without a manual patch. &amp;nbsp;Version 2.0 features the use of
+&lt;a class="reference external" href="http://tinymce.moxiecode.com/"&gt;TinyMCE&lt;/a&gt;. &amp;nbsp;I've not only used
+TinyMCE on other sites before, but I've also sites that utilize it.
+&amp;nbsp;It's a nice piece that's been well integrated into Moodle. &amp;nbsp;The team
+did a really nice job with making sure that TinyMCE can correctly
+upload and display images.&lt;/li&gt;
+&lt;li&gt;plus a bunch more!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="criticisms"&gt;
+&lt;h2&gt;Criticisms&lt;/h2&gt;
+&lt;p&gt;I've criticized the Moodle upgrade/update system, and I'll criticize it
+again: &amp;nbsp;WordPress has a model to copy. &amp;nbsp;Moodle has taken some steps
+forward by allowing for upgrades from the CLI, but it's still not
+polished enough to allow me to try and throw away plugins. &amp;nbsp;It's too
+much of a process to experiment with new functionality.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="bottom-line"&gt;
+&lt;h2&gt;Bottom Line&lt;/h2&gt;
+&lt;p&gt;So far, the new version has been running really, really well. &amp;nbsp;The
+upgrade was flawless and the site is performing just as well as it did
+with 1.9. &amp;nbsp;Another successful upgrade!&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="BDPA"></category><category term="HSCC"></category><category term="Moodle"></category><category term="TinyMCE"></category></entry><entry><title>IPB3 Upgrade for Wildfire Games</title><link href="http://brianstempin.com/2011/03/06/ipb3-upgrade-for-wildfire-games/" rel="alternate"></link><updated>2011-03-06T12:36:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-03-06:2011/03/06/ipb3-upgrade-for-wildfire-games/</id><summary type="html">&lt;p&gt;Despite my apparent lack of activity, I've been doing quite a bit of
+work for WFG lately. &amp;nbsp;Our messaging board system and some other parts of
+our website run on the Invision Power Board version 2. &amp;nbsp;We'd happily
+keep chugging along, but IBP2 is no longer supported, so we have to move
+to IPB3 in order to keep getting updates and new features. &amp;nbsp;Since it's a
+fairly large forum (more than 200,000 posts), I thought that I'd take
+the opportunity to write about it.&lt;/p&gt;
+&lt;div class="section" id="process"&gt;
+&lt;h2&gt;Process&lt;/h2&gt;
+&lt;p&gt;The process for upgrading wasn't that bad. &amp;nbsp;All I had to do was to
+upload some new files, run upgrade.php, and then log into the admin
+panel and rebuild the posts. &amp;nbsp;Done! &amp;nbsp;Granted, the process took a while
+(rebuilding posts take a &lt;em&gt;lot&lt;/em&gt; of DB time), but it didn't require that
+much effort.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="benefits"&gt;
+&lt;h2&gt;Benefits&lt;/h2&gt;
+&lt;p&gt;I don't mean to sound like a sales pitch, but there were some very good
+reasons for upgrading:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Updates. &amp;nbsp;IPB2 was no longer maintained, so we weren't getting
+security updates.&lt;/li&gt;
+&lt;li&gt;Spam control. &amp;nbsp;IPB2 didn't have any built-in measures for controlling
+spam, but v3 does.&lt;/li&gt;
+&lt;li&gt;Ban-hammer. &amp;nbsp;IPB3 makes it much easier to patrol the forums and to
+remove offensive posts or to warn users.&lt;/li&gt;
+&lt;li&gt;Editors. &amp;nbsp;The new version has a much nicer post editor.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="experience"&gt;
+&lt;h2&gt;Experience&lt;/h2&gt;
+&lt;p&gt;The upgrade was pretty easy...just upload a few files, run a PHP script,
+and wa-la! &amp;nbsp;Easy.&lt;/p&gt;
+&lt;p&gt;Kind of.&lt;/p&gt;
+&lt;p&gt;The version of the package that I was given, 3.1.3, contains an error.
+&amp;nbsp;The error was found by one of our developers, Ykkrosh (Phillip):&lt;/p&gt;
+&lt;blockquote&gt;
+Assuming this is about the formatting buttons in the post interface,
+it looks like it fails when it tries processing the
+&amp;quot;ed-0_palette_otherstyles_img center&amp;quot; element, because that name
+contains a space and so it breaks the selector passed to
+querySelectorAll since they don't escape it properly
+('#ed-0_palette_otherstyles_img center input[type=&amp;quot;submit&amp;quot;]'). (I
+have no idea why they mess around with id selectors instead of just
+calling Element.querySelectorAll directly). Given they have lots of
+different selector implementations and it might take effort to fix
+bugs in all of them, I guess the safer solution is to get rid of the
+&amp;quot;img center&amp;quot; and &amp;quot;img left&amp;quot; etc custom BBcodes, since I think we
+only use them for aligning images in the site content pages (which
+don't use this forum any more).&lt;/blockquote&gt;
+&lt;p&gt;This error caused all kinds of headaches. &amp;nbsp;The WYSIWYG editor for adding
+and editing posts would display HTML tags instead of formatting the text
+for you. &amp;nbsp;If you were leaving a reply, it would also clear the text
+field if the field lost and then regained focus. &amp;nbsp;What a pain!&lt;/p&gt;
+&lt;p&gt;BUT -- Everything post-upgrade has been pretty awesome. &amp;nbsp;We now have a
+new theme, a &amp;quot;portal,&amp;quot; and a few other nice features. &amp;nbsp;Over all, it's
+been a great success!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-moar-you-know"&gt;
+&lt;h2&gt;The Moar You Know&lt;/h2&gt;
+&lt;p&gt;So, what did I take away from this? &amp;nbsp;A few things:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;You can &lt;strong&gt;never&lt;/strong&gt; test enough. &amp;nbsp;I ran through several test upgrades
+on my hosting account to make sure that nothing was broken and
+identified a few configuration bugs. &amp;nbsp;Some of the other team members
+even submitted bug reports, which made me feel good -- I'd rather
+find stuff in testing than after deployment. &amp;nbsp;Yet, somehow we all
+neglected to actually try to post :p. &amp;nbsp;There were some simple and
+crucial tests that I could have run to prevent the few days of
+headaches that I ended up causing our forum users.&lt;/li&gt;
+&lt;li&gt;I could have saved a lot of time by performing the upgrade on a local
+machine instead of a shared host. &amp;nbsp;As I said earlier in the post,
+part of the upgrade requires rebuilding the posts, which means that
+all 200,000+ posts have to be read and processed. &amp;nbsp;My shared host
+took several hours to do this, partly because there are CPU limits on
+my account and because I'm competing for resources. &amp;nbsp;It probably
+would have been smarter to run the upgrade on one of my local
+machines and then to upload the results to my host.&lt;/li&gt;
+&lt;li&gt;Janitorial work is important. &amp;nbsp;Some of the headaches that I
+encountered during my upgrade process came from obscure database and
+directory names. &amp;nbsp;To make matters worse, I didn't clean things out.
+&amp;nbsp;If I spend some time playing website janitor for a bit, I'll
+probably be able to avoid most of those headaches next time we do a
+major upgrade. &amp;nbsp;Since we have a new website in the works, I have an
+opportunity to apply this lesson now-ish.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class="section" id="thanks"&gt;
+&lt;h2&gt;Thanks&lt;/h2&gt;
+&lt;p&gt;I owe a big thanks to the following people, in no particular order:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;k776 (Kieran): &amp;nbsp;Thank you so much for staying on IRC with me during
+the upgrade! &amp;nbsp;Having someone to talk to during the process made the
+whole thing go quicker. &amp;nbsp;Having a second set of eyes and someone who
+could assist me was a huge help and motivator.&lt;/li&gt;
+&lt;li&gt;Ykkrosh (Phillip): &amp;nbsp;You solved the most crucial bug in the upgrade.
+&amp;nbsp;You rock!&lt;/li&gt;
+&lt;li&gt;Jeru (Aviv): &amp;nbsp;Thanks for helping out with testing and steering the
+process. &amp;nbsp;Thanks for being so dedicated.&lt;/li&gt;
+&lt;li&gt;Wijitmaker (Jason): &amp;nbsp;Every time I needed something from IPB, you were
+there to supply it. &amp;nbsp;I never had to wait for support from you -- you
+were &amp;quot;just there&amp;quot; with a reply in an instant. &amp;nbsp;Thanks for being so
+responsive.&lt;/li&gt;
+&lt;li&gt;feneur (Erik): &amp;nbsp;You've always been there when I needed input and to
+provide encouragement and praise. &amp;nbsp;Thanks for making me feel like
+part of the team.&lt;/li&gt;
+&lt;li&gt;The rest of the WFG team and our users: &amp;nbsp;Thank you all so much for
+your patience, persistence, and feedback.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Onto beta 4 and our new website!&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="IPB"></category><category term="Wildfire Games"></category></entry><entry><title>CPOSC: Great Success!</title><link href="http://brianstempin.com/2010/10/25/cposc-great-success/" rel="alternate"></link><updated>2010-10-25T15:20:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-10-25:2010/10/25/cposc-great-success/</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="http://timjhenry.com"&gt;Tim Henry&lt;/a&gt; and I went to the &lt;a class="reference external" href="http://cposc.org"&gt;Central PA Open
+Source Conference&lt;/a&gt; in Harrisburg, PA a few weeks
+ago (16OCT). &amp;nbsp;We had a pretty awesome time!&lt;/p&gt;
+&lt;p&gt;We got to HBurg kind of late (around 10ish, I think), but we still
+managed to make it in time for lunch and to see a few talks. &amp;nbsp;I think
+the most interesting one that I saw was about
+&lt;a class="reference external" href="http://www.lessfs.com/wordpress/"&gt;lessfs&lt;/a&gt; and ZFS. &amp;nbsp;I'm definitely
+tempted to use lessfs for a backup volume or something of the sort.
+&amp;nbsp;Most people have head of ZFS, but for those of you who haven't heard of
+lessfs: &amp;nbsp;it's a file system that does de-duplication on-the-fly. &amp;nbsp;It can
+even do on-the-fly compression if you have the processor to handle that
+kind of load. &amp;nbsp;The thing that impressed me the most was the
+demonstration. &amp;nbsp;For the demo, the presenter took several Ubuntu ISOs
+(such as Ubuntu 10.04, Kubuntu 10.04, Xubuntu 10.04, Mythbuntu 10.04,
+etc) and placed them all in the same folder. &amp;nbsp;Because the ISOs all share
+several of the same packages, some of the ISOs occupied no space on the
+volume. &amp;nbsp;Pretty awesome!&lt;/p&gt;
+&lt;p&gt;I spoke towards the end of the day (I was on the next-to-last track). &amp;nbsp;I
+thought I did kind of 'eh,' but in the words of another presenter, &amp;quot;No
+one threw tomatoes at me, so I guess I did ok.&amp;quot; &amp;nbsp;I touched on several
+things, including &lt;a class="reference external" href="http://postgis.refractions.net/"&gt;PostGIS&lt;/a&gt;,
+&lt;a class="reference external" href="http://www.qgis.org/"&gt;QuantumGIS&lt;/a&gt;,
+&lt;a class="reference external" href="http://www.geoserver.org"&gt;GeoServer&lt;/a&gt;, and
+&lt;a class="reference external" href="http://openlayers.org/"&gt;OpenLayers&lt;/a&gt;. &amp;nbsp;A few people approached me
+after the conference and told me that they attended my talk because of
+potential ideas that they had (I wish they said that during my talk when
+I was taking questions :p). &amp;nbsp;Some of them seemed pretty cool. &amp;nbsp;I'm
+hoping that a few of them reach out and contact me with their
+progress...I'm interested in hearing how my talk has helped them.&lt;/p&gt;
+&lt;p&gt;Afterwards, a group of us went over to the &lt;a class="reference external" href="http://www.abcbrew.com/index_flash.htm"&gt;Appalachian Brewing
+Company&lt;/a&gt; for dinner and a few
+drinks. &amp;nbsp;Note to self: &amp;nbsp;never try the sampler pack again! &amp;nbsp;I'm not sure
+what it was about their beer, but it hit me funny. &amp;nbsp;It didn't make me
+drunk -- just&amp;nbsp;incapacitated. &amp;nbsp;Other than the after effects, ABC and the
+gang was pretty awesome.&lt;/p&gt;
+&lt;p&gt;I definitely plan on doing CPOSC again next year. &amp;nbsp;Maybe by then, I'll
+have another talk (perhaps one that doesn't suck? :p). &amp;nbsp;We'll see!&lt;/p&gt;
+&lt;p&gt;PS -- &lt;a class="reference external" href="http://wiki.cposc.org/cposc2010"&gt;slides were posted&lt;/a&gt;.&lt;/p&gt;
+</summary><category term="CPOSC"></category><category term="GIS"></category><category term="lessfs"></category></entry><entry><title>I'm Part of an Open Source Project (0 A.D.)!</title><link href="http://brianstempin.com/2010/07/05/im-part-of-an-open-source-project-0-a-d/" rel="alternate"></link><updated>2010-07-05T22:09:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-05:2010/07/05/im-part-of-an-open-source-project-0-a-d/</id><summary type="html">&lt;p&gt;That's right! &amp;nbsp;After being a consumer in the OSS community for around 10
+years, I'm finally committing something more than helping posts on a
+forum -- I'm a webmaster!&lt;/p&gt;
+&lt;div class="section" id="the-desire"&gt;
+&lt;h2&gt;The Desire&lt;/h2&gt;
+&lt;p&gt;When I was growing up, I was hooked on &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Real-time_strategy"&gt;RTS
+games&lt;/a&gt;. &amp;nbsp;I used to
+love playing &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Age_of_empires"&gt;Age of
+Empires&lt;/a&gt; and the
+original
+&lt;a class="reference external" href="http://en.wikipedia.org/wiki/Warcraft:_Orcs_%26_Humans"&gt;Warcraft&lt;/a&gt;.
+&amp;nbsp;I then moved on to things like &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Age_of_empires_II"&gt;AoE
+II&lt;/a&gt;, &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Warcraft_II"&gt;Warcraft
+II&lt;/a&gt;, &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Total_Annihilation"&gt;Total
+Annihilation&lt;/a&gt;, and
+so on. &amp;nbsp;I just loved RTSes! &amp;nbsp;I stopped playing them once I got to
+college -- I just didn't have time to keep playing.&lt;/p&gt;
+&lt;p&gt;A few months ago, I started looking around for a new game to play. &amp;nbsp;I
+had a little more free time than I normally do, so I decided to give
+some of it to a game. &amp;nbsp;I decided that I wanted to find a Linux game
+since I spent most of my time in &lt;a class="reference external" href="http://ubuntu.com"&gt;Ubuntu&lt;/a&gt;. &amp;nbsp;After
+looking around, I found a game that showed potential: &amp;nbsp;&lt;a class="reference external" href="http://wildfiregames.com/0ad/"&gt;0
+A.D.&lt;/a&gt; At that time, it hadn't been
+released yet. &amp;nbsp;I decided to simply drop my gaming urge and to move on.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="revisiting"&gt;
+&lt;h2&gt;Revisiting&lt;/h2&gt;
+&lt;p&gt;A few days ago, I decided to revisit the 0 A.D. website. &amp;nbsp;They still
+haven't released anything yet, but the website stated that they were
+close to releasing an alpha. &amp;nbsp;For whatever reason, I decided to comb
+through their forums -- I wanted to know more. &amp;nbsp;While lurking through
+some of their topics, I came across the &lt;a class="reference external" href="http://www.wildfiregames.com/forum/index.php?showforum=306"&gt;&amp;quot;Applications&amp;quot;
+thread&lt;/a&gt;.
+&amp;nbsp;Wildfire Games (the group producing 0 A.D.) had several openings.
+The webmaster one caught my eye, so I decided to
+&lt;a class="reference external" href="http://www.wildfiregames.com/forum/index.php?showtopic=13179"&gt;apply&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="filling-the-gap"&gt;
+&lt;h2&gt;Filling the Gap&lt;/h2&gt;
+&lt;p&gt;Within a few hours of applying, I head from Aviv Sharon. &amp;nbsp;He quickly
+thanked me for my application and invited me to the team's IRC
+channel. &amp;nbsp;After speaking with Aviv for a bit, I was welcomed to the
+team. &amp;nbsp;I now have access to the group's private resources, credentials
+for the website, and a hefty task list. &amp;nbsp;I haven't had a chance to
+actually bite anything off yet, but I hope to this week. &amp;nbsp;I'm pretty
+excited about working on an open source game!&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="games"></category><category term="projects"></category><category term="web development"></category><category term="WordPress"></category></entry><entry><title>HSCC Competition</title><link href="http://brianstempin.com/2010/06/08/hscc-competition/" rel="alternate"></link><updated>2010-06-08T17:40:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-06-08:2010/06/08/hscc-competition/</id><summary type="html">&lt;p&gt;I've never written a post about it, but if you read the &amp;quot;About Me&amp;quot;
+section, you'll see that I teach a few different technologies to high
+school students (I know: &amp;nbsp;who'd trust me with kids?! :p). &amp;nbsp;I wanted to
+write about two things: &amp;nbsp;Our recent trip to our regional competition at
+&lt;a class="reference external" href="http://www.bowiestate.edu/"&gt;Bowie State University&lt;/a&gt; and our search
+for volunteers.&lt;/p&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;First thing's first: &amp;nbsp;Regionals&lt;/div&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;On Saturday, I took 3 kids from &lt;a class="reference external" href="http://hscc.bdpaphilly.org"&gt;my
+class&lt;/a&gt; down to Bowie State to compete
+in the regional HSCC competition (I'd insert a link here, but sadly I
+can't find a story that has a permalink...boo!). &amp;nbsp;For those of you who
+don't know anything about our competition, here's a rundown:&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;There's 3 sections&lt;ul&gt;
+&lt;li&gt;Written&lt;ul&gt;
+&lt;li&gt;For this section, the students are put in a room with a 200
+question multiple choice test. &amp;nbsp;They have 15 minutes to get as
+many correct answer as possible. &amp;nbsp;The questions range in topic
+from general computer knowledge to BDPA history to programming
+specifics. &amp;nbsp;Each students completes their own test.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Oral&lt;ul&gt;
+&lt;li&gt;In this section, each team competes as a unit. &amp;nbsp;They are put
+into a room with other students and play a Jeopardy (for lack
+of a better analogy) styled game. &amp;nbsp;They must, as a team, answer
+one question in each of 5 different categories. &amp;nbsp;There are some
+special rules about stealing questions, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Programming&lt;ul&gt;
+&lt;li&gt;This is the big enchilada. &amp;nbsp;The students will be handed a spec
+that details an on-line application. &amp;nbsp;They are free to program
+it in whichever platform they please (JSP, ASP.NET, classic
+ASP, or PHP). &amp;nbsp;The web application always needs access to a
+MySQL database. &amp;nbsp;Along with knowing how to program the front
+end, back end, and database, they must also be able to start
+and stop their own services. &amp;nbsp;They are given one computer (with
+no internet connection), some paper, and 6 or 7 hours to
+complete the problem.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This year, we have an all-rookie team. &amp;nbsp;To date, they've only received
+training for the Programming section of the competition. &amp;nbsp;Fortunately
+for me, these kids are resilient and motivated. &amp;nbsp;Despite their
+rookie-like score, they are more dedicated than ever to conquer this
+challenge. &amp;nbsp;For those of you who are interested, we'll be competing at
+the &lt;a class="reference external" href="http://bdpa.org/conf-2010.php"&gt;BDPA National Conference&lt;/a&gt; at the
+end of July.&lt;/p&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;My call for volunteers:&lt;/div&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;I was fortunate this year. &amp;nbsp;I had a class full of rookies and a few
+dedicated BDPA members (&lt;a class="reference external" href="http://www.facebook.com/bcmayes"&gt;Byron
+Mayes&lt;/a&gt; and Norman Williams) who
+were there to help students complete their assignments. &amp;nbsp;This year, I
+won't be so lucky. &amp;nbsp;I still have great volunteers, but I'll have a
+different challenge: &amp;nbsp;multiple classes. &amp;nbsp;I'll have incoming rookies
+that will need a rookie instructor and returning kids that need a more
+advanced&amp;nbsp;curriculum. &amp;nbsp;As we take on more kids, we also need help doing
+administrative duties, such as organizing end-of-the-year events,
+sending home report cards, and keeping in touch with parents.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;I'm asking for help.&lt;/p&gt;
+&lt;p&gt;If you like working with high school kids, teaching, and technology,
+then you might be able to help out. &amp;nbsp;I've posted a couple of &lt;a class="reference external" href="http://www.idealist.org/if/i/en/av/Org/215974-135/c"&gt;volunteer
+listings&lt;/a&gt; on
+&lt;a class="reference external" href="http://www.idealist.org"&gt;idealist.org&lt;/a&gt;. &amp;nbsp;If you think you might be
+interested, follow the first link (the volunteer listings one) and see
+if it sounds right for you. &amp;nbsp;If so, follow the instructions for
+applying. &amp;nbsp;Even if it doesn't sound like its for you but you still want
+to help in some way, please contact me. &amp;nbsp;We can use all of the help we
+can get.&lt;/p&gt;
+&lt;p&gt;Either way, wish us luck at nationals!&lt;/p&gt;
+</summary><category term="BDPA"></category><category term="HSCC"></category></entry></feed>

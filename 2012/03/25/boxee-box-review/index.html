@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="Boxee" />
+        <meta name="description" content="For the last few years, I had been using a modified XBox running XBMC.  This was great for streaming stuff (movies, music, etc) from my Ubuntu SMB server to my TV.  Now that I own a TV capable of high-def, I wanted more.  I also wanted to lower my cable ..." />
+
+    <title>Boxee Box Review - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2012/03/25/boxee-box-review/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2012/03/25/boxee-box-review/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2012/03/25/boxee-box-review/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2012/03/25/boxee-box-review/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2012/03/25/boxee-box-review/"
+                           rel="bookmark"
+                           title="Permalink to Boxee Box Review">
+                            Boxee Box Review
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-03-25T14:58:00-04:00"> Sun 25 March 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/boxee.html">Boxee</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>For the last few years, I had been using a <a class="reference external" href="http://www.instructables.com/id/How-to-softmod-your-xbox...for-FREE/">modified
+XBox</a>
+running <a class="reference external" href="http://xbmc.org/">XBMC</a>. &nbsp;This was great for streaming stuff
+(movies, music, etc) from my Ubuntu <a class="reference external" href="http://en.wikipedia.org/wiki/Samba_(software)">SMB
+server</a> to my TV. &nbsp;Now
+that I own a TV capable of high-def, I wanted more. &nbsp;I also wanted to
+lower my cable bill. &nbsp;Unfortunately, XBMC does not directly support
+premium video services like <a class="reference external" href="http://www.netflix.com">Netflix</a>.
+&nbsp;Further more, the 3rd party Netflix plugins won't work for XBMC if
+you're not running on a Windows or OSX machine due to the lack of <a class="reference external" href="http://en.wikipedia.org/wiki/Microsoft_Silverlight">MS
+Silverlight</a>. &nbsp;I
+decided it was time to switch -- I want a device that can stream from
+premium sources AND my local network. &nbsp;Enter the Boxee.</p>
+<div class="section" id="why-boxee">
+<h2>&nbsp;Why Boxee?</h2>
+<p>The biggest thing was definitely the network media streaming. &nbsp;Very few
+of the media center appliances have this. &nbsp;I have a file server that's
+full of my (legal, of course) music, movies, and TV shows that I've
+acquired over the years. &nbsp;I want to be able to watch those on my TV,
+too. Plus, I shouldn't have to fire up my computer just to play a few
+MP3s through my stereo. &nbsp;If I'm going to buy something to play media to
+my TV, it better handle local network media, too.</p>
+<p>The second biggest thing was Netflix. &nbsp;I wanted to replace my cable with
+something that I wouldn't get bored of. &nbsp;I used to share a Netflix
+account with a friend. &nbsp;I remember being blown away with the selection
+and quality of the media they offered. &nbsp;The Netflix part of the decision
+was a no brainer: &nbsp;it was mandatory.</p>
+<p>Third, I own a high-def TV. &nbsp;I wanted something that could handle
+high-def resolutions. &nbsp;Even if Netflix isn't full hd, it might be some
+day. &nbsp;Also, some of my local network content is high-def. &nbsp;Not that I'm
+picky about connectors, but having a box that uses
+<a class="reference external" href="http://en.wikipedia.org/wiki/HDMI">HDMI</a> makes life easy. One plug
+to rule them all!</p>
+</div>
+<div class="section" id="what-s-to-love">
+<h2>What's to Love?</h2>
+<p>I'm glad you asked! &nbsp;First and foremost, the Netflix app is pretty
+awesome. &nbsp;It's not given me any stability issues, it's easy to use with
+the remote, and the picture looks great. &nbsp;Setup was a breeze. &nbsp;The first
+time you power it on, you're prompted to sign into a wifi network,
+configure the output resolution, and a few other things. &nbsp;I also like
+that I get recommended content in my home screen. &nbsp;As of now, it's just
+free content from YouTube and a few other sources. &nbsp;I'd like to see if I
+can modify that, but for now it's fun. &nbsp;I end up finding some really
+cool short movies whenever I go flipping through the home feed.</p>
+<p>The remote is pretty awesome. &nbsp;On one side, it's a directional pad with
+a select and back button. &nbsp;On the other side, it's a QWERTY keyboard.
+&nbsp;The keyboard is really cool for searching for content. &nbsp;My friend Tim
+used to launch Netflix through his Wii, and typing anything of length by
+using the Wiimote was a pain. &nbsp;The keyboard is a cool feature. &nbsp;In
+addition to the remote, there's also a built-in web server. &nbsp;The web
+server does't put out human-readable web pages, but it does allow for
+3rd party apps to control the Boxee. &nbsp;For my Android phone, I found an
+app called Boxee Thumb. &nbsp;Basically, it auto-detects the Boxee (if you're
+connected to the same network) and allows you to use swipe gestures,
+soft buttons, or your phone's keyboard to control the unit. &nbsp;The swipe
+gestures are pretty cool -- I enjoy being able to swipe through play
+lists.</p>
+<p>The Boxee also allows for 3rd party software. &nbsp;The default software
+channel has 200+ apps. &nbsp;You have the ability to add additional
+repositories, which provide additional software. &nbsp;I have yet to try any
+third party channels, but I'm looking. &nbsp;You can also write your own apps
+and either load them onto a channel or onto a USB stick and run them
+locally. &nbsp;The interface is done by using HTML5/CSS3. &nbsp;Python is used to
+access the Boxee's functionality and can be embedded right into the HTML
+to provide access to system functions. &nbsp;Pretty cool!</p>
+</div>
+<div class="section" id="what-s-to-hate">
+<h2>What's to Hate?</h2>
+<p>A lot, unfortunately. &nbsp;The Boxee has a ton of great features, but
+they're offset by the interface. &nbsp;It simply sucks. &nbsp;Most of my negative
+opinion centers around the interface's instability. &nbsp;If I stay in an
+app, everything's golden. &nbsp;As soon as I start switching apps and
+switching windows, the Boxee will freeze and need a hard reset. &nbsp;What a
+pain! &nbsp;If my phone crashed &nbsp;that often, I'd throw it at someone.
+&nbsp;Fortunately, I don't venture from app-to-app too often, so it's
+tolerable, but leaves a bad taste in my mouth.</p>
+<p>Some parts of the interface are also rather ugly. &nbsp;Local media browsing
+is one of those places. &nbsp;When it works right, it looks nice and is able
+to pull episode, movie, and track information from the web. &nbsp;When it
+doesn't work, it's a pain. &nbsp;Manual resolution sucks. &nbsp;Some of it is my
+fault for not having things properly labeled, but I should be given a
+better interface (perhaps web?) for fixing unidentified media. &nbsp;Also,
+scanning of network (in this case, SMB) shares causes a noticeable lag.
+&nbsp;I'd rather have a slower scan that doesn't bring down the system than
+to have a faster scan that doesn't share the CPU well.</p>
+<p>I hate to say it, but the box itself is almost as ugly as some of the UI
+components. &nbsp;I don't think it's attractive at all. &nbsp;Instead of rounding
+corners, I simply have one sliced off. &nbsp;The appearance is awkward at
+best.</p>
+</div>
+<div class="section" id="overall">
+<h2>Overall</h2>
+<p>This thing's saving grace is all of the codecs and external media
+features. &nbsp;Overall, I'd give it a 3.75/5 stars. &nbsp;The interface gets a
+2/5 for sucking so bad, and the feature set gets a 5/5 for being so rich
+and complete. &nbsp;I would recommend this unit for those who are more tech
+savvy, have more advanced needs, or are simply patient and are willing
+to wait for these things to be fixed via updates.</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'boxee-box-review';
+        var disqus_url = '../../../../2012/03/25/boxee-box-review/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

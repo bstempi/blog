@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="Linux,MySQL,Wikipedia,Xen" />
+        <meta name="description" content="...but I did it! I decided a while back that it&#39;d be cool to do some graph analysis on the English Wikipedia database.  I want to study how &#34;connected&#34; the articles are.  I also want to collect some statistics about the text of the articles themselves, their references, and ..." />
+
+    <title>Loading the English Wikipedia Dump is a Huge Pain - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/"
+                           rel="bookmark"
+                           title="Permalink to Loading the English Wikipedia Dump is a Huge Pain">
+                            Loading the English Wikipedia Dump is a Huge Pain
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-06-29T18:22:00-04:00"> Fri 29 June 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/linux.html">Linux</a> /                 <a href="../../../../tag/mysql.html">MySQL</a> /                 <a href="../../../../tag/wikipedia.html">Wikipedia</a> /                 <a href="../../../../tag/xen.html">Xen</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>...but I did it!</p>
+<p>I decided a while back that it'd be cool to do some graph analysis on
+the English Wikipedia database. &nbsp;I want to study how &quot;connected&quot; the
+articles are. &nbsp;I also want to collect some statistics about the text of
+the articles themselves, their references, and some other fun numbers.
+&nbsp;At first glance, Wikipedia makes this easy. &nbsp;WikiMedia (the group
+behind Wikipedia) <a class="reference external" href="http://dumps.wikimedia.org/">publishes their database
+dumps</a> so that others can download
+entire copies of any Wikipedia site in any language. &nbsp;All of the dumps
+provided are SQL dumps, with one big exception: &nbsp;the page text. &nbsp;In
+order to maintain backward and forward compatibility, MediaWiki began
+producing XML dumps a while back. &nbsp;This XML file can be used to generate
+the whole database, but to do so would mean that a Wiki engine would
+have to scan and evaluate the text of every single article in order to
+build some of the relationship tables. &nbsp;Ew. &nbsp;Luckily, MediaWiki provides
+<a class="reference external" href="http://www.mediawiki.org/wiki/Manual:MWDumper">a tool for parsing this
+data</a>, so easy-peasy,
+right?</p>
+<p>No.</p>
+<div class="section" id="first-challenge-huge-sql-dumps">
+<h2>First Challenge: &nbsp;Huge SQL Dumps</h2>
+<p>Ok, let's handle the easy part first. &nbsp;I downloaded a full dump and spun
+up a virtual machine in Xen to handle the processing. &nbsp;Since MySQL is
+good enough to run Wikipedia, I figured that it was good enough for me,
+too. &nbsp;For the sake of completeness, I did not start with a blank
+database. &nbsp;I downloaded a copy of MediaWiki 1.9 and used the included
+SQL script (maintenance/tables.sql) to create a blank MediaWiki
+database. &nbsp;Being lazy, I started running commands like this:</p>
+<pre class="literal-block">
+zcat some_huge_file.sql.gz | mysql -u me -p en_wikipedia
+</pre>
+<p>Don't get me wrong: that would work...if you wanted to wait several
+years. &nbsp;Why was it so slow? &nbsp;Well, the dumps provided aren't wrapped in
+a transaction or anything like that, so the database reindexes after
+each <em>individual **insert.**</em>&nbsp; Slow is an understatement. &nbsp;To fix this,
+I wrote and zipped two small SQL scripts.</p>
+<p>preimport.sql</p>
+<pre class="literal-block">
+SET autocommit=0;
+SET unique_checks=0;
+SET foreign_key_checks=0;
+BEGIN;
+</pre>
+<p>postimport.sql</p>
+<pre class="literal-block">
+COMMIT;
+SET autocommit=1;
+SET unique_checks=1;
+SET foreign_key_checks=1;
+</pre>
+<p>So, what's going on here? &nbsp;On preimport.sql, the first line is pretty
+self&nbsp;explanatory: &nbsp;I don't want my queries
+to<a class="reference external" href="http://dev.mysql.com/doc/refman/5.0/en/commit.html">auto-commit</a>.
+&nbsp;Rather, I want to chose when and if they are committed. &nbsp;Secondly, I
+wanted to disable
+<a class="reference external" href="http://dev.mysql.com/doc/refman/5.0/en/server-system-variables.html#sysvar_unique_checks">unique_checks</a>
+during the import. &nbsp;I was using MyISAM tables, so this doesn't do much
+for me, but those of you out there who may want to use InnoDB tables
+will benefit greatly from this. &nbsp;Likewise, I next disable
+<a class="reference external" href="http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_foreign_key_checks">foreign_key_checks</a>.
+&nbsp;Lastly, I use the BEGIN key word to start a transaction. &nbsp;This will
+prevent MySQL from calculating indexes until the entire data set has
+been read. &nbsp;As you can see, postimport is just the exact opposite of
+preimport. &nbsp;I also mentioned that I zipped them. &nbsp;Why? &nbsp;So I could do
+this:</p>
+<pre class="literal-block">
+zcat preimport.sql.gz some_huge_file.sql.gz postimport.sql.gz | mysql -u me -p en_wikipedia
+</pre>
+<p>That statement will, all in the same MySQL session, read the contents of
+preimport.sql, the huge SQL file, and then postimport.sql. &nbsp;If you're
+cool, you can even wrap that whole mess with the
+<a class="reference external" href="http://www.thegeekstuff.com/2012/01/time-command-examples/">*time*</a>&nbsp;command
+so that you can get an exact time of how long it takes to run each
+import. &nbsp;All in all, most of my imports ran in only a few hours. &nbsp;On on!</p>
+</div>
+<div class="section" id="second-challenge-that-huge-xml-file">
+<h2>Second Challenge: &nbsp;That Huge XML File</h2>
+<p>By this point, we have just about all of the metadata we could want.
+&nbsp;What about the real stuff? &nbsp;You know -- the content? &nbsp;Oh yes, that!
+&nbsp;Well, that's where things get a bit sticky. &nbsp;There 3 common options
+that I've found for importing the data from the
+enwiki-sometimestamp-pages-articles.xml.bz2:</p>
+<ol class="arabic simple">
+<li>importDump.php</li>
+<li>xml2sql</li>
+<li>mwdumper</li>
+</ol>
+<p>importDump.php is a tool built into MediaWiki. &nbsp;It can produce an entire
+database from one of these XML dumps. &nbsp;Unfortunately, it's really slow.
+&nbsp;It's not recommended for use on larger data sets.</p>
+<p>xml2sql is an ANSI C program can can extract page and text information,
+but not any of the metadata. &nbsp;It's currently not maintained and it's not
+officially supported by MediaWiki.</p>
+<p>mwdumper is the official MediaWiki tool. &nbsp;Unfortunately, it's not well
+supported, either, but it turned out to be my best bet.</p>
+<p>In order to read the XML dump, I went with mwdumper since it's the
+official tool and it's written in a language that I'm quite dangerous
+with. &nbsp;The first thing to note is that the most up-to-date version is
+not available as a binary. &nbsp;I had to <a class="reference external" href="http://svn.wikimedia.org/svnroot/mediawiki/trunk/mwdumper/">download the
+source</a>
+and build it myself. &nbsp;If you're familiar with the SVN-Maven-Java stack
+(or you use <a class="reference external" href="http://www.springsource.com/developer/sts">STS</a>) then
+this is pretty simple and straight-forward. &nbsp;I'm not going to cover how
+to build the software here. &nbsp;I assume that either the reader is able to
+do this already or that there are instructions for doing so on the
+project's page.</p>
+<p>Once I was able to produce an executable JAR, I bumped into three
+problems. &nbsp;The first one involves the file's format. The file that
+MediaWiki produces is a valid bzip file, but for whatever reason,
+mwdumper does not recognize it as such. &nbsp;You can either unzip it first,
+or use a pipe. &nbsp;I wasn't very creative, so I first unzipped it, and then
+ran this:</p>
+<pre class="literal-block">
+java -server -jar ../mwdumper-1.16-jar-with-dependencies.jar --format=sql:1.5 temp2.xml | gzip -vc &gt; enwiki-latest-pages-articles.sql.gz
+</pre>
+<p>Where temp2.xml was the unzipped version of the XML dump, and
+enwiki-latest-pages-articles.sql.gz is where I want the SQL script to
+go. This command will process the XML and convert it into SQL INSERT
+statements and then pipe it through gzip so that your output stays
+small(er). &nbsp;When mwdumper is finished, we'll have a zipped SQL file that
+we can handle just like we did the others in Step 1.</p>
+<p>The second one is that some of the queries are larger than my MySQL
+server would allow for. &nbsp;To handle this, I had to modify my
+/etc/mysql/my.cnf (on Ubuntu) file and change this setting:</p>
+<pre class="literal-block">
+max_allowed_packet = 128M
+</pre>
+<p>This setting controls the maximum size of a query that the server can
+receive. By default, this value is rather small. Since we'll be
+importing rows that contain whole articles, this value must be raised.
+The value above should work just fine.</p>
+<p>The third and last problem is that mwdumper would come to a grinding
+halt a little over 4 million records in. &nbsp;It would throw a strange error
+about UTF-8 encoding. &nbsp;I didn't see anything wrong, and I didn't have
+any reason to believe that the file wasn't being encoded correctly, so I
+inspected the first few lines of the file and found that there was no
+XML declaration. &nbsp;It appears that mwdumper assumed that it was UTF-8, so
+I decided to add the following header:</p>
+<pre class="literal-block">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+</pre>
+<p>This is a common encoding for western European languages. There might
+have been characters that got mangled in the process, but I wasn't
+terribly worried about the occasional character here-and-there. If you
+are, then you'll need to find your own workaround for this issue.</p>
+<p>Once these 3 issues are cleared, then mwdumper will be able to produce
+usable SQL that you can import. If you use the command that I provided
+in step 1, you'll end up with a gzipped sql file that can be used just
+like any of the other compressed SQL files in step 1.</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>Not having this information up-front was a huge pain in the butt. I'm
+also still not sure about the UTF-8 encoding issue. In retrospect, I
+really don't know if the file was correctly encoded or not. At some
+point, I'd like to automate this process so that imports aren't such a
+hassle.</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'loading-the-english-wikipedia-dump-is-a-huge-pain';
+        var disqus_url = '../../../../2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

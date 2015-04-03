@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/traffic-research-project.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2011-05-09T19:34:00-04:00</updated><entry><title>Better Way to Use OSM Data for Routing</title><link href="http://brianstempin.com/2011/05/09/better-way-to-use-osm-data-for-routing/" rel="alternate"></link><updated>2011-05-09T19:34:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-05-09:2011/05/09/better-way-to-use-osm-data-for-routing/</id><summary type="html">&lt;p&gt;So, I feel like a bit of a tool. &amp;nbsp;I'm still working on my Java program
+to download MNDOT traffic data (mentioned in a &lt;a class="reference external" href="/2011/04/09/321/"&gt;previous
+post&lt;/a&gt;), but I decided to switch things up a bit. &amp;nbsp;I
+decided to throw away my old database and to get new data. &amp;nbsp;I decided
+that this was a good idea because I'm not sure how reproduceable my
+results are. &amp;nbsp;I figured that I could probably find a better way to
+import data in the process. &amp;nbsp;The way that I found isn't any better when
+it comes to procedures since it's more difficult and takes much longer,
+but it does give me &amp;quot;better data.&amp;quot;&lt;/p&gt;
+&lt;p&gt;In the past, I was using osm2pgsql to import my data from an OSM file
+(downloaded from &lt;a class="reference external" href="http://cloudmade.com/"&gt;CouldMade&lt;/a&gt;) into my
+database. &amp;nbsp;Then, I found &lt;a class="reference external" href="http://wiki.openstreetmap.org/wiki/Osm2pgsql"&gt;this
+article&lt;/a&gt;. &amp;nbsp;The juicy
+bit that made me face-palm:&lt;/p&gt;
+&lt;blockquote&gt;
+osm2pgsql is a lossy conversion utility. It only adds features that
+have certain tags, as defined in the config file, and it converts
+nodes and ways to linestrings and polygons. This means that you
+can't tell which linestring is connected to which, but for rendering
+a map that's not important (as opposed to routing).&lt;/blockquote&gt;
+&lt;p&gt;What the crack?! &amp;nbsp;Routing is at the heart of what I do! &amp;nbsp;Wow -- what a
+catch. &amp;nbsp;So, what next? &amp;nbsp;Well, I turned to
+&lt;a class="reference external" href="http://wiki.openstreetmap.org/wiki/Osmosis"&gt;osmosis&lt;/a&gt;. &amp;nbsp;This tool is
+ugly and took forever, but it produces a schema that's almost identical
+to OSMs. &amp;nbsp;The schema itself is worth the wait. &amp;nbsp;osmosis creates a table
+called &lt;em&gt;nodes&lt;/em&gt; that contains the majority of the data in the database.
+&amp;nbsp;These nodes include tags, ids, versions, time stamps, and the point
+itself. &amp;nbsp;&amp;quot;What about the lines?&amp;quot; you might ask. &amp;nbsp;Well, there's a &lt;em&gt;ways&lt;/em&gt;
+table. &amp;nbsp;This table contains an id, some tags, and an array of the nodes
+listed in the line. &amp;nbsp;Hey, that's cool! &amp;nbsp;That sounds like the beginning
+of a graph, which would be really useful. &amp;nbsp;Then, I found the
+&lt;em&gt;way_nodes&lt;/em&gt; table, which is a graph. &amp;nbsp;It lists the wayId, nodeId, and
+the sequence of that node within the way. &amp;nbsp;I spent a lot of time coming
+up with that kind of stuff in my project! &amp;nbsp;This database won't be easy
+to draw from, but it seems like it'd be perfect for the types of things
+that I'm doing -- routing and graph operations. &amp;nbsp;So, what happens when I
+draw it?&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.qgis.org"&gt;QGIS&lt;/a&gt; gives me the finger. &amp;nbsp;Yep. &amp;nbsp;My weapon of
+choice for the last few years won't work for this database. &amp;nbsp;Due to the
+number of nodes in the
+&lt;a class="reference external" href="http://wiki.openstreetmap.org/wiki/Planet.osm"&gt;planet.osm&lt;/a&gt; file (you
+know -- THE BIG ONE), the database schema uses a BIGINT datatype for the
+ids. &amp;nbsp;QGIS won't touch your database unless you use int4 datatypes for
+the ids. &amp;nbsp;There's a ticket open about it, but it's been lingering for
+quite some time. &amp;nbsp;So, I'm forced to use another desktop based tool. &amp;nbsp;I'm
+currently trying &lt;a class="reference external" href="http://udig.refractions.net/"&gt;uDig&lt;/a&gt;. &amp;nbsp;I've only
+been using it for all of 10 minutes, so I can't speak about it yet -- I
+haven't had enough time to develop an opinion.&lt;/p&gt;
+&lt;p&gt;Anywho, hopefully this eases my work and leads to some cool stuff.&lt;/p&gt;
+</summary><category term="OpenStreetMap"></category><category term="QGis"></category><category term="uDig"></category></entry><entry><title>Editing Data with the Java OpenStreetMap Editor</title><link href="http://brianstempin.com/2011/01/30/editing-data-with-the-java-openstreetmap-editor/" rel="alternate"></link><updated>2011-01-30T20:12:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-01-30:2011/01/30/editing-data-with-the-java-openstreetmap-editor/</id><summary type="html">&lt;p&gt;In my &lt;a class="reference external" href="/2010/12/01/improving-openstreetmaps-road-data/"&gt;last post&lt;/a&gt;, I
+used some SQL to help identify breaks in the
+&lt;a class="reference external" href="http://openstreetmap.org"&gt;OpenStreetMap&lt;/a&gt;'s road map. &amp;nbsp;If you recall,
+I created a table that contained a list of points and descriptions for
+each of those points. &amp;nbsp;In this post, I'll use this table to create a WMS
+layer that will be overlaid onto an OSM map. &amp;nbsp;The description field will
+be used to style the points so that I can easily tell what we need to do
+to repair them (eg, add nodes, move nodes, investigate further, etc).
+&amp;nbsp;Then, I'll choose a tool to actually perform the repair and allow the
+rest of the community to benefit from these findings.&lt;/p&gt;
+&lt;div class="section" id="tools"&gt;
+&lt;h2&gt;Tools&lt;/h2&gt;
+&lt;p&gt;The defacto tool for this job is the &lt;a class="reference external" href="http://josm.openstreetmap.de/"&gt;Java OSM
+Editor&lt;/a&gt;. &amp;nbsp;I checked out a few other
+tools, but this seemed to be &amp;quot;the one.&amp;quot; &amp;nbsp;It also supports viewing custom
+WMS layers, which will be really useful in a bit.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="method"&gt;
+&lt;h2&gt;Method&lt;/h2&gt;
+&lt;div class="section" id="orienting-thy-self"&gt;
+&lt;h3&gt;Orienting Thy Self&lt;/h3&gt;
+&lt;p&gt;First thing's first: &amp;nbsp;I needed to orient myself on the map. &amp;nbsp;By
+clicking&amp;nbsp;&lt;em&gt;Imagry&lt;/em&gt;-&amp;gt; &lt;em&gt;OpenStreetMap&lt;/em&gt;, I added an OSM layer. &amp;nbsp;From
+there, I zoomed into my target area. &amp;nbsp;In addition to this, I added
+satellite imagery. &amp;nbsp;In this particular case, I'm using some imagery
+provided by the MN DOT.&lt;/p&gt;
+&lt;p&gt;In order to make things easier on myself, I took the table that I made
+earlier (which I'll call, &lt;strong&gt;DanglingRoads&lt;/strong&gt;) and made it into a WMS
+layer. &amp;nbsp;This way, I can easily spot the places on the map that I need to
+edit. &amp;nbsp;To make editing even easier, I've styled my new layer by the
+error messages that were logged while I was reviewing the possible
+errors.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="cool-layer-bro"&gt;
+&lt;h3&gt;Cool Layer, Bro&lt;/h3&gt;
+&lt;p&gt;The process is pretty simple. &amp;nbsp;First, we can use our favorite WMS server
+to create a layer. &amp;nbsp;In my case, I use GeoServer. &amp;nbsp;When adding the layer,
+make sure to make all columns of the &lt;strong&gt;DanglingRoads&lt;/strong&gt; table available.
+&amp;nbsp;We'll need them in order to style the layer. &amp;nbsp;Next, I applied a style.
+&amp;nbsp;I'm not going to post mine but I'm willing to supply it to those who
+ask.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="editing-the-roads"&gt;
+&lt;h3&gt;Editing the Roads&lt;/h3&gt;
+&lt;p&gt;In order to edit the roads, I needed to combine an OSM layer with the
+layer made from the &lt;strong&gt;DanglingRoads&lt;/strong&gt; table. &amp;nbsp;In order to add the new
+WMS layer, I had to go to &lt;em&gt;Edit&lt;/em&gt;-&amp;gt; &lt;em&gt;Preferences&lt;/em&gt; and then click on the
+&lt;em&gt;Imagery Preferences&lt;/em&gt; button. &amp;nbsp;From there, a custom layer can be added.
+&amp;nbsp;In my case, I needed for the layer to have transparency. &amp;nbsp;Because JOSME
+doesn't have an option for enabling transparency, I had to append this
+to the WMS query string (thanks to Phil Gold form the OSM Newbies
+mailing list):&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+format=image/png&amp;amp;transparent=true
+&lt;/pre&gt;
+&lt;p&gt;From there, I zoomed in on every point that I had to edit. &amp;nbsp;After
+zooming in, sometimes it's necessary to right-click on the layer's name
+and select &lt;em&gt;Change resolution&lt;/em&gt;. &amp;nbsp;Once you've zoomed in close enough, you
+can click on the &lt;em&gt;Download map data...&lt;/em&gt; button. &amp;nbsp;This will reach out to
+the OSM servers and grab a piece of mapping data. &amp;nbsp;From there, you can
+edit it to your heart's content and then upload your changes (OSM
+registration required).&lt;/p&gt;
+&lt;p&gt;I should mention that the tool took some practice. &amp;nbsp;I had to download a
+few different pieces of data, attempt to edit them, and then throw them
+away. &amp;nbsp;I also had to make sure that I consulted the OSM documentation to
+make sure that I was retagging data correctly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="afterthoughts"&gt;
+&lt;h2&gt;Afterthoughts&lt;/h2&gt;
+&lt;p&gt;JOSM is a powerful tool, but it has its quarks. &amp;nbsp;First and foremost, it
+has a built in (editable) memory limit. &amp;nbsp;The first time that I used it,
+I experienced a crash due to the memory limit. &amp;nbsp;Secondly, having to
+readjust the resolution of a layer each and every time I zoom in and out
+was a pain. &amp;nbsp;I think that editing would have gone much smoother if JOSME
+just did this for me. &amp;nbsp;My last and final gripe is that OSM doesn't
+support secure password authentication. &amp;nbsp;I feel that any site should
+give me the option of not sending my passwords over plain HTTP.&lt;/p&gt;
+&lt;p&gt;Overall, I've had a great experience so far. &amp;nbsp;The editing has been slow,
+but it's been smooth and easy. &amp;nbsp;I still have more edits to commit, so
+I'm sure I'll discover new tricks along the way.&lt;/p&gt;
+&lt;p&gt;Thanks to all the folks at OSM for creating such an awesome product and
+set of tools!&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="GIS"></category><category term="JOSME"></category><category term="WMS"></category></entry><entry><title>Improving OpenStreetMap's Road Data</title><link href="http://brianstempin.com/2010/12/01/improving-openstreetmaps-road-data/" rel="alternate"></link><updated>2010-12-01T07:51:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-12-01:2010/12/01/improving-openstreetmaps-road-data/</id><summary type="html">&lt;p&gt;In my &lt;a class="reference external" href="http://gis.brianstempin.com"&gt;GIS&lt;/a&gt; work, I use
+&lt;a class="reference external" href="http://openstreetmap.com"&gt;OpenStreetMap&lt;/a&gt; as my source of road map
+information. &amp;nbsp;It was better documented and better labeled than the data
+that I was getting from the &lt;a class="reference external" href="http://www.dot.state.mn.us/"&gt;MNDOT&lt;/a&gt;.
+&amp;nbsp;Though OSM has been great to me, it hasn't come without its flaws. &amp;nbsp;In
+my work, I rely on roads being physically connected. &amp;nbsp;That is, if two
+roads don't touch, then I assume that you cannot simply travel from one
+to the other. &amp;nbsp;Unfortunately, OSM data has several breaks in it. &amp;nbsp;This
+became horribly apparent when I released my first demo (I won't link to
+it because it's horrible). &amp;nbsp;When a user would click two points, they
+would sometimes (a lot of times) get crazy routes. &amp;nbsp;Sometimes short
+routes would fail altogether! &amp;nbsp;This is simply unacceptable. &amp;nbsp;I could try
+to overcome this in my software, but I'm not that smart. &amp;nbsp;There are
+plenty of places that roads come close together without allowing a
+driver to hop from one to the other. &amp;nbsp;So, I decided to search for ways
+to fix the data. &amp;nbsp;In this case, I'm searching for dead ends.&lt;/p&gt;
+&lt;div class="section" id="searching-with-sql"&gt;
+&lt;h2&gt;Searching with SQL&lt;/h2&gt;
+&lt;p&gt;I have all of my OSM data in a PostgreSQL database, so I thought that it
+would be easiest to write a crafty query to find places where there are
+&amp;quot;dangling roads&amp;quot; (where a road's start point or end point touches
+nothing else). &amp;nbsp;My first shot at the query was overly inclusive. &amp;nbsp;If
+there was a single object in the whole dataset that didn't overlap with
+a given road's start/end, then it was selected. &amp;nbsp;The result was me
+selecting every single road's start/end point. &amp;nbsp;Not what I wanted :p.
+&amp;nbsp;Fortunately, the people on the &lt;a class="reference external" href="http://postgis.refractions.net/mailman/listinfo/postgis-users"&gt;PostGIS user's
+list&lt;/a&gt;
+don't get headaches as easily as I do. &amp;nbsp; A little help revealed that my
+query was much more effective if I reversed my logic. &amp;nbsp;After being shown
+how to reverse my query and then adding my own performance enhancement,
+I generated the following:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+(
+SELECT osm_id
+FROM myosmdata t1
+WHERE osm_id NOT IN (
+-- list all ids where the startpoint intersects something.
+SELECT t1.osm_id
+FROM&amp;nbsp;myosmdata&amp;nbsp;t1, myosmdata t2
+WHERE t1.osm_id &amp;lt;&amp;gt; t2.osm_id
+AND t2.way &amp;amp;&amp;amp; t1.way
+AND ST_Intersects(ST_StartPoint(t1.way), t2.way)
+)
+UNION
+(
+SELECT osm_id
+FROM&amp;nbsp;myosmdata&amp;nbsp;t1
+WHERE osm_id NOT IN (
+-- list all ids where the endpoint intersects something.
+SELECT t1.osm_id
+FROM myosmdata t1, myosmdata t2
+WHERE t1.osm_id &amp;lt;&amp;gt; t2.osm_id
+AND t2.way &amp;amp;&amp;amp; t1.way
+AND ST_Intersects(ST_EndPoint(t1.way), t2.way)
+)
+&lt;/pre&gt;
+&lt;p&gt;Awesome! &amp;nbsp;Within a few seconds, I had the ID of all the terminal points
+on my highway (yeah, I'm only looking at highways, not the whole map).
+&amp;nbsp;Now what?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="visualizing"&gt;
+&lt;h2&gt;Visualizing&lt;/h2&gt;
+&lt;p&gt;These IDs, in and of themselves, don't do much for me. &amp;nbsp;They tell me
+what roads to look at, but I need more than that. &amp;nbsp;If I want to verify
+them and eventually fix them, I need to see them. &amp;nbsp;So, I modified my
+query a bit:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+(
+SELECT osm_id, ST_StartPoint(way)
+FROM myosmdata t1
+WHERE osm_id NOT IN (
+-- list all ids where the startpoint intersects something.
+SELECT t1.osm_id
+FROM&amp;nbsp;myosmdata&amp;nbsp;t1, myosmdata t2
+WHERE t1.osm_id &amp;lt;&amp;gt; t2.osm_id
+AND t2.way &amp;amp;&amp;amp; t1.way
+AND ST_Intersects(ST_StartPoint(t1.way), t2.way)
+)
+UNION
+(
+SELECT osm_id, ST_EndPoint(way)
+FROM&amp;nbsp;myosmdata&amp;nbsp;t1
+WHERE osm_id NOT IN (
+-- list all ids where the endpoint intersects something.
+SELECT t1.osm_id
+FROM myosmdata t1, myosmdata t2
+WHERE t1.osm_id &amp;lt;&amp;gt; t2.osm_id
+AND t2.way &amp;amp;&amp;amp; t1.way
+AND ST_Intersects(ST_EndPoint(t1.way), t2.way)
+)
+&lt;/pre&gt;
+&lt;p&gt;This gives me the ID of the road and creates a geometry that represents
+the exact point that I need to observe. &amp;nbsp;So, I created a table with 3
+columns: &amp;nbsp;an id (integer), the geometry (geometry), and a message
+(text). &amp;nbsp;I used the above query to populate my table. &amp;nbsp;Cool...now I have
+some geometries to look at...time to fire up QGIS!&lt;/p&gt;
+&lt;p&gt;Once I fired up QGIS, I added a few layers. &amp;nbsp;In order from bottom to
+top: &amp;nbsp;all of the roads, my highways table, and the table that we just
+created (lets call it, the &amp;quot;points of interest&amp;quot; table). &amp;nbsp;In QGIS, I get
+something that looks like this:&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/11/1.png"&gt;&lt;img alt="QGIS screenshot" src="http://www.brianstempin.com/wp-content/uploads/2010/11/1-300x168.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The light green roads are the entire road dataset, the black roads are
+the ones that I've defined as highways, and the blue-green dots are the
+points of interested. &amp;nbsp;Sweet!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="sifting-through-the-display"&gt;
+&lt;h2&gt;Sifting Through the Display&lt;/h2&gt;
+&lt;p&gt;Though the display is cool, it's meant to be functional. &amp;nbsp;Here's the
+plan: &amp;nbsp;we can zoom into a group of points of interest. &amp;nbsp;If they look
+like legitimate dead ends, we'll simply remove them from the table. &amp;nbsp;If
+they're actually problems, we'll note them. &amp;nbsp;Simple enough, but how will
+we do this? &amp;nbsp;QGIS is awesome because it also allows us to edit the
+datasets. &amp;nbsp;Simply click on the &amp;quot;points of interest&amp;quot; layer (named
+something else in my picture), and then go to Layer-&amp;gt; Toggle Editing.
+&amp;nbsp;Now, we can simply remove points that don't belong. &amp;nbsp;If we find a point
+that we confirmed is bad, we can click on the information button, select
+that point, right click in the information dialog, and select &amp;quot;edit
+feature form.&amp;quot; &amp;nbsp;This allows us to edit the feature's metadata. &amp;nbsp;In this
+case, the metadata are the other columns in the table. &amp;nbsp;We're interested
+in the &amp;quot;message&amp;quot; field. &amp;nbsp;For the sake of simplicity, I tried to keep it
+simple and always wrote, &amp;quot;confirmed bad&amp;quot; when I found a bad node. &amp;nbsp;Cool,
+yeah?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="improving-the-visualization-and-workflow"&gt;
+&lt;h2&gt;Improving the Visualization and Workflow&lt;/h2&gt;
+&lt;p&gt;Due to all of the zooming in and out, I sometimes found myself
+reexamining the same point two or three times by accident. &amp;nbsp;In order to
+avoid this, I modified my display. &amp;nbsp;You can right click on your &amp;quot;points
+of interest&amp;quot; layer and click &amp;quot;properties&amp;quot; to get to the styling
+attributes. &amp;nbsp;Under, &amp;quot;legend type,&amp;quot; select, &amp;quot;unique value,&amp;quot; and then
+under, &amp;quot;classification field,&amp;quot; select the name of the messages column.
+&amp;nbsp;Then, click &amp;quot;classify.&amp;quot; &amp;nbsp;If you were cool like me and were consistent
+with your message, you should only have two or three classifications.
+&amp;nbsp;After some work, my map looks like this:&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/11/2.png"&gt;&lt;img alt="QIS screenshot" src="http://www.brianstempin.com/wp-content/uploads/2010/11/2-300x168.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I know which points that I've evaluated and which ones that I've already
+confirmed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="other-notes"&gt;
+&lt;h2&gt;Other Notes&lt;/h2&gt;
+&lt;p&gt;Once I've finished identifying my dangling roads, I'll go to OSM and
+submit the fixes. &amp;nbsp;Since I've never done that before, I don't want to
+cover it here. &amp;nbsp;I'd rather save the embarrassment of stumbling through
+the process for myself.&lt;/p&gt;
+&lt;p&gt;As you're editing, you might notice that the database isn't being
+updated. &amp;nbsp;Your changes won't be submitted until you either click the
+&amp;quot;Toggle Editing&amp;quot; button again or until you close QGIS. &amp;nbsp;At that point
+you'll be prompted. &amp;nbsp;If you choose to save,the edits will be committed
+to the database and will be visible to other queries.&lt;/p&gt;
+&lt;p&gt;The email thread where I begged for help (and in poor English I might
+add...I should sleep more often) can be found
+&lt;a class="reference external" href="http://postgis.refractions.net/pipermail/postgis-users/2010-November/thread.html"&gt;here&lt;/a&gt;.
+&amp;nbsp;The subject is, &amp;quot;Query to select dangling line segments.&amp;quot;&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="OpenStreetMap"></category><category term="PostGIS"></category><category term="QGis"></category><category term="SQL"></category></entry><entry><title>Moving my GIS Project to my Linode</title><link href="http://brianstempin.com/2010/11/14/moving-my-gis-project-to-my-linode/" rel="alternate"></link><updated>2010-11-14T21:06:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-11-14:2010/11/14/moving-my-gis-project-to-my-linode/</id><summary type="html">&lt;p&gt;In my &lt;a class="reference external" href="http://brianstempin.com/2010/10/26/my-first-machine-in-the-cloud-linode/"&gt;last post&lt;/a&gt;,
+I wrote about the &lt;a class="reference external" href="http://linode.com"&gt;Linode&lt;/a&gt; that I won as a door
+prize at the &lt;a class="reference external" href="http://cposc.org"&gt;Central PA Open Source Conference&lt;/a&gt;.
+&amp;nbsp;After the initial setup, I wasn't quite sure what to do with it. &amp;nbsp;After
+some thought, it hit me: &amp;nbsp;I'll move my GIS project to the cloud!&lt;/p&gt;
+&lt;p&gt;I had a few motivations for doing this. &amp;nbsp;The first and foremost
+motivation was the newfound ability to show off my project. &amp;nbsp;My current
+GIS server sits on a hidden network at Temple University, so people
+can't just access my demos. &amp;nbsp;My second motivation was reliability. &amp;nbsp;My
+current GIS machine is an old &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Dell_OptiPlex"&gt;Dell
+Optiplex&lt;/a&gt; GX270 running a
+Pentium 4. &amp;nbsp;It had already died on my twice, and I didn't feel like
+waiting for it to die a third time. &amp;nbsp;My last motivation was performance.
+&amp;nbsp;Linode will give your VM full reign over the box's processor if no one
+else is using it. &amp;nbsp;If other people are using it, then it splits the CPU
+time evenly. &amp;nbsp;From what I've seen, my Linode's box is fairly unused, so
+I get to use quite a bit more horsepower than my P4 affords.&lt;/p&gt;
+&lt;p&gt;So far, the transition has been pretty smooth. &amp;nbsp;I haven't posted any
+demos yet, but I have moved my GIS data, moved my code from SVN to
+Mercurial (hosted on my &lt;a class="reference external" href="http://bitbucket.org"&gt;bitbucket&lt;/a&gt; account),
+and even upgraded some of the software in the process. &amp;nbsp;I'm now running
+a newer version of Postgres and Geoserver, which should give me some
+capabilities that I didn't have before. &amp;nbsp;I've even discovered some new
+faults in my map!&lt;/p&gt;
+&lt;p&gt;Before I can start posting links, etc, I have to do some serious
+cleanup. &amp;nbsp;First and foremost, I have to find the dataset that I used for
+the CIST demo that I published a while back. &amp;nbsp;Secondly, I have to
+produce a demo that doesn't stink :). &amp;nbsp;My first demo wasn't terrible,
+but there were quite a few graph errors. &amp;nbsp;This involves me taking some
+time to do a very special task that I wasn't given time to do when I was
+under Prof. Slobodan's leadership: &amp;nbsp;documentation. &amp;nbsp;I need to go though
+and document some of my processes. &amp;nbsp;I also need to modify my tools to
+automatically create unique names for my result sets and to put my logs
+in one central place. &amp;nbsp;I have some work ahead of me before I can do any
+sort of meaningful development.&lt;/p&gt;
+&lt;p&gt;Here's to a new start!&lt;/p&gt;
+</summary><category term="GIS"></category><category term="Linode"></category></entry><entry><title>Speaking at CPOSC</title><link href="http://brianstempin.com/2010/07/26/speaking-at-cposc/" rel="alternate"></link><updated>2010-07-26T13:27:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-26:2010/07/26/speaking-at-cposc/</id><summary type="html">&lt;p&gt;A few weeks ago I submitted a proposal to speak at
+&lt;a class="reference external" href="http://www.cposc.org/"&gt;CPOSC&lt;/a&gt;. &amp;nbsp;I recently received an email
+notifying me that my proposal was selected! &amp;nbsp;I'll be speaking at
+&lt;a class="reference external" href="http://www.harrisburgu.net/"&gt;Harrisburg University&lt;/a&gt; on Saturday,
+October 16th. &amp;nbsp;I'll be talking about open source Geographic Information
+Systems
+(&lt;a class="reference external" href="http://en.wikipedia.org/wiki/Geographic_information_system"&gt;GIS&lt;/a&gt;)
+and my traffic research project. &amp;nbsp;If you're a member of
+&lt;a class="reference external" href="http://phillylinux.org"&gt;PLUG&lt;/a&gt;, then you've already seen a majority
+of what I plan on presenting. &amp;nbsp;I'll be touching on
+&lt;a class="reference external" href="http://postgis.refractions.net/"&gt;PostGIS&lt;/a&gt;,
+&lt;a class="reference external" href="http://www.qgis.org/"&gt;QGIS&lt;/a&gt;,
+&lt;a class="reference external" href="http://openlayers.org/"&gt;OpenLayers&lt;/a&gt;,
+&lt;a class="reference external" href="http://www.openstreetmap.org/"&gt;OpenStreetMap&lt;/a&gt;, and some other stuff.&lt;/p&gt;
+&lt;p&gt;CPOSC is supposed to be a low-cost one day conference. &amp;nbsp;I'd like to find
+some people to carpool to Harrisburg with, so contact me if you're
+interested!&lt;/p&gt;
+</summary><category term="GIS"></category><category term="OpenStreetMap"></category><category term="PHP"></category><category term="QGis"></category></entry><entry><title>OpenStreetMaps Gets Some Coverage From Ars Technica</title><link href="http://brianstempin.com/2010/06/01/openstreetmaps-gets-some-coverage-from-ars-technica/" rel="alternate"></link><updated>2010-06-01T12:59:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-06-01:2010/06/01/openstreetmaps-gets-some-coverage-from-ars-technica/</id><summary type="html">&lt;p&gt;So, I was&amp;nbsp;perusing&amp;nbsp;&lt;a class="reference external" href="http://arstechnica.com"&gt;ArsTechnica&lt;/a&gt; earlier
+today and came across this article:
+&amp;nbsp;&lt;a class="reference external" href="http://arstechnica.com/open-source/news/2010/06/crowd-sourced-world-map.ars"&gt;http://arstechnica.com/open-source/news/2010/06/crowd-sourced-world-map.ars&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In short: &amp;nbsp;they recapped the origins of OSM, discussed their goals, and
+then went on to discuss some of the projects that have stemmed from
+OSM's data. &amp;nbsp;Pretty cool stuff! &amp;nbsp;Its always nice to see a good project
+get some good recognition.&lt;/p&gt;
+</summary><category term="GIS"></category><category term="OpenStreetMap"></category></entry><entry><title>Final Product of my GIS/Traffic Prediction Work</title><link href="http://brianstempin.com/2010/05/06/final-product-of-my-gistraffic-prediction-work/" rel="alternate"></link><updated>2010-05-06T17:39:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-05-06:2010/05/06/final-product-of-my-gistraffic-prediction-work/</id><summary type="html">&lt;p&gt;Well, I finally got around to posting the stuff that my Future of
+Computing poster talked about. &amp;nbsp;My final project can be seen
+&lt;a class="reference external" href="http://www.ist.temple.edu/trafficdemo/displayComparison.html"&gt;here&lt;/a&gt;
+(&lt;a class="reference external" href="http://www.ist.temple.edu/trafficdemo/displayComparison.html"&gt;http://www.ist.temple.edu/trafficdemo/displayComparison.html&lt;/a&gt;). &amp;nbsp;Some
+notes about it:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;The road graph has quarks in it (the data is from &lt;a class="reference external" href="http://openstreetmaps.org"&gt;Open Street
+Maps&lt;/a&gt;). &amp;nbsp;Some places have wonky
+behavior because of this.&lt;/li&gt;
+&lt;li&gt;Some of the sensors do not have predictors, so there exist cases
+where the &amp;quot;shortest path&amp;quot; search will work, but the &amp;quot;shortest time&amp;quot;
+search will not. &amp;nbsp;This is a know problem has has a simple&lt;/li&gt;
+&lt;li&gt;I attempted to do some caching in order to speed up the application.
+&amp;nbsp;If you click 2 points and I use the road graph to preform Dijkstra's
+algorithm to find a path, you might have to wait for &amp;gt; 30 seconds.
+&amp;nbsp;Instead, I pre-cached the shortest path between each station and
+then do a search on the station graph, which is much smaller and
+faster, instead. &amp;nbsp;Because we created some manual links and deleted
+some legitimate ones, this &amp;quot;layer&amp;quot; of the software can cause its own
+quarks.&lt;/li&gt;
+&lt;li&gt;The initial load of the sensor map layer is slow. &amp;nbsp;This can be sped
+up by sending less data to the client (currently, sensors and their
+metadata is sent, totaling about 1.8 Mb for the whole map). &amp;nbsp;Ideally,
+it'd be nice to avoid loading this layer altogether. &amp;nbsp;My initial
+thought was to allow a user to just click on the map and to try to
+make a guess at which road the user was trying to select. &amp;nbsp;This is
+still a possibility, but I never got around to it.&lt;/li&gt;
+&lt;li&gt;My software only looks at the highway systems. &amp;nbsp;Its not smart enough
+to exit a highway and turn around to go the opposite direction. &amp;nbsp;We
+(Vladimir and I) planned on inserting these &amp;quot;cross links&amp;quot; (links
+between sensors that are possibly reachable via a U-turn), but we
+never got around to it. &amp;nbsp;As is stands, you'll get different route
+depending on which side of the road you click on.&lt;/li&gt;
+&lt;li&gt;I have a few UI bugs. &amp;nbsp;If you have 3 sensors selected and you attempt
+to unselect them, you will get a route. &amp;nbsp;This is because they get
+unselected one by one, and as soon as I see that 2 are selected, I
+request a route. &amp;nbsp;There are a few other minor pains like this. &amp;nbsp;I
+just need to spiffy-up some of the client side XHTML/JavaScript.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I think that despite some of the challenges and hardships that were
+endured along the way, this project turned out really nice. &amp;nbsp;Hopefully,
+I'll be able to continue working on it in the future.&lt;/p&gt;
+&lt;p&gt;Screenshots to come&lt;/p&gt;
+</summary><category term="GIS"></category><category term="openstreeetmaps"></category><category term="projects"></category><category term="Temple"></category></entry><entry><title>Future of Computing 2010</title><link href="http://brianstempin.com/2010/04/21/future-of-computing-2010/" rel="alternate"></link><updated>2010-04-21T14:23:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-04-21:2010/04/21/future-of-computing-2010/</id><summary type="html">&lt;p&gt;Every year, the &lt;a class="reference external" href="http://www.temple.edu/cis"&gt;CIS department&lt;/a&gt; (College
+of Science and Technology, Temple University) hosts the Future of
+Computing competition.&amp;nbsp; For graduate students, it's an opportunity to
+show off some of their research.&amp;nbsp; For undergrads, it's a chance to show
+off some of their projects or some of the cool things that they've
+cooked up in their spare time.&amp;nbsp; Everyone brings in a 36&amp;quot; x 54&amp;quot; poster
+and has the option of providing a demo.&amp;nbsp; This year had a pretty good
+turnout and had some very impressive projects.&lt;/p&gt;
+&lt;p&gt;Since my research partner is a graduate student and I'm an undergrad, we
+were forced to split our project.&amp;nbsp; Vladimir created a poster about his
+prediction algorithms and the possible uses they have.&amp;nbsp; Mine was about
+the use of GIS systems to create some of the data models that Vladimir
+needed and the practical application of his results.&amp;nbsp; In short, I
+created a web application that will allow you to click on any two
+sensors within our road network and can give you a shortest path route
+from point to point.&amp;nbsp; I have yet to finish this, but the end goal is to
+use Vladimir's predictions to weight each segment by travel time so that
+the user ends up with the shortest path by travel time.&amp;nbsp; In the end,
+Vladimir took second place in his division and I tied for third in the
+undergrad division with Steve Palumbo.&lt;/p&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;Pictures of the event can be found
+&lt;a class="reference external" href="http://picasaweb.google.com/Sanford.Sorkin/041810FutureOfComputing#"&gt;here&lt;/a&gt;
+(credit goes to Sanford Sorkin).&lt;/div&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;You can find my poster in
+&lt;a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/04/Future-Of-Computing-2010-Poster.pdf"&gt;PDF&lt;/a&gt;
+and
+&lt;a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/04/Future-Of-Computing-2010-Poster.ppt"&gt;PPT&lt;/a&gt;
+formats (JPG on the way).&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Here are a few pictures of my research project. &amp;nbsp;I'm on the top and
+Vladimir is on the bottom.&lt;/p&gt;
+&lt;p&gt;` &amp;lt;&lt;a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/04/SS4_3094.jpg"&gt;http://www.brianstempin.com/wp-content/uploads/2010/04/SS4_3094.jpg&lt;/a&gt;&amp;gt;`__&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/04/SS4_3038.jpg"&gt;&lt;img alt="me and my poster" src="http://www.brianstempin.com/wp-content/uploads/2010/04/SS4_3038-300x200.jpg" /&gt;&lt;/a&gt;&lt;a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/04/SS4_3021.jpg"&gt;&lt;img alt="Vladimir with poster" src="http://www.brianstempin.com/wp-content/uploads/2010/04/SS4_3021-300x199.jpg" /&gt;&lt;/a&gt;&lt;/p&gt;
+</summary><category term="Future of Computing"></category></entry><entry><title>First Bug Report</title><link href="http://brianstempin.com/2010/03/04/first-bug-report/" rel="alternate"></link><updated>2010-03-04T21:46:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-03-04:2010/03/04/first-bug-report/</id><summary type="html">&lt;p&gt;Last night, I spent some time checking over a graph that I created (This
+particular graph was the graph of connected traffic sensor stations
+throughout the Minneapolis road network).&amp;nbsp; While looking through my
+results in &lt;a class="reference external" href="http://www.qgis.org/"&gt;QGIS&lt;/a&gt;, I came across some strange
+behavior.&amp;nbsp; It turns out that I found a possible bug.&lt;/p&gt;
+&lt;p&gt;I've used OSS software for quite a few years, but I've never really
+gotten involved with any of the bug reporting, testing, or development.
+Since so much of my research work relies on
+&lt;a class="reference external" href="http://opengeo.org/"&gt;OpenGeo&lt;/a&gt; tools, I decided that I'd start
+reporting bugs that I find in those packages.&amp;nbsp; It took me a bit to get
+logged on and to find the correct place to file my bug report, but I did
+it in &amp;lt; 30 minutes.&lt;/p&gt;
+&lt;p&gt;You can view my bug report
+&lt;a class="reference external" href="https://trac.osgeo.org/qgis/ticket/2488"&gt;here&lt;/a&gt;.&amp;nbsp; Go me!&lt;/p&gt;
+</summary><category term="Bugs"></category><category term="OpenGeo"></category><category term="QGis"></category></entry><entry><title>Dijkstra's Algorithm in PHP</title><link href="http://brianstempin.com/2010/02/27/dijkstras-algorithm-in-php/" rel="alternate"></link><updated>2010-02-27T03:27:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-02-27:2010/02/27/dijkstras-algorithm-in-php/</id><summary type="html">&lt;p&gt;Yeah, yeah, I know what you're thinking:&amp;nbsp; Why PHP?&lt;/p&gt;
+&lt;p&gt;Well, I have a fairly small graph (&amp;lt; 650 nodes), so trying to get a C or
+Java to interact with my preexisting PHP software isn't worth the boost
+in performance.&amp;nbsp; The implementation I found can read my graph from my
+database, calculate the shortest distance to every node given the first,
+and then give me a path to a specific node in &amp;lt; .5 seconds.&amp;nbsp; For what
+I'm doing, that's acceptable.&amp;nbsp; Plus, I plan on caching most of this data
+since my graph doesn't change very often.&lt;/p&gt;
+&lt;p&gt;Anyway, here's where I found my code:
+&lt;a class="reference external" href="http://en.giswiki.net/wiki/Dijkstra%27s_algorithm#PHP"&gt;http://en.giswiki.net/wiki/Dijkstra%27s_algorithm#PHP&lt;/a&gt;Also,
+here's a link to &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm"&gt;Dijkstra's algorithm&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;PS -- if you decide to use that code, I'm pretty sure you can just get
+rid of all mentions of $matrixWidth.&amp;nbsp; They don't appear to use it in the
+algorithm itself.&lt;/p&gt;
+</summary><category term="Algorithms"></category><category term="GIS"></category><category term="PHP"></category></entry></feed>

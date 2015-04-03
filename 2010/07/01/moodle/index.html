@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="CMS,Moodle" />
+        <meta name="description" content="I recently wrote about the HSCC class that I teach and posted a link to the course&#39;s website.  While thinking the other day, it occurred to me that I have yet to write about my experience using Moodle, which powers that website.  Since its such an awesome piece of ..." />
+
+    <title>Moodle - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2010/07/01/moodle/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2010/07/01/moodle/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2010/07/01/moodle/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2010/07/01/moodle/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2010/07/01/moodle/"
+                           rel="bookmark"
+                           title="Permalink to Moodle">
+                            Moodle
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-07-01T11:16:00-04:00"> Thu 01 July 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/cms.html">CMS</a> /                 <a href="../../../../tag/moodle.html">Moodle</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>I recently wrote about the HSCC class that I teach and posted a link to
+the course's website. &nbsp;While thinking the other day, it occurred to me
+that I have yet to write about my experience using Moodle, which powers
+that website. &nbsp;Since its such an awesome piece of OSS, I figured that it
+was worth some space in my blog. &nbsp;Here we go!</p>
+<p>Bottom line up front: &nbsp;I like Moodle. &nbsp;I think it can stand to improve,
+but I think it's pretty far ahead of Blackboard.</p>
+<div class="section" id="what-s-to-like">
+<h2>What's to Like?</h2>
+<p>Where do I start? &nbsp;I spend most of my time teaching courses, so I
+guess I'll start talking about what an instructor sees. &nbsp;The first
+really cool thing is the topic outline -- you can choose how many
+topics/weeks are in your course and prepopulate them. &nbsp;You can hide
+and reveal them as you see fit, which makes it easy to recycle
+material from course to course.</p>
+<p>The lessons are pretty cool little bits -- within a lesson, you can make
+a sort of blog post. &nbsp;You can then attach several objects to that blog
+post, such as a quiz, assignment, document, poll, and so on. &nbsp;The tools
+to add these items to your lesson are pretty easy and intuitive. &nbsp;You
+can even add wikis and forums</p>
+<p>The &quot;forums&quot; (Moodle-speak for message boards) are pretty neat, too.
+&nbsp;The front page by default is a message board. &nbsp;So, what makes it more
+like a message board than a blog post? &nbsp;For one, you can have the post
+emailed out to everyone that's subscribed to that forum. &nbsp;By default,
+all registered users are enrolled to the front page and each student is
+enrolled to the News Forum within each course that they're taking.
+&nbsp;There's even an &quot;oops&quot; feature. &nbsp;By default, the forum will wait for 30
+minutes before mailing out your post, which gives you a chance to fix
+anything that you might have slipped by you until after clicking the
+&quot;submit&quot; button. &nbsp;The recipients of this email get a neatly formatted
+HTML message that gives them a copy of the post. &nbsp;The user can then
+reply directly to the poster via email or on the forum. &nbsp;Unlike (some)
+blog posts, these forums support threading -- they can easily carry
+multiple questions or discussions per post.</p>
+<p>The quiz feature quickly became one of my favorite. &nbsp;Each course has a
+pool of questions. &nbsp;These questions could be multiple choice (with
+multiple answers or partial credit), true/false, free-response,
+matching, calculated (like a math or physics problem), and a few other
+types. &nbsp;For the numeric, calculated, multiple choice, and true/false,
+the quizzes auto-grade themselves. &nbsp;They can even leave specific
+feedback for students based on their answer. &nbsp;You can give them multiple
+attempts, each one resulting in a different amount of partial credit.
+&nbsp;When giving the quiz, Moodle can even time the student and mix up the
+questions for you, helping to cut down on cheating. &nbsp;The free response
+question types are pretty cool, too. &nbsp;An instructor gets to leave some
+piece of feedback (which is displayed on the student's grade report)
+along with the grade. &nbsp;You can delegate grading to another instructor
+(such as a TA).</p>
+<p>Assignments are the last of my favorite features. &nbsp;Some of my
+assignments require students to write free responses or to create HTML
+or Java files. &nbsp;The assignments activity (these objects are all called
+activities in Moodle-speak) allows me to easily receive text or files
+from a student. &nbsp;I can do things like set hard or soft limits on the due
+dates. &nbsp;Once I've received the assignment, I can grade it, leave
+feedback, select a grade, and have Moodle notify the student. &nbsp;Slick!</p>
+</div>
+<div class="section" id="what-s-to-hate">
+<h2>What's to Hate?</h2>
+<p>Most of what I hate lives on the administrative back end. &nbsp;The
+biggest of these is the plugin system. &nbsp;CMSs like WordPress and Drupal
+allow you to upload packages that it can unzip and install. You can't
+do that with Moodle yet -- you have to unzip your own packages and
+carefully place each component in the appropriate folder. &nbsp;What a
+pain! &nbsp;You need SSH or FTP access to the server to add any
+functionality. &nbsp;I hope this changes soon -- this really puts me off.
+&nbsp;There are so many good plugins that I'm&nbsp;hesitant&nbsp;to install, such as
+Facebook integration, tag cloud generators, and many others. &nbsp;I'd
+rather wait for an improvement in the plugin system rather than
+attempt an iffy operation.</p>
+<p>The default roles that exist work well, but I would like to see some
+others. &nbsp;I and many others teach high school kids. &nbsp;It'd be nice if
+there were an easy way to link parents and students so that the parent
+gets all (or some) of the same notifications that the students gets.
+&nbsp;Its a bit of a pain to set things up so that parents can see their
+student's grade. &nbsp;I understand that plugins exist to do this type of
+thing -- see my first complaint.</p>
+<p>Themes -- there's a bit of a sore point. &nbsp;Moodle comes with a few
+default themes. &nbsp;Most of them are pretty&nbsp;horrendous. &nbsp;There are a few
+that look nice, but they're not very customizable. &nbsp;Drupal and WordPress
+(especially with the 3.0 release) allows themes that offer options to
+the user, such as certain colors or the ability to set a header image.
+&nbsp;No one wants to go hack some code or have to use (S)FTP to upload a new
+header image -- yuck! &nbsp;I'd rather just leave my site with the default
+looks than to go through that.</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>Despite Moodle's weaknesses, I still think that Moodle is a great
+piece of software. &nbsp;Its fairly (some menus get confusing) easy for an
+instructor to use and still manages to maintain its power. &nbsp;Its served
+me well this year, and I'm sure it'll continue to serve me well. &nbsp;I
+like it more than Blackboard and was happy that it came with most of
+the functionality that I wanted. &nbsp;The last thing I wanted to do was
+try to use WordPress, Drupal, or Joomla with plugins to provide the
+additional functionality -- I want it all in one place and
+out-of-the-box. &nbsp;Moodle did that for me. &nbsp;Great job, Moodle devs!</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'moodle';
+        var disqus_url = '../../../../2010/07/01/moodle/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

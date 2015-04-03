@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="book review,Effective Java" />
+        <meta name="description" content="A few hours ago I finished reading Effective Java, Second Edition by Joshua Bloch.  Bottom line up front:  totally worth the read! Format The book&#39;s format is interesting.  At first, I wasn&#39;t sure if I liked it, but it grew on me.  The book is divided into 78 ..." />
+
+    <title>Book Review: Effective Java, Second Edition - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2012/04/25/book-review-effective-java-second-edition/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2012/04/25/book-review-effective-java-second-edition/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2012/04/25/book-review-effective-java-second-edition/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2012/04/25/book-review-effective-java-second-edition/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2012/04/25/book-review-effective-java-second-edition/"
+                           rel="bookmark"
+                           title="Permalink to Book Review: Effective Java, Second Edition">
+                            Book Review:  Effective Java, Second Edition
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-04-25T21:23:00-04:00"> Wed 25 April 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/book-review.html">book review</a> /                 <a href="../../../../tag/effective-java.html">Effective Java</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>A few hours ago I finished reading <a class="reference external" href="http://java.sun.com/docs/books/effective/">Effective Java, Second
+Edition</a> by <a class="reference external" href="http://en.wikipedia.org/wiki/Joshua_Bloch">Joshua
+Bloch</a>. &nbsp;Bottom line up
+front: &nbsp;totally worth the read!</p>
+<div class="section" id="format">
+<h2>Format</h2>
+<p>The book's format is interesting. &nbsp;At first, I wasn't sure if I liked
+it, but it grew on me. &nbsp;The book is divided into 78 items, each one
+detailing arguments for an idiom or principle. &nbsp;Many times, these items
+reference each other, especially when in the same group. &nbsp;Sometimes this
+lends itself to the temptation to skip ahead to one of the mentioned
+items, but I managed to resist. &nbsp;It's interesting to see how some of the
+items at the very end of the book related back to ones at the very
+beginning. &nbsp;Forcing myself to wait to read about some of the related
+items gave me time to reflect on the item at hand and to kind of put it
+in the back of my mind before moving forward. &nbsp;As I came across
+references to earlier items, I found that the earlier items made much
+more sense. &nbsp;Not that they didn't make sense before, but sometimes Bloch
+would write a line or two that referenced items that I hadn't covered
+yet. &nbsp;All of the sudden, those extra few lines here and there started
+making a lot more sense. &nbsp;I think he did a very good job at linking
+items while allowing them to stand separate. &nbsp;I didn't have to skip
+ahead to understand the item at hand.</p>
+<p>The code used in the book is often reused when possible from item to
+item. &nbsp;This makes it even easier to link common items together. &nbsp;Because
+I was already familiar with the code, I could understand why parts of it
+were structured a certain way, which allowed me to focus more on the
+idiom at hand. &nbsp;Often in programming books, example are written to
+illustrate a point in such an oversimplified fashion that they end up
+violating principles earlier in the book to demonstrate the current
+topic or they end up not offering enough code for a full demonstration.
+&nbsp;Bloch does a really good job of avoiding this. &nbsp;If he demonstrates a
+principle that overlaps with another one, he'll write the code such that
+it adheres to both and note it accordingly. &nbsp;I also like that each
+principle comes with some &quot;good code, bad code&quot; examples. &nbsp;While reading
+through some of these, I couldn't help but to be reminded of &quot;<a class="reference external" href="http://www.youtube.com/watch?v=f8PhzrmBgMI">Good
+Idea, Bad Idea</a>&quot; from
+the <a class="reference external" href="http://en.wikipedia.org/wiki/Animaniacs">Animaniacs</a>.</p>
+</div>
+<div class="section" id="structure-of-arguments">
+<h2>Structure of Arguments</h2>
+<p>I can't remember the last time I read a book when an author provided so
+much balance to their arguments. &nbsp;Granted, sometimes Bloch did strongly
+advocate for or against something. &nbsp;In most of those cases (I say most
+because I don't have enough background knowledge to make judgements on
+some of them), they were warranted. &nbsp;Often, each argument came with a
+list of times when they were appropriate and when they were to be
+avoided. &nbsp;Sometimes, simple litmus-test type questions were given in
+order to aid a developer in figuring out when a principle applies. &nbsp;To
+me, this was *the* most important content of the book. &nbsp;Some of the
+principles have obvious applications, but others were more obscure. &nbsp;The
+list of principles does me know good if I cannot make an intelligent
+argument for or against one when developing a system. &nbsp;I now have simple
+questions that I can ask myself or others to help determine what
+patterns or idioms are appropriate to apply to a problem.</p>
+</div>
+<div class="section" id="citations">
+<h2>Citations</h2>
+<p>You can't read an item without seeing several citations. &nbsp;Looking at the
+list of sources in the book's appendix gives the reader a sense of just
+how much work and knowledge went into creating this book. &nbsp;His sources
+run the gamut, from items as low level as the Java specification itself
+all the way up to citing himself and other best-practice authors. &nbsp;This
+gives the reader the tools to go deeper should they choose to. &nbsp;Want to
+know why certain features of the language aren't guaranteed? &nbsp;Go read
+spec-X! &nbsp;Want to be a multi-threading wizard? &nbsp;Go read guide-Y! &nbsp;As a
+result of this book, my next purchase will be the book that he cites on
+multithreading topics (I don't remember the title off-hand). &nbsp;I'm also
+now curious to try my hand at going through some of the language specs.
+&nbsp;Way to spark interest!</p>
+</div>
+<div class="section" id="final-thoughts">
+<h2>Final Thoughts</h2>
+<p>While this book is no bible, it was effective immediately. &nbsp;I was able
+to easily apply some of these principles to my work and open source
+programming efforts. &nbsp;I feel like I have a much deeper understanding of
+the language and how certain programming errors start and propagate
+themselves. &nbsp;I've thought of type safety issues before, but the book
+took this sentiment a step further by getting me into the habit of
+structuring my code so that more errors are caught at compile-time.
+&nbsp;This has been a great lesson in syntax, patterns, and quality
+assurance. &nbsp;I will be reading this book again -- it was full of gems,
+and I'm eager to go back a second time and to see what else dawns on me.</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'book-review-effective-java-second-edition';
+        var disqus_url = '../../../../2012/04/25/book-review-effective-java-second-edition/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

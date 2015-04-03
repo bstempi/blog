@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/general-work-stuff.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2013-07-07T22:12:00-04:00</updated><entry><title>ZOMG, Apache Camel is Awesome!</title><link href="http://brianstempin.com/2013/07/07/zomg-apache-camel-is-awesome/" rel="alternate"></link><updated>2013-07-07T22:12:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-07-07:2013/07/07/zomg-apache-camel-is-awesome/</id><summary type="html">&lt;p&gt;At the &lt;a class="reference external" href="http://www.coldlight.com/"&gt;work place&lt;/a&gt;, I've had to do a lot
+of integration work on my current project. &amp;nbsp;Instead of trying to tie
+everything together on my own, someone recommended taking a look at
+&lt;a class="reference external" href="http://camel.apache.org/"&gt;Apache Camel&lt;/a&gt;. &amp;nbsp;Man, did that have a
+drastically good effect on my project!&lt;/p&gt;
+&lt;div class="section" id="well-what-is-it"&gt;
+&lt;h2&gt;Well, What is it?&lt;/h2&gt;
+&lt;p&gt;It's an integration framework written in Java. &amp;nbsp;In short, it's meant to
+make the act of integrating systems together easier.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="enough-of-the-jibberish-wtfsck-is-an-integration-framework"&gt;
+&lt;h2&gt;Enough of the Jibberish -- WTFsck() is an Integration Framework?&lt;/h2&gt;
+&lt;p&gt;Yeah, that line wouldn't have made much sense to me, either, before
+reading the &lt;a class="reference external" href="http://www.amazon.com/Camel-Action-Claus-Ibsen/dp/1935182366/"&gt;Camel
+book&lt;/a&gt;.
+&amp;nbsp;It's probably best to refer to an example.&lt;/p&gt;
+&lt;p&gt;Let's say you have some really annoying manual process that you use to
+tie together two systems. &amp;nbsp;I had a previous employer who would create
+ISO images and then had to manually upload them to a partner's site so
+that they could mass-produce optical media from said image. &amp;nbsp;Some
+person, who was not a seasoned FTP user (nor wanted to be) had to have a
+set of credentials, access to the ISO, and had to babysit the upload.
+&amp;nbsp;They also had the ability to break the transfer via FTP options. &amp;nbsp;In
+this case, the partner needed us to use a specific set of options.&lt;/p&gt;
+&lt;p&gt;This is something that Camel could do easily. &amp;nbsp;Users create &amp;quot;routes&amp;quot; to
+describe processes like the one above. &amp;nbsp;These routes can be described in
+Java, XML, or one of the many DSLs (domain specific languages) that are
+included. &amp;nbsp;Here's an example route in XML that could satisfy the above
+problem:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+&amp;lt;route id=&amp;quot;publishIso&amp;quot;&amp;gt;
+  &amp;lt;from uri=&amp;quot;file://path/to/iso/finished.iso&amp;quot; /&amp;gt;
+  &amp;lt;to uri=&amp;quot;ftp://user&amp;#64;ftp.partner.com/path/to/publish/duplicateMe.iso?password=superSecret&amp;quot; /&amp;gt;
+&amp;lt;/route&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;This route can be embedded inside of a Spring config file. To launch the
+route, the developer would just have to start a Spring context. This
+would start Camel, which would read the XML file. It would then sit
+there and scan the /path/to/iso/ directory for a filed named
+finished.iso every 500ms (by default, as of the time of this writing).
+When it finds the file, it will upload it to the specified FTP site.&lt;/p&gt;
+&lt;p&gt;Simple, eh? All that from a little bit of XML and starting a Spring
+context (all of less than 6 lines of code in Java).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="go-on"&gt;
+&lt;h2&gt;Go on...&lt;/h2&gt;
+&lt;p&gt;Well, as I stated, you can embed this into a &lt;a class="reference external" href="http://camel.apache.org/spring.html"&gt;Spring
+configuration&lt;/a&gt; file. Upon
+starting the context, Camel will start. You can also describe routes
+using the&amp;nbsp;Java &lt;a class="reference external" href="http://camel.apache.org/dsl.html"&gt;DSL&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+from(&amp;quot;file://path/to/iso/finished.iso&amp;quot;)
+    .to(&amp;quot;ftp://user&amp;#64;ftp.partner.com/path/to/publish/duplicateMe.iso?password=superSecret&amp;quot;);
+&lt;/pre&gt;
+&lt;p&gt;The &amp;quot;from&amp;quot; and &amp;quot;to&amp;quot; are described as
+&amp;quot;&lt;a class="reference external" href="http://camel.apache.org/endpoint.html"&gt;Endpoints&lt;/a&gt;&amp;quot; in Camel.
+&amp;nbsp;Endpoints are created by
+&amp;quot;&lt;a class="reference external" href="http://camel.apache.org/component.html"&gt;Components&lt;/a&gt;.&amp;quot; &amp;nbsp;This simple
+route demonstrates the File2 and FTP Components being used to generate
+two Endpoints. &amp;nbsp;There are a TON of useful components, with this being a
+list of the ones that I use most often:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://camel.apache.org/bean.html"&gt;Bean&lt;/a&gt; (for calling custom
+beans)&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://camel.apache.org/file2.html"&gt;File2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://camel.apache.org/jms.html"&gt;JMS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="are-you-a-wizard"&gt;
+&lt;h2&gt;Are you a Wizard?&lt;/h2&gt;
+&lt;p&gt;No. &amp;nbsp;But Camel is.&lt;/p&gt;
+&lt;p&gt;It ties together these Endpoints by passing
+&lt;a class="reference external" href="http://camel.apache.org/maven/current/camel-core/apidocs/org/apache/camel/Message.html"&gt;Messages&lt;/a&gt;
+to and fro. &amp;nbsp;In addition to being able to directly configure the
+Endpoints, you can manipulate messages en route. &amp;nbsp;For instance, Camel
+supports the notion of having &lt;a class="reference external" href="http://camel.apache.org/data-format.html"&gt;Data
+Formats&lt;/a&gt; so that it can
+seamlessly marshal/unmarshal a message body between Endpoints. &amp;nbsp;An
+example use case might be if you're reading an XML file and you want to
+call a custom bean that you wrote, passing in the XML as an object.
+&amp;nbsp;&lt;a class="reference external" href="http://camel.apache.org/jaxb.html"&gt;Camel can use JAXB&lt;/a&gt; to populate
+a POJO before calling your bean, preventing your custom bean from having
+to know anything about the file itself.&lt;/p&gt;
+&lt;p&gt;It also handles threading wizardry for you. &amp;nbsp;Many of these components
+have multi-thread options, meaning that Camel handles the nasty
+threading-bits. &amp;nbsp;It's still incumbent upon the user to make sure that
+they're applying parallelism in an appropriate way, but Camel reduces
+this exercise to one of configuration and not implementation; Camel's
+bits already have this figured out.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="bottom-line"&gt;
+&lt;h2&gt;Bottom Line?&lt;/h2&gt;
+&lt;p&gt;Camel saved me from having to implement a bunch of custom software to
+tie together my systems. &amp;nbsp;I can create an XML config file, a few custom
+beans if need be, and presto! &amp;nbsp;I now have Java program that will make
+several systems play nice, threading, logging, and all. &amp;nbsp;Camel was a
+tremendous find, and it's had a tremendous impact on my work.&lt;/p&gt;
+&lt;p&gt;Kudos to &lt;a class="reference external" href="http://apache.org"&gt;Apache&lt;/a&gt;, the&lt;a class="reference external" href="http://camel.apache.org"&gt;Camel
+project&lt;/a&gt;, and it's leader, &lt;a class="reference external" href="http://www.davsclaus.com/"&gt;Claus
+Ibsen&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="Apache"></category><category term="Camel"></category><category term="Java"></category></entry><entry><title>Making the (Career) Move</title><link href="http://brianstempin.com/2013/01/12/making-the-career-move/" rel="alternate"></link><updated>2013-01-12T16:06:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-01-12:2013/01/12/making-the-career-move/</id><summary type="html">&lt;p&gt;I've just recently updated &lt;a class="reference external" href="http://www.linkedin.com/in/brianstempin"&gt;my
+LinkedIn&lt;/a&gt; to reflect it, but
+I left &lt;a class="reference external" href="http://www.vanguard.com"&gt;Vanguard&lt;/a&gt; back in September to join
+&lt;a class="reference external" href="http://www.coldlight.com"&gt;Coldlight Solutions&lt;/a&gt;, a start-up in Wayne,
+PA.&lt;/p&gt;
+&lt;p&gt;I've not written it here, but those who know me off-line know that I
+would like to pursue a PhD at some point in my life. &amp;nbsp;I felt that moving
+to Coldlight would put me closer to that goal. &amp;nbsp;Nothing against
+Vanguard, but I felt that I wasn't growing that much there. &amp;nbsp;Writing web
+services are good and fun, but I was using versions of libraries that
+were written for Java 1.4. &amp;nbsp;I wasn't using anything terribly interesting
+outside of &lt;a class="reference external" href="http://www.springsource.org/spring-framework"&gt;Spring&lt;/a&gt;.
+&amp;nbsp;Unfortunately, Spring isn't the answer to everything. &amp;nbsp;There are bigger
+and much more interesting things than Spring in the Java world.&lt;/p&gt;
+&lt;p&gt;Coldlight does a lot of work with large data sets and machine learning,
+which happens to be a fairly hot research topic. &amp;nbsp;I figured the move
+would give me a chance to explore a lot of new technologies and to gain
+some experience and insight into a possible PhD research topic. &amp;nbsp;The
+move would also have me working with a PhD who could possibly help guide
+me into my next transition. &amp;nbsp;After a few rounds of interviewing, I made
+the switch: &amp;nbsp;I decided to move to Coldlight.&lt;/p&gt;
+&lt;p&gt;So far, I've been right. &amp;nbsp;I've learned several new technologies, such as
+&lt;a class="reference external" href="http://aws.amazon.com/"&gt;Amazon Web Services&lt;/a&gt; and
+&lt;a class="reference external" href="http://hadoop.apache.org/"&gt;Hadoop&lt;/a&gt;. &amp;nbsp;I've started learning about
+different machine learning algorithms by poring through different
+implementations and papers. &amp;nbsp;Sure, I occasionally get bogged down in
+busy-work and get overloaded. &amp;nbsp;Overall, though, I feel like I've been
+growing.&lt;/p&gt;
+&lt;p&gt;As an added bonus, I've been able to usher in some practices and
+technologies of my own. &amp;nbsp;I've introduced my team to proper SVN usage,
+Maven, some pretty cool Eclipse plugins, and a few other things. &amp;nbsp;I'm
+directly responsible for some of our process improvement initiatives and
+for automating some of our development headaches.&lt;/p&gt;
+&lt;p&gt;Feels good, man.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image0" src="http://brianstempin.com/images/feels-good-man-thumb.jpg" /&gt;&lt;/p&gt;
+</summary><category term="career"></category></entry><entry><title>How to Move a Wordpress-MU Site to a New Domain</title><link href="http://brianstempin.com/2010/06/07/how-to-move-a-wordpress-mu-site-to-a-new-domai/" rel="alternate"></link><updated>2010-06-07T16:31:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-06-07:2010/06/07/how-to-move-a-wordpress-mu-site-to-a-new-domai/</id><summary type="html">&lt;p&gt;So, as part of my &lt;a class="reference external" href="http://www.temple.edu/provost/gened"&gt;GenEd&lt;/a&gt; work,
+I was asked to move a &lt;a class="reference external" href="http://mu.wordpress.org/"&gt;WordPress MU&lt;/a&gt;
+installation to a new server. &amp;nbsp;I found several articles about moving
+around standard WordPress installations, but nothing for the MU
+(MultiUser) version. &amp;nbsp;In particular, I had a hard time with changing the
+domain name. &amp;nbsp;In this article, I'll assume that you already know the
+general procedure (backing up your files and database, moving, and
+restoring). &amp;nbsp;All I plan on covering is how to change your installation's
+domain name.&lt;/p&gt;
+&lt;ol class="arabic"&gt;
+&lt;li&gt;&lt;p class="first"&gt;Make a text backup of your database. &amp;nbsp;You can do this by using
+something like
+&lt;a class="reference external" href="http://dev.mysql.com/doc/refman/5.1/en/mysqldump.html"&gt;mysqldump&lt;/a&gt;,
+&lt;a class="reference external" href="http://wiki.phpmyadmin.net/pma/export"&gt;phpMyAdmin&lt;/a&gt;, or the &lt;a class="reference external" href="http://downloads.mysql.com/archives.php?p=MySQLGUITools"&gt;MySQL
+GUI
+Tools&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p class="first"&gt;Using your favorite tool, like notepad,
+&lt;a class="reference external" href="http://en.wikipedia.org/wiki/Sed"&gt;sed&lt;/a&gt;, or any other text editor
+that can handle large files, replace all instances of your old domain
+name with your new one.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p class="first"&gt;Save this file and then import it into your database.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p class="first"&gt;In the root of your WordPress MU install, there should be a
+wp-config.php file. &amp;nbsp;The majority of this file is a series of DEFINE
+statements that define some settings.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;dl class="first docutils"&gt;
+&lt;dt&gt;You should see a like like this:&lt;/dt&gt;
+&lt;dd&gt;&lt;p class="first last"&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;define('DOMAIN_CURRENT_SITE',&lt;/span&gt; &lt;span class="pre"&gt;'olddomain.com');&lt;/span&gt;&lt;/tt&gt;
+Replace it with:
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;define('DOMAIN_CURRENT_SITE',&lt;/span&gt; &lt;span class="pre"&gt;'newdomain.com');&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p class="first"&gt;For whatever reason, you'll get a register page if you attempt to
+visit your site. &amp;nbsp;To fix this, log in as admin and then log out.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p class="first"&gt;Done!&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I hope this helps somebody. &amp;nbsp;Feel free to comment if you have questions,
+concerns, or corrections.&lt;/p&gt;
+</summary><category term="GenEd"></category><category term="Guide"></category><category term="WordPress"></category></entry><entry><title>Temple University's General Education Department To Get New Website</title><link href="http://brianstempin.com/2010/05/28/temple-universitys-general-education-department-to-get-new-website/" rel="alternate"></link><updated>2010-05-28T16:18:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-05-28:2010/05/28/temple-universitys-general-education-department-to-get-new-website/</id><summary type="html">&lt;p&gt;I've never mentioned it here before, but for the last 2-ish years, I've
+been the webmaster of Temple University's &lt;a class="reference external" href="http://www.temple.edu/gened"&gt;GenEd
+website&lt;/a&gt;. &amp;nbsp;The site was originally
+developed by Temple University's &lt;a class="reference external" href="http://www.temple.edu/cs"&gt;Computer
+Services&lt;/a&gt; group. &amp;nbsp;I took over the
+maintenance and have only done small things with it -- add new videos,
+replace some files, change text here and there, etc. &amp;nbsp;Nothing too
+exciting. &amp;nbsp;Back when I first started, the (then) director of General
+Education, Terry Halbert, shared her vision of the website with me. &amp;nbsp;She
+envisioned a place where students, faculty, and the community could all
+interact. &amp;nbsp;She imagined a place to support and eventually become the
+Philadelphia Experience (PEX) Passport (the Passport is a booklet of
+discount or free admission tickets to several Philadelphia museums,
+venues, and historic sites). &amp;nbsp;She wanted a place that would showcase the
+wonderful things that were happening in General Education courses and to
+promote the Philadelphia Experience. &amp;nbsp;At the time, I suggested moving to
+a &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Content_management_system"&gt;CMS&lt;/a&gt; of
+some sort, like &lt;a class="reference external" href="http://drupal.org/"&gt;Drupal&lt;/a&gt; or
+&lt;a class="reference external" href="http://www.joomla.org/"&gt;Joomla&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;That day has come. &amp;nbsp;GenEd recently received a grant to redesign their
+website. &amp;nbsp;As per the&amp;nbsp;recommendation&amp;nbsp;from a few people from the &lt;a class="reference external" href="http://community.mis.temple.edu/"&gt;MIS
+Department&lt;/a&gt;, which hails from
+Temple's &lt;a class="reference external" href="http://fox.temple.edu/"&gt;Fox School of Business&lt;/a&gt;, we will be
+building a &lt;a class="reference external" href="http://wordpress.org/"&gt;WordPress&lt;/a&gt; website over the summer
+months. &amp;nbsp;The MIS department's website runs WordPress, so they've given
+it a very positive recommendation and offered to help with the
+implementation. &amp;nbsp;At the moment, we're still nailing down the specs, but
+we're hoping to have this completed in time for the incoming class to
+see.&lt;/p&gt;
+&lt;p&gt;I can't say much more other than, &amp;quot;I'm excited!&amp;quot; &amp;nbsp;This will be a big
+feather in my cap.&lt;/p&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;About GenEd:&lt;/div&gt;
+&lt;div class="line-block"&gt;
+&lt;div class="line"&gt;At Temple University, we don't have a &amp;quot;core&amp;quot; -- we have GenEd. &amp;nbsp;They
+define and develop the classes that students have to take to satisfy
+various general education requirements. &amp;nbsp;As a result, this department
+in one way or another touches virtually every single student that
+comes through our University. &amp;nbsp;In addition to the courses that it
+develops, GenEd is also responsible developing the Philadelphia
+Experience -- a set of courses and resources to help students take
+advantage of and learn from the City of Brotherly Love. &amp;nbsp;They've also
+developed the PEX Passport, a collection of free or discounted tickets
+that allow students to explore the city for little or no money. &amp;nbsp;This
+Passport has also been integrated into some of the classes offered at
+Temple and is used to take students outside of the classroom and right
+into the environment.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</summary><category term="CMS"></category><category term="GenEd"></category><category term="Temple"></category><category term="web development"></category><category term="WordPress"></category></entry></feed>

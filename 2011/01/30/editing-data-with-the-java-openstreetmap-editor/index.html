@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="GIS,JOSME,WMS" />
+        <meta name="description" content="In my last post, I used some SQL to help identify breaks in the OpenStreetMap&#39;s road map.  If you recall, I created a table that contained a list of points and descriptions for each of those points.  In this post, I&#39;ll use this table to create a WMS ..." />
+
+    <title>Editing Data with the Java OpenStreetMap Editor - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2011/01/30/editing-data-with-the-java-openstreetmap-editor/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2011/01/30/editing-data-with-the-java-openstreetmap-editor/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2011/01/30/editing-data-with-the-java-openstreetmap-editor/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2011/01/30/editing-data-with-the-java-openstreetmap-editor/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2011/01/30/editing-data-with-the-java-openstreetmap-editor/"
+                           rel="bookmark"
+                           title="Permalink to Editing Data with the Java OpenStreetMap Editor">
+                            Editing Data with the Java OpenStreetMap Editor
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-01-30T20:12:00-05:00"> Sun 30 January 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/gis.html">GIS</a> /                 <a href="../../../../tag/josme.html">JOSME</a> /                 <a href="../../../../tag/wms.html">WMS</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>In my <a class="reference external" href="/2010/12/01/improving-openstreetmaps-road-data/">last post</a>, I
+used some SQL to help identify breaks in the
+<a class="reference external" href="http://openstreetmap.org">OpenStreetMap</a>'s road map. &nbsp;If you recall,
+I created a table that contained a list of points and descriptions for
+each of those points. &nbsp;In this post, I'll use this table to create a WMS
+layer that will be overlaid onto an OSM map. &nbsp;The description field will
+be used to style the points so that I can easily tell what we need to do
+to repair them (eg, add nodes, move nodes, investigate further, etc).
+&nbsp;Then, I'll choose a tool to actually perform the repair and allow the
+rest of the community to benefit from these findings.</p>
+<div class="section" id="tools">
+<h2>Tools</h2>
+<p>The defacto tool for this job is the <a class="reference external" href="http://josm.openstreetmap.de/">Java OSM
+Editor</a>. &nbsp;I checked out a few other
+tools, but this seemed to be &quot;the one.&quot; &nbsp;It also supports viewing custom
+WMS layers, which will be really useful in a bit.</p>
+</div>
+<div class="section" id="method">
+<h2>Method</h2>
+<div class="section" id="orienting-thy-self">
+<h3>Orienting Thy Self</h3>
+<p>First thing's first: &nbsp;I needed to orient myself on the map. &nbsp;By
+clicking&nbsp;<em>Imagry</em>-&gt; <em>OpenStreetMap</em>, I added an OSM layer. &nbsp;From
+there, I zoomed into my target area. &nbsp;In addition to this, I added
+satellite imagery. &nbsp;In this particular case, I'm using some imagery
+provided by the MN DOT.</p>
+<p>In order to make things easier on myself, I took the table that I made
+earlier (which I'll call, <strong>DanglingRoads</strong>) and made it into a WMS
+layer. &nbsp;This way, I can easily spot the places on the map that I need to
+edit. &nbsp;To make editing even easier, I've styled my new layer by the
+error messages that were logged while I was reviewing the possible
+errors.</p>
+</div>
+<div class="section" id="cool-layer-bro">
+<h3>Cool Layer, Bro</h3>
+<p>The process is pretty simple. &nbsp;First, we can use our favorite WMS server
+to create a layer. &nbsp;In my case, I use GeoServer. &nbsp;When adding the layer,
+make sure to make all columns of the <strong>DanglingRoads</strong> table available.
+&nbsp;We'll need them in order to style the layer. &nbsp;Next, I applied a style.
+&nbsp;I'm not going to post mine but I'm willing to supply it to those who
+ask.</p>
+</div>
+<div class="section" id="editing-the-roads">
+<h3>Editing the Roads</h3>
+<p>In order to edit the roads, I needed to combine an OSM layer with the
+layer made from the <strong>DanglingRoads</strong> table. &nbsp;In order to add the new
+WMS layer, I had to go to <em>Edit</em>-&gt; <em>Preferences</em> and then click on the
+<em>Imagery Preferences</em> button. &nbsp;From there, a custom layer can be added.
+&nbsp;In my case, I needed for the layer to have transparency. &nbsp;Because JOSME
+doesn't have an option for enabling transparency, I had to append this
+to the WMS query string (thanks to Phil Gold form the OSM Newbies
+mailing list):</p>
+<pre class="literal-block">
+format=image/png&amp;transparent=true
+</pre>
+<p>From there, I zoomed in on every point that I had to edit. &nbsp;After
+zooming in, sometimes it's necessary to right-click on the layer's name
+and select <em>Change resolution</em>. &nbsp;Once you've zoomed in close enough, you
+can click on the <em>Download map data...</em> button. &nbsp;This will reach out to
+the OSM servers and grab a piece of mapping data. &nbsp;From there, you can
+edit it to your heart's content and then upload your changes (OSM
+registration required).</p>
+<p>I should mention that the tool took some practice. &nbsp;I had to download a
+few different pieces of data, attempt to edit them, and then throw them
+away. &nbsp;I also had to make sure that I consulted the OSM documentation to
+make sure that I was retagging data correctly.</p>
+</div>
+</div>
+<div class="section" id="afterthoughts">
+<h2>Afterthoughts</h2>
+<p>JOSM is a powerful tool, but it has its quarks. &nbsp;First and foremost, it
+has a built in (editable) memory limit. &nbsp;The first time that I used it,
+I experienced a crash due to the memory limit. &nbsp;Secondly, having to
+readjust the resolution of a layer each and every time I zoom in and out
+was a pain. &nbsp;I think that editing would have gone much smoother if JOSME
+just did this for me. &nbsp;My last and final gripe is that OSM doesn't
+support secure password authentication. &nbsp;I feel that any site should
+give me the option of not sending my passwords over plain HTTP.</p>
+<p>Overall, I've had a great experience so far. &nbsp;The editing has been slow,
+but it's been smooth and easy. &nbsp;I still have more edits to commit, so
+I'm sure I'll discover new tricks along the way.</p>
+<p>Thanks to all the folks at OSM for creating such an awesome product and
+set of tools!</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'editing-data-with-the-java-openstreetmap-editor';
+        var disqus_url = '../../../../2011/01/30/editing-data-with-the-java-openstreetmap-editor/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

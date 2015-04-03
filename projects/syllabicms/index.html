@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="description" content="In the summer of 2009, Temple&#39;s CIS department handed me a project.  They were plagued by syllabi.  Yes, syllabi (the plural of syllabus).  Why, you might ask?  Well, at the time of the project (and this writing), CIS&#39;s website was totally static.  Every time someone had a new ..." />
+
+    <title>SyllabiCMS - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../projects/syllabicms/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../projects/syllabicms/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../projects/syllabicms/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../projects/syllabicms/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse         in
+">
+                    <li>
+                        <a href="../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<div class="row">
+    <div class="col-lg-12">
+        <section id="content" class="body">
+            <h1 class="page-header">SyllabiCMS</h1>
+            <div class="entry-content">
+                <p>In the summer of 2009, Temple's <a class="reference external" href="http://www.temple.edu/cis">CIS
+department</a> handed me a project. &nbsp;They
+were plagued by syllabi. &nbsp;Yes, syllabi (the plural of syllabus). &nbsp;Why,
+you might ask? &nbsp;Well, at the time of the project (and this writing),
+CIS's website was totally static. &nbsp;Every time someone had a new course
+or an updated syllabi, it would have to be manually posted by CIS's
+webmaster (who also happens to be the co-vice chairman of the
+department). &nbsp;Seeing this as a waste of time, my boss asked me to
+develop a system that would allow course coordinators to upload their
+own syllabi. &nbsp;Since I knew <a class="reference external" href="http://php.net">PHP</a> and
+<a class="reference external" href="http://www.mysql.com">MySQL</a> fairly well, I was told that I was
+allowed to develop using a
+<a class="reference external" href="http://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP</a> platform.</p>
+<div class="section" id="courses-instructors-and-mapping-the-two">
+<h2>Courses, Instructors, and Mapping the Two</h2>
+<p>The overall goal of this project was to automate as much of the
+syllabus posting process as possible. &nbsp;This started with the maintenance
+of courses, instructors, and knowing which instructor taught which
+course. &nbsp;At Temple, we use a system called ISIS to manage student,
+course, and instructor data (note: &nbsp;I should mention that Temple is
+currently moving to <a class="reference external" href="http://www.sungardhe.com/Products/Product.aspx?id=832&amp;LangType=1033">Banner</a>).
+This system is responsible for a lot of things, one of which was to
+(poorly) describe which course was being taught by which instructor.
+Having this information on hand, all I needed was information about
+each instructor and course. &nbsp;Since instructors don't come and go that
+often, someone in the CIS department whipped up a
+<a class="reference external" href="http://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> file
+containing the instructor's name, email address, office location,
+amongst a few other things. &nbsp;Using an import utility that I built, an
+admin level user could mass-import all of the instructors. &nbsp;Once
+imported, instructors could be added, removed, or modified. &nbsp;Instructors
+also have the ability to modify their own data (office, phone number,
+etc.). &nbsp;Next came the course information. &nbsp;Fortunately, I was able to
+also get course names from the ISIS system. &nbsp;Some of the names were
+truncated and thus required a little bit of post-import editing, but
+most of the work was done for the user. &nbsp;So, we have a database that has
+a bunch of courses, instructors, and a relationship between the two.</p>
+<p>Now what?</p>
+</div>
+<div class="section" id="the-syllabi">
+<h2>The Syllabi</h2>
+<p>The CIS department has standardized syllabus format that their
+faculty are to use. &nbsp;Faculty are told that in addition to including the
+sections mandated by the university, they must follow a uniform format.
+This made representing each syllabus easy -- I just needed to make
+several <a class="reference external" href="http://en.wikipedia.org/wiki/Varchar">VARCHAR</a> columns to
+store the various text. &nbsp;In addition to this, I needed to denote which
+course each syllabus belonged to and which faculty member was the course
+coordinator. &nbsp;This was important because only the course coordinator was
+allowed to officially edit the syllabus. &nbsp;The other instructions were
+related to a given syllabus so that their contact information would be
+posted at the beginning of the document.</p>
+</div>
+<div class="section" id="the-interface">
+<h2>The Interface</h2>
+<p>The interface that the student interacts with is nothing too special --
+I simply took the Dreamweaver template (yes -- CIS uses Dreamweaver and
+Contribute to maintain their site) and added some PHP code to it. &nbsp;The
+user can view all of CIS's courses by instructor, course number, or
+course name. &nbsp;Unlike the old system (which was just a bunch of HTML
+tables that were poorly laid out), this allows a user a few different
+avenues of search.</p>
+<p>The interface that the administrator or course coordinator used is much
+different. &nbsp;I made use of TinyMCE for editing all of the syllabus
+fields. &nbsp;I also included some fancy
+<a class="reference external" href="http://en.wikipedia.org/wiki/Ajax_(programming)">AJAX</a>. &nbsp;Any time
+the administrator wants to link instructors to courses or save changes
+to an instructor/course/syllabus, an AJAX call is fired.</p>
+<p>Techniques Used</p>
+<p>As I already mentioned, I used some AJAX. &nbsp;On the server side, I wrote
+a PHP file named ajax.php. &nbsp;This file was responsible for mapping remote
+procedure calls
+(<a class="reference external" href="http://en.wikipedia.org/wiki/Remote_procedure_call">RPCs</a>) to the
+correct PHP functions. &nbsp;In order to reduce latency and to save bandwidth
+(not that I was short on either -- this is a small app), ajax.php was
+also responsible for encoding success/error messages and for encoding
+data between the server and client (this was before I knew about
+<a class="reference external" href="http://www.json.org/">JSON</a>).</p>
+<p>Another thing that I had to be careful with was
+<a class="reference external" href="http://en.wikipedia.org/wiki/Data_validation">validation</a>. &nbsp;Since I
+was writing an application that was going to be used by computer science
+professors, I knew that I needed to program defensively. &nbsp;I attempted to
+validate data on the client side via JavaScript for the&nbsp;convenience&nbsp;of
+the user, but I also made sure to validate all data on the server side.
+Since there was a relatively small number of arguments that the entire
+application would receive (&lt; 40), every single piece of data that came
+in through a POST or GET was validated based on that argument's name and
+datatype. &nbsp;If arguments were sent that were&nbsp;unnecessary, they were
+simply ignored. &nbsp;This way, an instructor could enter in raw HTML or SQL
+keywords right into their syllabi without me having to worry about one
+of them pulling a&nbsp;<a class="reference external" href="http://xkcd.com/327/">Bobby Tables</a>. &nbsp;This also
+gave me some piece of mind that the professor who taught the QA course
+wouldn't come knocking at my door because of dirty data.</p>
+<p>I didn't know what
+<a class="reference external" href="http://en.wikipedia.org/wiki/Object-relational_mapping">ORM</a> was at
+the time, but I unknowingly used an ORM model. &nbsp;Each one of my objects
+had a series of fields that were either directly read from a table or
+calculated based on table values. &nbsp;Each one of my objects (models)
+implemented an interface that I wrote which mandated that they implement
+methods that define how to save to and read from a database or
+<a class="reference external" href="http://en.wikipedia.org/wiki/XML">XML</a>. &nbsp;The related models even had
+methods to link and unlink themselves to/from each other. &nbsp;This made it
+really easy to load data from the MySQL backend and spit it out to the
+client via XML. &nbsp;It was nice to be able to write a small amount of SQL
+code within each object and to not have to write anymore SQL code for
+the remainder of the project.</p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/LDAP">LDAP</a> authentication was the last
+great feature that I implemented. &nbsp;At Temple, we have a system called
+AccessNet (now TUSecure). &nbsp;It's the university's LDAP system. &nbsp;It would
+be kind of silly to make the instructors memorize yet another set of
+credentials, so I worked pretty tirelessly towards the end of the
+project to get this bit to work. &nbsp;At Temple, our Computer Services group
+tends not to have a very open mind when it comes to certain open source
+technologies. &nbsp;I've been told by a few different CS staff that the
+department's belief is that PHP itself is a
+security&nbsp;vulnerability&nbsp;(would you expect any different from a hard-core
+MS shop?). &nbsp;Instead of fighting with them, I went along with it.
+&nbsp;Computer Services provides a basic C# class that developers could use
+to interact with their LDAP server. &nbsp;In order to get around their
+limitations, I wrote a C#.Net <a class="reference external" href="http://en.wikipedia.org/wiki/Web_service">web
+service</a> that would accept
+a user's credentials over SSL and return a success or failure. &nbsp;Once
+this was done, I wrote some code in my application to use this service.
+Things would work in this order:</p>
+<ol class="arabic simple">
+<li>The user would click &quot;Log in&quot; and get redirected to an HTTPS login
+form.</li>
+<li>The user would enter their credentials and attempt to authenticate.</li>
+<li>My syllabus application would communicate these credentials to my
+C#.Net web service via HTTPS.</li>
+<li>The C#.Net web service would communicate with the TUSecure LDAP
+servers over SSL an receive a response (this response was more
+complicated than success/fail).</li>
+<li>The C#.Net service would relay a success/fail message to the syllabus
+application, which would in turn either grant the user access or deny
+the user, respectively.</li>
+</ol>
+<p>All in all, I was pretty proud of this project. &nbsp;There are some
+interface tweaks I would like to make, but this app works well. &nbsp;As of
+the time of this writing, it's currently in use.</p>
+</div>
+<div class="section" id="screenshots">
+<h2>Screenshots</h2>
+</div>
+
+            </div>
+        </section>
+    </div>
+</div>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../theme/js/pelican_twitchy.min.js"></script>
+</body>
+</html>

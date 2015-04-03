@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Brian Stempin" />
+        <meta name="description" content="">
+
+    <title>Recent Articles - BMS's Blog</title>
+
+    <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="./theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="./feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="./static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="./archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="./">
+                    </a>
+                </li>
+                    <li>
+                        <a href="./archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="./about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="./category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="./category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="./category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="./category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="./category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<div class="row">
+    <div class="col-lg-12">
+        <header class="page-header">
+            <h1>Recent Articles</h1>
+        </header>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+            <article>
+                <h2>
+                    <a href="./2014/10/20/update-to-my-vindinium-client/">Update to my Vindinium Client</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2014-10-20T22:27:00-04:00"> Mon 20 October 2014</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/ai.html">AI</a> /                 <a href="./tag/java.html">Java</a> /                 <a href="./tag/vindinium.html">Vindinium</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I <a class="reference external" href="./2014/09/28/vindinium/">previously
+wrote</a> about a
+game called Vindinium and how I was writing a client in Java.</p>
+<p>Well, I have something that I think is useful: &nbsp;a <a class="reference external" href="https://github.com/bstempi/vindinium-client/releases/tag/1.0.0">1.0.0
+realease</a>.</p>
+<div class="section" id="features">
+<h2>Features</h2>
+<p>There are two different interfaces for writing a bot:
+&nbsp;<a class="reference external" href="https://github.com/bstempi/vindinium-client/blob/1.0.0/src/main/java/com/brianstempin/vindiniumclient/bot/simple/SimpleBot.java">SimpleBot</a>
+and
+<a class="reference external" href="https://github.com/bstempi/vindinium-client/blob/1.0.0/src/main/java/com/brianstempin/vindiniumclient/bot/advanced/AdvancedBot.java">AdvancedBot</a>.
+&nbsp;The SimpleBot interface is just a ...</p></div>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2014/09/28/vindinium/">Vindinium</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2014-09-28T10:40:00-04:00"> Sun 28 September 2014</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/algorithms.html">Algorithms</a> /                 <a href="./tag/java.html">Java</a> /                 <a href="./tag/vindinium.html">Vindinium</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I was recently lurking through the <a class="reference external" href="http://reddit.com/r/programming">Programming
+Subreddit</a>, and I came across a post
+about a game called, &quot;<a class="reference external" href="http://vindinium.org">Vindinium</a>.&quot;</p>
+<div class="section" id="what-is-vindinium">
+<h2>What Is Vindinium?</h2>
+<p>Vindinium is an AI competition. &nbsp;Its a game that is played exclusively
+by bots. &nbsp;You could create a bot that takes input from a human player,
+but the ...</p></div>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2014/03/25/because-enterprise/">Because Enterprise</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2014-03-25T12:29:00-04:00"> Tue 25 March 2014</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/github.html">GitHub</a> /                 <a href="./tag/humor.html">humor</a> /                 <a href="./tag/java.html">Java</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I came across an interesting and fun project on GitHub a few months back
+called <a class="reference external" href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition">FizzBuzz Enterprise
+Edition</a>.
+&nbsp;FizzBuzz is supposed to be a <a class="reference external" href="http://en.wikipedia.org/wiki/Fizz_buzz#Other_uses">simple programming
+exercise</a>. &nbsp;FBEE
+is supposed to be a joke that pokes fun at &quot;enterprise developers&quot; by
+terribly over-complicating this problem</p>
+<div class="section" id="you-know-buzz-words">
+<h2>You Know, Buzz Words</h2>
+<p>There ...</p></div>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2014/02/28/getting-reacquainted-with-php/">Getting Reacquainted with PHP</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2014-02-28T14:59:00-05:00"> Fri 28 February 2014</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/php.html">PHP</a> /                 <a href="./tag/symfony.html">Symfony</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p><a class="reference external" href="http://www.linkedin.com/in/brianstempin">By day</a>, I'm a Java
+developer. &nbsp;Back when I was a systems administrator and a college
+student, I used PHP quite a bit. &nbsp;It was my scripting language; my glue;
+my web platform. &nbsp;I even have some PHP source published
+(<a class="reference external" href="https://github.com/bstempi/cloudmarketwatch.com">Github</a>,
+<a class="reference external" href="https://bitbucket.org/bstempi/projecteuler">BitBucket</a>). &nbsp;When I
+started with PHP, I wasn ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2013/09/17/trying-out-chololatey/">Trying out Chololatey</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2013-09-17T18:35:00-04:00"> Tue 17 September 2013</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/chocolatey.html">Chocolatey</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I recently started working on a project that has me working with Windows
+(eww, I know, forgive me). &nbsp;I opted to run this environment in a VM so
+that I don't have to pollute my gaming rig with all kinds of tools,
+patches, bit-rot, etc. &nbsp;So, after firing up ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2013/08/13/why-i-love-community-data-sources/">Why I Love Community Data Sources</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2013-08-13T06:03:00-04:00"> Tue 13 August 2013</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/openlibraray.html">OpenLibraray</a> /                 <a href="./tag/reading.html">reading</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I'll make this one short:</p>
+<p>On my <a class="reference external" href="http://www.brianstempin.com/readings/">Readings</a> page, I use a
+WordPress <a class="reference external" href="http://wordpress.org/plugins/openbook-book-data/">plugin</a>
+that allows me to show off the books that I've read. &nbsp;At the moment, I'm
+pulling my data from <a class="reference external" href="http://openlibrary.org/">OpenLibrary.org</a> (an
+<a class="reference external" href="http://archive.org/">Internet Archive</a> project). &nbsp;The last book that
+I read had no ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2013/07/07/zomg-apache-camel-is-awesome/">ZOMG, Apache Camel is Awesome!</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2013-07-07T22:12:00-04:00"> Sun 07 July 2013</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/general-work-stuff.html">General Work Stuff</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/apache.html">Apache</a> /                 <a href="./tag/camel.html">Camel</a> /                 <a href="./tag/java.html">Java</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>At the <a class="reference external" href="http://www.coldlight.com/">work place</a>, I've had to do a lot
+of integration work on my current project. &nbsp;Instead of trying to tie
+everything together on my own, someone recommended taking a look at
+<a class="reference external" href="http://camel.apache.org/">Apache Camel</a>. &nbsp;Man, did that have a
+drastically good effect on my project!</p>
+<div class="section" id="well-what-is-it">
+<h2>Well, What is ...</h2></div>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2013/04/02/donating-my-vpc-cpu-time/">Donating My VPC CPU Time</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2013-04-02T21:47:00-04:00"> Tue 02 April 2013</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/acm.html">ACM</a> /                 <a href="./tag/boinc.html">BOINC</a> /                 <a href="./tag/linode.html">Linode</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>When I was the VP of the <a class="reference external" href="http://acm.temple.edu">Temple ACM</a>, <a class="reference external" href="http://timjhenry.com/">Tim
+Henry</a> and I headed up an effort to get other
+ACMers to participate in the
+<a class="reference external" href="http://folding.stanford.edu/">Folding&#64;Home</a> project. &nbsp;In short, this
+project is a way to donate spare CPU cycles to scientists working on
+computationally difficult problems.</p>
+<p>A few weeks ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2013/01/12/making-the-career-move/">Making the (Career) Move</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2013-01-12T16:06:00-05:00"> Sat 12 January 2013</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/general-work-stuff.html">General Work Stuff</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/career.html">career</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I've just recently updated <a class="reference external" href="http://www.linkedin.com/in/brianstempin">my
+LinkedIn</a> to reflect it, but
+I left <a class="reference external" href="http://www.vanguard.com">Vanguard</a> back in September to join
+<a class="reference external" href="http://www.coldlight.com">Coldlight Solutions</a>, a start-up in Wayne,
+PA.</p>
+<p>I've not written it here, but those who know me off-line know that I
+would like to pursue a PhD at some point ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2012/12/26/gone-and-back/">Gone and Back</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-12-26T20:49:00-05:00"> Wed 26 December 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/uncategorized.html">Uncategorized</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/projects.html">projects</a> /                 <a href="./tag/skydiving.html">skydiving</a> /                 <a href="./tag/wildfire-games.html">Wildfire Games</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Holy crap, where have I been?</p>
+<p>All over the place, that's where. I've had a lot happen since I've last
+posted:</p>
+<ul class="simple">
+<li>I now hold a <a class="reference external" href="http://www.uspa.org/USPAMembers/LicensesampRatings/Licenses/tabid/87/Default.aspx">skydiving
+license</a></li>
+<li>I have a new job at a place called
+<a class="reference external" href="http://www.coldlight.com/">Coldlight</a></li>
+<li>I have a new girlfriend</li>
+<li>The 0 A.D. website ...</li></ul>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2012/07/07/0-a-d-wins-project-of-the-month-on-sourceforge/">0 A.D. Wins Project of the Month on Sourceforge</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-07-07T17:31:00-04:00"> Sat 07 July 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/0-ad.html">0 A.D.</a> /                 <a href="./tag/games.html">games</a> /                 <a href="./tag/wildfire-games.html">Wildfire Games</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I almost forgot to brag: 0 A.D. was Sourceforge's Project of the Month
+in June. Check out the post here:
+<a class="reference external" href="https://sourceforge.net/blog/zero-ad-potm-june-2012/">https://sourceforge.net/blog/zero-ad-potm-june-2012/</a>.</p>
+<p>It feels pretty good to be on a team that's being recognized by the rest
+of the open source community. &nbsp;Also, this ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/">Loading the English Wikipedia Dump is a Huge Pain</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-06-29T18:22:00-04:00"> Fri 29 June 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/linux.html">Linux</a> /                 <a href="./tag/mysql.html">MySQL</a> /                 <a href="./tag/wikipedia.html">Wikipedia</a> /                 <a href="./tag/xen.html">Xen</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>...but I did it!</p>
+<p>I decided a while back that it'd be cool to do some graph analysis on
+the English Wikipedia database. &nbsp;I want to study how &quot;connected&quot; the
+articles are. &nbsp;I also want to collect some statistics about the text of
+the articles themselves, their references, and ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2012/04/25/book-review-effective-java-second-edition/">Book Review:  Effective Java, Second Edition</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-04-25T21:23:00-04:00"> Wed 25 April 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/book-review.html">book review</a> /                 <a href="./tag/effective-java.html">Effective Java</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>A few hours ago I finished reading <a class="reference external" href="http://java.sun.com/docs/books/effective/">Effective Java, Second
+Edition</a> by <a class="reference external" href="http://en.wikipedia.org/wiki/Joshua_Bloch">Joshua
+Bloch</a>. &nbsp;Bottom line up
+front: &nbsp;totally worth the read!</p>
+<div class="section" id="format">
+<h2>Format</h2>
+<p>The book's format is interesting. &nbsp;At first, I wasn't sure if I liked
+it, but it grew on me. &nbsp;The book is divided into 78 ...</p></div>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2012/03/25/boxee-box-review/">Boxee Box Review</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-03-25T14:58:00-04:00"> Sun 25 March 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/boxee.html">Boxee</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>For the last few years, I had been using a <a class="reference external" href="http://www.instructables.com/id/How-to-softmod-your-xbox...for-FREE/">modified
+XBox</a>
+running <a class="reference external" href="http://xbmc.org/">XBMC</a>. &nbsp;This was great for streaming stuff
+(movies, music, etc) from my Ubuntu <a class="reference external" href="http://en.wikipedia.org/wiki/Samba_(software)">SMB
+server</a> to my TV. &nbsp;Now
+that I own a TV capable of high-def, I wanted more. &nbsp;I also wanted to
+lower my cable ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2012/01/16/working-hard-on-the-0-a-d-website/">Working Hard on the 0 A.D. Website</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-01-16T23:57:00-05:00"> Mon 16 January 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/geek.html">geek</a> /                 <a href="./tag/wildfire-games.html">Wildfire Games</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Shortly before Christmas, I got this message from
+<a class="reference external" href="https://www.facebook.com/feneur">Erik</a>, the producer of <a class="reference external" href="http://wildfiregames.com/0ad">0
+A.D.</a>:</p>
+<blockquote>
+<p>I hope things are well with you. Have you still gotten a moment or
+two for 0 A.D. or have you become too busy? We've been trying to
+contact you via PM/email ...</p></blockquote>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2012/01/02/welcome-2012/">Welcome, 2012!</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2012-01-02T00:31:00-05:00"> Mon 02 January 2012</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/mummers.html">Mummers</a> /                 <a href="./tag/wildfire-games.html">Wildfire Games</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Twenty-eleven has had it's shares of ups and downs for me. &nbsp;All in all,
+it's been an amazing year.</p>
+<p>Just this past week, I've managed to really live up my last bits of
+2011. &nbsp;During the last week of December, I went to <a class="reference external" href="http://longwoodgardens.org">Longwood
+Gardens</a> to check ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/11/11/grub2-do-not-want/">GRUB2: Do Not Want</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-11-11T18:07:00-05:00"> Fri 11 November 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/grub2.html">GRUB2</a> /                 <a href="./tag/rackable-systems.html">Rackable Systems</a> /                 <a href="./tag/ubuntu.html">Ubuntu</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I'm writing this partially because I hope to save a few people the
+headache I just had and partially because there are no babies around to
+eat.</p>
+<div class="section" id="bg">
+<h2>Bg</h2>
+<p>So, I recently sold a bunch of stuff on eBay (as I <a class="reference external" href="/2011/09/26/selling-stuff-on-ebay/">previously
+mentioned</a>). &nbsp;I then used that
+money to buy ...</p></div>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/10/21/haunting-at-eastern-state-penitentiary/">Haunting at Eastern State Penitentiary</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-10-21T15:04:00-04:00"> Fri 21 October 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/tbtw.html">TBTW</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>So, where have I been?</p>
+<p>I've been working as an actor at <a class="reference external" href="http://www.easternstate.org/">Eastern State
+Penitentiary</a>'s &quot;<a class="reference external" href="http://www.easternstate.org/halloween">Terror Behind the
+Walls</a>&quot; attraction. It's a
+lot of work going from a full-time job during the day then down to ESP
+at night, but it's been worth it. Acting has ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/09/26/selling-stuff-on-ebay/">Selling Stuff on eBay</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-09-26T19:31:00-04:00"> Mon 26 September 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/ebay.html">eBay</a> /                 <a href="./tag/usps.html">USPS</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I decided a bit ago that it was time to clean house. &nbsp;I have a lot of
+old tech stuff that I have been holding onto for quite some time. &nbsp;The
+majority of it was still in good working order, which is why I was so
+hesitant to let it ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/09/10/parting-ways-with-the-philadelphia-bdpa/">Parting Ways with the Philadelphia BDPA</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-09-10T12:13:00-04:00"> Sat 10 September 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/bdpa.html">BDPA</a> /                 <a href="./tag/hscc.html">HSCC</a> /                 <a href="./tag/teaching.html">teaching</a> /                 <a href="./tag/volunteering.html">volunteering</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Yeah, I'm sorry to say it, but it must happen. &nbsp;Unfortunately, I will
+not be participating in the 2011-2012 BDPA HSCC program.</p>
+<div class="section" id="what-gives">
+<h2>What Gives?</h2>
+<p>In short: &nbsp;I don't think the program is improving. &nbsp;It improved
+wonderfully for my first year or two, and then went stagnant. &nbsp;To be ...</p></div>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/08/21/minecraft-server/">Minecraft Server</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-08-21T11:01:00-04:00"> Sun 21 August 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/games.html">games</a> /                 <a href="./tag/minecraft.html">Minecraft</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Back in the winter, <a class="reference external" href="http://timjhenry.com">Tim Henry</a> got me hooked
+on Minecraft. Due to having a life, I probably only played the game for
+around 20 hours and then put it down for several months. Now that I'm
+not teaching, Tim and I decided to pick it back up again ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/07/11/experimenting-with-the-youtube-api-in-php/">Experimenting with the YouTube API in PHP</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-07-11T21:38:00-04:00"> Mon 11 July 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/games.html">games</a> /                 <a href="./tag/web-development.html">web development</a> /                 <a href="./tag/wildfire-games.html">Wildfire Games</a> /                 <a href="./tag/wordpress.html">WordPress</a> /                 <a href="./tag/youtube.html">YouTube</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>As a video game website, <a class="reference external" href="http://wildfiregames.com">Wildfire Games</a>
+wants to be able to do some cool things with videos, images, music, and
+more. Games are all about media, and any good game website has to do a
+good job at showcasing their media. After all, what good is the website
+if ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/05/09/better-way-to-use-osm-data-for-routing/">Better Way to Use OSM Data for Routing</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-05-09T19:34:00-04:00"> Mon 09 May 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/openstreetmap.html">OpenStreetMap</a> /                 <a href="./tag/qgis.html">QGis</a> /                 <a href="./tag/udig.html">uDig</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>So, I feel like a bit of a tool. &nbsp;I'm still working on my Java program
+to download MNDOT traffic data (mentioned in a <a class="reference external" href="/2011/04/09/321/">previous
+post</a>), but I decided to switch things up a bit. &nbsp;I
+decided to throw away my old database and to get new data. &nbsp;I ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/03/15/0-a-d-alpha-4-daedalus/">0 A.D. Alpha 4 Daedalus</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-03-15T21:49:00-04:00"> Tue 15 March 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/0ad.html">0AD</a> /                 <a href="./tag/wildfire-games.html">Wildfire Games</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <div class="section" id="holy-crap">
+<h2>Holy Crap!</h2>
+<p>Yeah, right?! &nbsp;<a class="reference external" href="http://www.wildfiregames.com/0ad">This game</a> has come
+such a long way since I joined the team back in July of 2010. &nbsp;I don't
+think that there's any moment where I've been more excited to be a part
+of this game!</p>
+</div>
+<div class="section" id="sweet-moves-brah">
+<h2>Sweet Moves, Brah</h2>
+<p>I sat down ...</p></div>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/03/08/moodle-2-0-upgrade/">Moodle 2.0 Upgrade</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-03-08T23:45:00-05:00"> Tue 08 March 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/bdpa.html">BDPA</a> /                 <a href="./tag/hscc.html">HSCC</a> /                 <a href="./tag/moodle.html">Moodle</a> /                 <a href="./tag/tinymce.html">TinyMCE</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I've mentioned before that I teach a class of high schoolers how to
+program in Java. &nbsp;In order to make things manageable and to make the
+most of my time with the kids, I use <a class="reference external" href="http://moodle.org">Moodle</a>to
+organize, store, distribute all of my course content. &nbsp;I've fallen in ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/03/06/ipb3-upgrade-for-wildfire-games/">IPB3 Upgrade for Wildfire Games</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-03-06T12:36:00-05:00"> Sun 06 March 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/ipb.html">IPB</a> /                 <a href="./tag/wildfire-games.html">Wildfire Games</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Despite my apparent lack of activity, I've been doing quite a bit of
+work for WFG lately. &nbsp;Our messaging board system and some other parts of
+our website run on the Invision Power Board version 2. &nbsp;We'd happily
+keep chugging along, but IBP2 is no longer supported, so ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2011/01/30/editing-data-with-the-java-openstreetmap-editor/">Editing Data with the Java OpenStreetMap Editor</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-01-30T20:12:00-05:00"> Sun 30 January 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/gis.html">GIS</a> /                 <a href="./tag/josme.html">JOSME</a> /                 <a href="./tag/wms.html">WMS</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>In my <a class="reference external" href="/2010/12/01/improving-openstreetmaps-road-data/">last post</a>, I
+used some SQL to help identify breaks in the
+<a class="reference external" href="http://openstreetmap.org">OpenStreetMap</a>'s road map. &nbsp;If you recall,
+I created a table that contained a list of points and descriptions for
+each of those points. &nbsp;In this post, I'll use this table to create a WMS ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/12/01/improving-openstreetmaps-road-data/">Improving OpenStreetMap's Road Data</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-12-01T07:51:00-05:00"> Wed 01 December 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/openstreetmap.html">OpenStreetMap</a> /                 <a href="./tag/postgis.html">PostGIS</a> /                 <a href="./tag/qgis.html">QGis</a> /                 <a href="./tag/sql.html">SQL</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>In my <a class="reference external" href="http://gis.brianstempin.com">GIS</a> work, I use
+<a class="reference external" href="http://openstreetmap.com">OpenStreetMap</a> as my source of road map
+information. &nbsp;It was better documented and better labeled than the data
+that I was getting from the <a class="reference external" href="http://www.dot.state.mn.us/">MNDOT</a>.
+&nbsp;Though OSM has been great to me, it hasn't come without its flaws. &nbsp;In
+my work, I rely ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/11/19/ford-fiesta/">Ford Fiesta</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-11-19T20:27:00-05:00"> Fri 19 November 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/fiesta.html">Fiesta</a> /                 <a href="./tag/ford.html">Ford</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I had the unfortunate experience of finding out what happens when
+minivans and Ford Foci collide in August of this year. &nbsp;My car got
+nailed (read: totaled), so I got thrown into the market for a new car.
+&nbsp;The Focus had always served me well (I've owned two of ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/11/14/moving-my-gis-project-to-my-linode/">Moving my GIS Project to my Linode</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-11-14T21:06:00-05:00"> Sun 14 November 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/gis.html">GIS</a> /                 <a href="./tag/linode.html">Linode</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>In my <a class="reference external" href="./2010/10/26/my-first-machine-in-the-cloud-linode/">last post</a>,
+I wrote about the <a class="reference external" href="http://linode.com">Linode</a> that I won as a door
+prize at the <a class="reference external" href="http://cposc.org">Central PA Open Source Conference</a>.
+&nbsp;After the initial setup, I wasn't quite sure what to do with it. &nbsp;After
+some thought, it hit me: &nbsp;I'll move my GIS project to ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/10/26/my-first-machine-in-the-cloud-linode/">My First Machine in the Cloud: Linode</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-10-26T18:32:00-04:00"> Tue 26 October 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/cposc.html">CPOSC</a> /                 <a href="./tag/linode.html">Linode</a> /                 <a href="./tag/ubuntu.html">Ubuntu</a> /                 <a href="./tag/vps.html">VPS</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>A few weeks ago, I went to <a class="reference external" href="http://cposc.org">CPOSC</a> and won a door
+prize: &nbsp;a free <a class="reference external" href="http://www.linode.com/">Linode</a> 512 for 3 months! &nbsp;I
+recently received an email that furnished me with my account credentials
+and details. &nbsp;I couldn't wait to play around, so I immediately dropped
+what I was doing and ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/10/26/public-code-samples/">Public Code Samples</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-10-26T00:45:00-04:00"> Tue 26 October 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/bitbucket.html">BitBucket</a> /                 <a href="./tag/php.html">PHP</a> /                 <a href="./tag/project-euler.html">Project Euler</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I recently had a recruiter ask me for some PHP code samples. &nbsp;After
+doing some digging, I realized that I didn't have much to show. &nbsp;Most of
+the cool stuff that I wrote was proprietary, so I couldn't just expose
+it. &nbsp;The stuff that I've written for ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/10/25/cposc-great-success/">CPOSC:  Great Success!</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-10-25T15:20:00-04:00"> Mon 25 October 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/cposc.html">CPOSC</a> /                 <a href="./tag/gis.html">GIS</a> /                 <a href="./tag/lessfs.html">lessfs</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p><a class="reference external" href="http://timjhenry.com">Tim Henry</a> and I went to the <a class="reference external" href="http://cposc.org">Central PA Open
+Source Conference</a> in Harrisburg, PA a few weeks
+ago (16OCT). &nbsp;We had a pretty awesome time!</p>
+<p>We got to HBurg kind of late (around 10ish, I think), but we still
+managed to make it in time for lunch and to ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/10/20/firebug-intro/">Firebug Intro</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-10-20T13:48:00-04:00"> Wed 20 October 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/firebug.html">Firebug</a> /                 <a href="./tag/temple.html">Temple</a> /                 <a href="./tag/web-development.html">web development</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>A few weeks back, <a class="reference external" href="http://www.cis.temple.edu/~lefkovit/">Professor
+Lefkovitz</a> asked me to help him
+diagnose a problem with a web app.&nbsp; The issue involved the communication
+between a browser and an AJAX web service used for authentication.&nbsp; The
+initial struggle was trying to find an easy and elegant way of viewing
+the AJAX ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/08/10/bass-and-amp-for-sale/">Bass and Amp for Sale</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-08-10T20:12:00-04:00"> Tue 10 August 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/for-sale.html">for sale</a> /                 <a href="./tag/music.html">music</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Unfortunately, I'm putting my bass and amp up for sale. &nbsp;Instead of
+trying to Ebay them, I decided to do
+a&nbsp;<a class="reference external" href="http://en.wikipedia.org/wiki/Consignment">consignment</a> deal with
+<a class="reference external" href="http://www.springfieldmusicstore.com/">Springfield Music</a>. &nbsp;I'm
+selling a 5 string Peavey Foundation bass and a 100w Carvin ProBass 100
+amp. &nbsp;They're currently listed for $219.95 ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/07/26/speaking-at-cposc/">Speaking at CPOSC</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-07-26T13:27:00-04:00"> Mon 26 July 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/gis.html">GIS</a> /                 <a href="./tag/openstreetmap.html">OpenStreetMap</a> /                 <a href="./tag/php.html">PHP</a> /                 <a href="./tag/qgis.html">QGis</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>A few weeks ago I submitted a proposal to speak at
+<a class="reference external" href="http://www.cposc.org/">CPOSC</a>. &nbsp;I recently received an email
+notifying me that my proposal was selected! &nbsp;I'll be speaking at
+<a class="reference external" href="http://www.harrisburgu.net/">Harrisburg University</a> on Saturday,
+October 16th. &nbsp;I'll be talking about open source Geographic Information
+Systems
+(<a class="reference external" href="http://en.wikipedia.org/wiki/Geographic_information_system">GIS</a>)
+and my traffic research ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/07/23/wordpress-legal-mess/">WordPress Legal Mess</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-07-23T01:03:00-04:00"> Fri 23 July 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/crap.html">crap</a> /                 <a href="./tag/gpl.html">gpl</a> /                 <a href="./tag/web-development.html">web development</a> /                 <a href="./tag/wordpress.html">WordPress</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Yeah, you like that rhyming! &nbsp;Don't lie, it's catchy. &nbsp;Onto something
+meaningful:</p>
+<p>I've spent a lot of time doing <a class="reference external" href="http://www.wordpress.org">WordPress</a>
+work. &nbsp;I've spent some time in the community and a lot of time using,
+hacking, and theming WordPress. &nbsp;As I've stated before in other posts ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/07/21/losing-bet/">Losing Bet</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-07-21T13:52:00-04:00"> Wed 21 July 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/go-figure.html">go figure</a> /                 <a href="./tag/lol.html">lol</a> /                 <a href="./tag/metal.html">metal</a> /                 <a href="./tag/tim-henry.html">Tim Henry</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Back when I started my <a class="reference external" href="http://www.brianstempin.com/projects/traffic-research-project/">GIS research
+project</a>,
+I purchased a used computer from Temple University's <a class="reference external" href="http://www.temple.edu/cs/crc/">Computer
+Recycling Center</a>. &nbsp;To be more
+specific, I purchased a <a class="reference external" href="http://en.wikipedia.org/wiki/Dell_OptiPlex#Models.2C_in_relative_chronological_order">Dell Optiplex GX270
+SFF</a>.
+&nbsp;It runs a 2.x GHz Pentium 4 and came with 512 MB of RAM (later upgraded
+to 1 ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/07/08/new-favorite-song/">New Favorite Song</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-07-08T12:07:00-04:00"> Thu 08 July 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/metal.html">metal</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>This song played while I was listening to one of my
+<a class="reference external" href="http://pandora.com">Pandora</a> stations. &nbsp;The song is &quot;The Cyborg
+Slayers&quot; by Dethklok.</p>
+<p><a class="reference external" href="http://www.youtube.com/watch?v=9YogCId14CA">httpv://www.youtube.com/watch?v=9YogCId14CA</a></p>
+<p>Brutal.</p>
+
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/07/05/im-part-of-an-open-source-project-0-a-d/">I'm Part of an Open Source Project (0 A.D.)!</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-07-05T22:09:00-04:00"> Mon 05 July 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/games.html">games</a> /                 <a href="./tag/projects.html">projects</a> /                 <a href="./tag/web-development.html">web development</a> /                 <a href="./tag/wordpress.html">WordPress</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>That's right! &nbsp;After being a consumer in the OSS community for around 10
+years, I'm finally committing something more than helping posts on a
+forum -- I'm a webmaster!</p>
+<div class="section" id="the-desire">
+<h2>The Desire</h2>
+<p>When I was growing up, I was hooked on <a class="reference external" href="http://en.wikipedia.org/wiki/Real-time_strategy">RTS
+games</a>. &nbsp;I used to
+love playing <a class="reference external" href="http://en.wikipedia.org/wiki/Age_of_empires">Age ...</a></p></div>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/07/01/moodle/">Moodle</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-07-01T11:16:00-04:00"> Thu 01 July 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/cms.html">CMS</a> /                 <a href="./tag/moodle.html">Moodle</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I recently wrote about the HSCC class that I teach and posted a link to
+the course's website. &nbsp;While thinking the other day, it occurred to me
+that I have yet to write about my experience using Moodle, which powers
+that website. &nbsp;Since its such an awesome piece of ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/06/08/hscc-competition/">HSCC Competition</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-06-08T17:40:00-04:00"> Tue 08 June 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/bdpa.html">BDPA</a> /                 <a href="./tag/hscc.html">HSCC</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I've never written a post about it, but if you read the &quot;About Me&quot;
+section, you'll see that I teach a few different technologies to high
+school students (I know: &nbsp;who'd trust me with kids?! :p). &nbsp;I wanted to
+write about two things: &nbsp;Our recent trip to ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/06/07/how-to-move-a-wordpress-mu-site-to-a-new-domai/">How to Move a Wordpress-MU Site to a New Domain</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-06-07T16:31:00-04:00"> Mon 07 June 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/general-work-stuff.html">General Work Stuff</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/gened.html">GenEd</a> /                 <a href="./tag/guide.html">Guide</a> /                 <a href="./tag/wordpress.html">WordPress</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>So, as part of my <a class="reference external" href="http://www.temple.edu/provost/gened">GenEd</a> work,
+I was asked to move a <a class="reference external" href="http://mu.wordpress.org/">WordPress MU</a>
+installation to a new server. &nbsp;I found several articles about moving
+around standard WordPress installations, but nothing for the MU
+(MultiUser) version. &nbsp;In particular, I had a hard time with changing the
+domain name. &nbsp;In ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/06/01/openstreetmaps-gets-some-coverage-from-ars-technica/">OpenStreetMaps Gets Some Coverage From Ars Technica</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-06-01T12:59:00-04:00"> Tue 01 June 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/gis.html">GIS</a> /                 <a href="./tag/openstreetmap.html">OpenStreetMap</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>So, I was&nbsp;perusing&nbsp;<a class="reference external" href="http://arstechnica.com">ArsTechnica</a> earlier
+today and came across this article:
+&nbsp;<a class="reference external" href="http://arstechnica.com/open-source/news/2010/06/crowd-sourced-world-map.ars">http://arstechnica.com/open-source/news/2010/06/crowd-sourced-world-map.ars</a></p>
+<p>In short: &nbsp;they recapped the origins of OSM, discussed their goals, and
+then went on to discuss some of the projects that have stemmed from
+OSM's data. &nbsp;Pretty ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/05/28/temple-universitys-general-education-department-to-get-new-website/">Temple University's General Education Department To Get New Website</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-05-28T16:18:00-04:00"> Fri 28 May 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/general-work-stuff.html">General Work Stuff</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/cms.html">CMS</a> /                 <a href="./tag/gened.html">GenEd</a> /                 <a href="./tag/temple.html">Temple</a> /                 <a href="./tag/web-development.html">web development</a> /                 <a href="./tag/wordpress.html">WordPress</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I've never mentioned it here before, but for the last 2-ish years, I've
+been the webmaster of Temple University's <a class="reference external" href="http://www.temple.edu/gened">GenEd
+website</a>. &nbsp;The site was originally
+developed by Temple University's <a class="reference external" href="http://www.temple.edu/cs">Computer
+Services</a> group. &nbsp;I took over the
+maintenance and have only done small things with it -- add ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/05/27/car-to-car-wifi/">Car to Car Wifi</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-05-27T11:27:00-04:00"> Thu 27 May 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/g1.html">g1</a> /                 <a href="./tag/geek.html">geek</a> /                 <a href="./tag/lol.html">lol</a> /                 <a href="./tag/wifi.html">wifi</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Sorry that I haven't written in a bit -- I've been out-and-about instead
+of living in front of my computer for a chance.</p>
+<p>So, here's a pretty cool thing that I recently saw (did?). &nbsp;Last week, I
+traveled down to <a class="reference external" href="http://www.cityofmyrtlebeach.com/">Myrtle Beach</a>,
+South Carolina with a few friends ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/05/10/symfony-framework/">Symfony Framework</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-05-10T16:46:00-04:00"> Mon 10 May 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/php.html">PHP</a> /                 <a href="./tag/symfony.html">Symfony</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>I've been coding in PHP for a few years, but I've never been exposed to
+any of the PHP frameworks. &nbsp;I've been curious about <a class="reference external" href="http://codeigniter.com/">Code
+Igniter</a> and
+<a class="reference external" href="http://www.symfony-project.org/">Symfony</a> for a while, but I haven't
+had time to play with either of them. &nbsp;Until now.</p>
+<p>I decided ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/05/06/final-product-of-my-gistraffic-prediction-work/">Final Product of my GIS/Traffic Prediction Work</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-05-06T17:39:00-04:00"> Thu 06 May 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/gis.html">GIS</a> /                 <a href="./tag/openstreeetmaps.html">openstreeetmaps</a> /                 <a href="./tag/projects.html">projects</a> /                 <a href="./tag/temple.html">Temple</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Well, I finally got around to posting the stuff that my Future of
+Computing poster talked about. &nbsp;My final project can be seen
+<a class="reference external" href="http://www.ist.temple.edu/trafficdemo/displayComparison.html">here</a>
+(<a class="reference external" href="http://www.ist.temple.edu/trafficdemo/displayComparison.html">http://www.ist.temple.edu/trafficdemo/displayComparison.html</a>). &nbsp;Some
+notes about it:</p>
+<ul class="simple">
+<li>The road graph has quarks in it (the data is from <a class="reference external" href="http://openstreetmaps.org">Open Street
+Maps ...</a></li></ul>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/05/05/acm-awards-dinner/">ACM Awards Dinner</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-05-05T18:01:00-04:00"> Wed 05 May 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/uncategorized.html">Uncategorized</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/acm.html">ACM</a> /                 <a href="./tag/awards.html">awards</a> /                 <a href="./tag/temple.html">Temple</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>22APR2010 was the
+<a class="reference external" href="http://www.temple.edu/cis">CIS</a>/<a class="reference external" href="http://acm.temple.edu">ACM</a>
+Annual Awards Dinner. This is the one time during the year that the CIS
+department invites out all of the students, faculty, staff, and alum for
+a formal dinner and awards ceremony. &nbsp;As always, <a class="reference external" href="http://ww2.cis.temple.edu/sorkin/">Sandy
+Sorkin</a> took a million and one
+<a class="reference external" href="http://picasaweb.google.com/Sanford.Sorkin/042210ACMCISDinner#">photos of the
+event ...</a></p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/04/21/future-of-computing-2010/">Future of Computing 2010</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-04-21T14:23:00-04:00"> Wed 21 April 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/future-of-computing.html">Future of Computing</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Every year, the <a class="reference external" href="http://www.temple.edu/cis">CIS department</a> (College
+of Science and Technology, Temple University) hosts the Future of
+Computing competition.&nbsp; For graduate students, it's an opportunity to
+show off some of their research.&nbsp; For undergrads, it's a chance to show
+off some of their projects or some of the cool ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/03/25/first-robotics-philadelphia-regional/">FIRST Robotics Philadelphia Regional</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-03-25T22:06:00-04:00"> Thu 25 March 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/frc.html">frc</a> /                 <a href="./tag/robotics.html">robotics</a> /                 <a href="./tag/usfirst.html">usfirst</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p><a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/03/USFIrstlogo.gif"><img alt="US FIRST logo" src="http://www.brianstempin.com/wp-content/uploads/2010/03/USFIrstlogo.gif" /></a></p>
+<p>Sorry for the late post, but Thursday, Friday, and
+Saturday of this week is the Philadelphia Regional FIRST Robotics
+Competition!&nbsp; Unfortunately, I will not be working at the event this
+year, but I'll be going anyway.&nbsp; This year's goal is to try to get as
+many people as ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/03/04/first-bug-report/">First Bug Report</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-03-04T21:46:00-05:00"> Thu 04 March 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/bugs.html">Bugs</a> /                 <a href="./tag/opengeo.html">OpenGeo</a> /                 <a href="./tag/qgis.html">QGis</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Last night, I spent some time checking over a graph that I created (This
+particular graph was the graph of connected traffic sensor stations
+throughout the Minneapolis road network).&nbsp; While looking through my
+results in <a class="reference external" href="http://www.qgis.org/">QGIS</a>, I came across some strange
+behavior.&nbsp; It turns out that I found a possible ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/02/27/dijkstras-algorithm-in-php/">Dijkstra's Algorithm in PHP</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-02-27T03:27:00-05:00"> Sat 27 February 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/traffic-research-project.html">Traffic Research Project</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="./tag/algorithms.html">Algorithms</a> /                 <a href="./tag/gis.html">GIS</a> /                 <a href="./tag/php.html">PHP</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>Yeah, yeah, I know what you're thinking:&nbsp; Why PHP?</p>
+<p>Well, I have a fairly small graph (&lt; 650 nodes), so trying to get a C or
+Java to interact with my preexisting PHP software isn't worth the boost
+in performance.&nbsp; The implementation I found can read my graph from ...</p>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2>
+                    <a href="./2010/02/26/first-post/">First Post!</a>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-02-26T02:42:00-05:00"> Fri 26 February 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="./category/uncategorized.html">Uncategorized</a>
+            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                </h2>
+                <div class="summary">
+                    <p>So, I've been telling myself for a few years that I'd start a blog so
+that I could keep track of some of the cool things that I've done.
+Well, here it is.</p>
+
+                </div>
+            </article>
+    </div>
+</div>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="./theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="./theme/js/pelican_twitchy.min.js"></script>
+<script>
+    function FadeInOnScroll(ObjectList){
+        ObjectList.each(function(i) {
+            var bottom_of_object = $(this).position().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+
+            if( bottom_of_window > bottom_of_object ){
+                $(this).fadeTo(750,1);
+            }
+        });
+    }
+
+    articles = $("article").fadeTo(0, 0.05);
+    FadeInOnScroll(articles)
+
+    $(window).scroll(function() {
+        FadeInOnScroll(articles)
+    });
+</script>
+</body>
+</html>

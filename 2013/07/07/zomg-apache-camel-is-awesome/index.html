@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="Apache,Camel,Java" />
+        <meta name="description" content="At the work place, I&#39;ve had to do a lot of integration work on my current project.  Instead of trying to tie everything together on my own, someone recommended taking a look at Apache Camel.  Man, did that have a drastically good effect on my project! Well, What is ..." />
+
+    <title>ZOMG, Apache Camel is Awesome! - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2013/07/07/zomg-apache-camel-is-awesome/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2013/07/07/zomg-apache-camel-is-awesome/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2013/07/07/zomg-apache-camel-is-awesome/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2013/07/07/zomg-apache-camel-is-awesome/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2013/07/07/zomg-apache-camel-is-awesome/"
+                           rel="bookmark"
+                           title="Permalink to ZOMG, Apache Camel is Awesome!">
+                            ZOMG, Apache Camel is Awesome!
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2013-07-07T22:12:00-04:00"> Sun 07 July 2013</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/general-work-stuff.html">General Work Stuff</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/apache.html">Apache</a> /                 <a href="../../../../tag/camel.html">Camel</a> /                 <a href="../../../../tag/java.html">Java</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>At the <a class="reference external" href="http://www.coldlight.com/">work place</a>, I've had to do a lot
+of integration work on my current project. &nbsp;Instead of trying to tie
+everything together on my own, someone recommended taking a look at
+<a class="reference external" href="http://camel.apache.org/">Apache Camel</a>. &nbsp;Man, did that have a
+drastically good effect on my project!</p>
+<div class="section" id="well-what-is-it">
+<h2>Well, What is it?</h2>
+<p>It's an integration framework written in Java. &nbsp;In short, it's meant to
+make the act of integrating systems together easier.</p>
+</div>
+<div class="section" id="enough-of-the-jibberish-wtfsck-is-an-integration-framework">
+<h2>Enough of the Jibberish -- WTFsck() is an Integration Framework?</h2>
+<p>Yeah, that line wouldn't have made much sense to me, either, before
+reading the <a class="reference external" href="http://www.amazon.com/Camel-Action-Claus-Ibsen/dp/1935182366/">Camel
+book</a>.
+&nbsp;It's probably best to refer to an example.</p>
+<p>Let's say you have some really annoying manual process that you use to
+tie together two systems. &nbsp;I had a previous employer who would create
+ISO images and then had to manually upload them to a partner's site so
+that they could mass-produce optical media from said image. &nbsp;Some
+person, who was not a seasoned FTP user (nor wanted to be) had to have a
+set of credentials, access to the ISO, and had to babysit the upload.
+&nbsp;They also had the ability to break the transfer via FTP options. &nbsp;In
+this case, the partner needed us to use a specific set of options.</p>
+<p>This is something that Camel could do easily. &nbsp;Users create &quot;routes&quot; to
+describe processes like the one above. &nbsp;These routes can be described in
+Java, XML, or one of the many DSLs (domain specific languages) that are
+included. &nbsp;Here's an example route in XML that could satisfy the above
+problem:</p>
+<pre class="literal-block">
+&lt;route id=&quot;publishIso&quot;&gt;
+  &lt;from uri=&quot;file://path/to/iso/finished.iso&quot; /&gt;
+  &lt;to uri=&quot;ftp://user&#64;ftp.partner.com/path/to/publish/duplicateMe.iso?password=superSecret&quot; /&gt;
+&lt;/route&gt;
+</pre>
+<p>This route can be embedded inside of a Spring config file. To launch the
+route, the developer would just have to start a Spring context. This
+would start Camel, which would read the XML file. It would then sit
+there and scan the /path/to/iso/ directory for a filed named
+finished.iso every 500ms (by default, as of the time of this writing).
+When it finds the file, it will upload it to the specified FTP site.</p>
+<p>Simple, eh? All that from a little bit of XML and starting a Spring
+context (all of less than 6 lines of code in Java).</p>
+</div>
+<div class="section" id="go-on">
+<h2>Go on...</h2>
+<p>Well, as I stated, you can embed this into a <a class="reference external" href="http://camel.apache.org/spring.html">Spring
+configuration</a> file. Upon
+starting the context, Camel will start. You can also describe routes
+using the&nbsp;Java <a class="reference external" href="http://camel.apache.org/dsl.html">DSL</a>:</p>
+<pre class="literal-block">
+from(&quot;file://path/to/iso/finished.iso&quot;)
+    .to(&quot;ftp://user&#64;ftp.partner.com/path/to/publish/duplicateMe.iso?password=superSecret&quot;);
+</pre>
+<p>The &quot;from&quot; and &quot;to&quot; are described as
+&quot;<a class="reference external" href="http://camel.apache.org/endpoint.html">Endpoints</a>&quot; in Camel.
+&nbsp;Endpoints are created by
+&quot;<a class="reference external" href="http://camel.apache.org/component.html">Components</a>.&quot; &nbsp;This simple
+route demonstrates the File2 and FTP Components being used to generate
+two Endpoints. &nbsp;There are a TON of useful components, with this being a
+list of the ones that I use most often:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://camel.apache.org/bean.html">Bean</a> (for calling custom
+beans)</li>
+<li><a class="reference external" href="http://camel.apache.org/file2.html">File2</a></li>
+<li><a class="reference external" href="http://camel.apache.org/jms.html">JMS</a></li>
+</ul>
+</div>
+<div class="section" id="are-you-a-wizard">
+<h2>Are you a Wizard?</h2>
+<p>No. &nbsp;But Camel is.</p>
+<p>It ties together these Endpoints by passing
+<a class="reference external" href="http://camel.apache.org/maven/current/camel-core/apidocs/org/apache/camel/Message.html">Messages</a>
+to and fro. &nbsp;In addition to being able to directly configure the
+Endpoints, you can manipulate messages en route. &nbsp;For instance, Camel
+supports the notion of having <a class="reference external" href="http://camel.apache.org/data-format.html">Data
+Formats</a> so that it can
+seamlessly marshal/unmarshal a message body between Endpoints. &nbsp;An
+example use case might be if you're reading an XML file and you want to
+call a custom bean that you wrote, passing in the XML as an object.
+&nbsp;<a class="reference external" href="http://camel.apache.org/jaxb.html">Camel can use JAXB</a> to populate
+a POJO before calling your bean, preventing your custom bean from having
+to know anything about the file itself.</p>
+<p>It also handles threading wizardry for you. &nbsp;Many of these components
+have multi-thread options, meaning that Camel handles the nasty
+threading-bits. &nbsp;It's still incumbent upon the user to make sure that
+they're applying parallelism in an appropriate way, but Camel reduces
+this exercise to one of configuration and not implementation; Camel's
+bits already have this figured out.</p>
+</div>
+<div class="section" id="bottom-line">
+<h2>Bottom Line?</h2>
+<p>Camel saved me from having to implement a bunch of custom software to
+tie together my systems. &nbsp;I can create an XML config file, a few custom
+beans if need be, and presto! &nbsp;I now have Java program that will make
+several systems play nice, threading, logging, and all. &nbsp;Camel was a
+tremendous find, and it's had a tremendous impact on my work.</p>
+<p>Kudos to <a class="reference external" href="http://apache.org">Apache</a>, the<a class="reference external" href="http://camel.apache.org">Camel
+project</a>, and it's leader, <a class="reference external" href="http://www.davsclaus.com/">Claus
+Ibsen</a>.</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'zomg-apache-camel-is-awesome';
+        var disqus_url = '../../../../2013/07/07/zomg-apache-camel-is-awesome/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

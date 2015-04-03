@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="description" content="When I first started participating in Temple University&#39;s ACM chapter, we used to do a yearly community service.  The one that sticks out in my mind was Philadelphia Cares -- we&#39;d participate in some of their larger events.  This was a great idea, but membership participation fell -- people just ..." />
+
+    <title>Folding &#64;Home - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../projects/temple-acm’s-foldinghome-project/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../projects/temple-acm’s-foldinghome-project/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../projects/temple-acm’s-foldinghome-project/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../projects/temple-acm’s-foldinghome-project/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse         in
+">
+                    <li>
+                        <a href="../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<div class="row">
+    <div class="col-lg-12">
+        <section id="content" class="body">
+            <h1 class="page-header">Folding &#64;Home</h1>
+            <div class="entry-content">
+                <p>When I first started participating in <a class="reference external" href="http://acm.temple.edu/">Temple University's
+ACM</a> chapter, we used to do a yearly
+community service. &nbsp;The one that sticks out in my mind was <a class="reference external" href="http://www.philacares.com/">Philadelphia
+Cares</a> -- we'd participate in some of
+their larger events. &nbsp;This was a great idea, but membership
+participation fell -- people just didn't want to go around sweeping up
+trash in Philly. &nbsp;A few of us (ACM officers) decided to try to find
+something computer-centric. &nbsp;We needed something that was computer
+oriented and still a service to the community. &nbsp;We went through several
+ideas -- everything from doing events on <a class="reference external" href="http://www.secondlife.com/">Second
+Life</a> to computer donations. &nbsp;Some of
+them struck the group's interest, but they were too big for us. &nbsp;Other
+just got laughed at. &nbsp;I forget who originally suggested it, but we
+finally had an idea to get behind: &nbsp;<a class="reference external" href="http://folding.stanford.edu/">Folding at
+Home</a>.</p>
+<div class="line-block">
+<div class="line"><strong>Folding?</strong></div>
+<div class="line-block">
+<div class="line">I'll give a small explanation for those of you who don't know what
+F&#64;H is. &nbsp;There are several computer problems that are just too big for
+a single computer to handle. &nbsp;One of these problems is <a class="reference external" href="http://en.wikipedia.org/wiki/Protein_folding">protein
+folding</a>. &nbsp;The 3d
+shape of a protein is a big area of study for those in the biomedical
+field. &nbsp;Protein folding is believed to hold answers for diseases such
+as Parkinson's, Alzheimer's, sickle-cell, and mad cow disease.
+&nbsp;Understanding the shapes of proteins reveals and effects its
+functions. &nbsp;<a class="reference external" href="http://www.stanford.edu/">Stanford University</a> started
+Folding at Home as a way to leverage people's spare CPU and GPU cycles
+to help work on some of these protein folding problems. &nbsp;Volunteers
+can install a client on their computer(s) that will download a small
+bit of work, process it with idle CPU and GPU time, and send the
+results back to Stanford. &nbsp;These results are
+<a class="reference external" href="http://folding.stanford.edu/English/Papers">published</a> as academic
+research papers.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>In Motion</strong></div>
+<div class="line-block">
+<div class="line">Christian Willman and I started ACM's contribution in the summer of
+2009. &nbsp;We would meet in the Temple ACM office after work several days
+a week during the summer and assembled equipment. &nbsp;Some of the
+equipment was donated by members. &nbsp;Most of it was obtained from the
+<a class="reference external" href="https://atlas.ocis.temple.edu/crc/new/webstore/default.asp">Temple Computer Recycling
+Center</a>.
+&nbsp;We also obtained some other donations that helped:</div>
+</div>
+</div>
+<ul class="simple">
+<li>Jon Ikoniak donated an old half-height
+<a class="reference external" href="http://en.wikipedia.org/wiki/19-inch_rack">rack</a></li>
+<li>Christian Wilman &nbsp;donated several machines, a switch, zip ties, RJ45
+ends, and some cable</li>
+<li>Rob Masterson threw in a wireless router (for general office use)</li>
+<li>I threw in some machines, some tools, CAT5 cable, a router, RJ45 ends</li>
+</ul>
+<p>We assembled, networked, and set up the equipment. &nbsp;Since we're all
+geeks, we decided to run <a class="reference external" href="http://www.debian.org/">Debian</a> on all of
+our machines. &nbsp;From there, we spent some time setting up F&#64;H. &nbsp;To ease
+the process, we created a few scripts to create a fah user and to create
+the appropriate directories. &nbsp;Just for the record, we later (as in
+months) discovered
+<a class="reference external" href="https://help.ubuntu.com/community/FoldingAtHome/origami">Origami</a>
+and started leveraging it. &nbsp;We even started integrating it <a class="reference external" href="http://acm.temple.edu/fahprogress">into our
+website</a>. &nbsp;We haven't done a good
+job at maintaining it (the current list is a bit out-of-date...some
+computers have done, others have joined). &nbsp;The computers in our office
+run a <a class="reference external" href="http://en.wikipedia.org/wiki/Cron">cron</a> job that occasionally
+SSHs into our web server and posts its current progress in a text file.
+&nbsp;This text file gets parsed by some PHP code when you view the page
+(btw: &nbsp;we run <a class="reference external" href="http://drupal.org/">Drupal</a>). &nbsp;It was pretty neat to
+be able to look at a web page and to see how far each machine was
+progressing on its current work unit.</p>
+<p>Since our initial launch, we're also leveraged several other machines
+around us. &nbsp;We've not only leveraged our home machines, but we've also
+managed to leverage the <a class="reference external" href="http://www.temple.edu/cis">CIS department</a>'s
+group of <a class="reference external" href="http://lucas.cis.temple.edu/">Lucas machines</a>. &nbsp;We've even
+gotten some of the labs to start folding. &nbsp;At the time of this writing,
+we rank 1379 of 182762. &nbsp;That puts us in the top 1% of folding teams.</p>
+<p><strong>Resources</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="http://fah-web.stanford.edu/cgi-bin/main.py?qtype=teampage&amp;teamnum=170053">Temple University ACM Folding&#64;Home Team
+page</a>
+(<a class="reference external" href="http://fah-web.stanford.edu/teamstats/team170053.html">fast
+page</a>)</li>
+<li><a class="reference external" href="http://acm.temple.edu/about/activities/community">Temple University ACM's Community Service
+page</a></li>
+<li><a class="reference external" href="http://folding.stanford.edu/">Stanford Folding&#64;Home page</a></li>
+</ul>
+
+            </div>
+        </section>
+    </div>
+</div>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../theme/js/pelican_twitchy.min.js"></script>
+</body>
+</html>

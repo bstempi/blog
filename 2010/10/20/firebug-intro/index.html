@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="Firebug,Temple,web development" />
+        <meta name="description" content="A few weeks back, Professor Lefkovitz asked me to help him diagnose a problem with a web app.  The issue involved the communication between a browser and an AJAX web service used for authentication.  The initial struggle was trying to find an easy and elegant way of viewing the AJAX ..." />
+
+    <title>Firebug Intro - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2010/10/20/firebug-intro/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2010/10/20/firebug-intro/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2010/10/20/firebug-intro/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2010/10/20/firebug-intro/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2010/10/20/firebug-intro/"
+                           rel="bookmark"
+                           title="Permalink to Firebug Intro">
+                            Firebug Intro
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2010-10-20T13:48:00-04:00"> Wed 20 October 2010</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/firebug.html">Firebug</a> /                 <a href="../../../../tag/temple.html">Temple</a> /                 <a href="../../../../tag/web-development.html">web development</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>A few weeks back, <a class="reference external" href="http://www.cis.temple.edu/~lefkovit/">Professor
+Lefkovitz</a> asked me to help him
+diagnose a problem with a web app.&nbsp; The issue involved the communication
+between a browser and an AJAX web service used for authentication.&nbsp; The
+initial struggle was trying to find an easy and elegant way of viewing
+the AJAX request and response.&nbsp; The answer was simple:
+<a class="reference external" href="http://getfirebug.com/">Firebug</a> to the rescue! &nbsp;After seeing
+Firebug in action, I was asked to prepare a short lecture and
+demonstration of Firebug so that my classmates can benefit from this
+tool. &nbsp;My notes and demo follow below.</p>
+<div class="section" id="the-need">
+<h2>The Need</h2>
+<p>Every rookie web dev shares the same initial thought:&nbsp; web apps are
+impossible to debug!&nbsp; There's always several languages involved (some
+server side language, HTML, and possibly some CSS, JavaScript and
+SQL).&nbsp; Diagnosing problems with compiled code is hard enough...how do
+we diagnose problems when those programs present HTML instead of
+direct screen output?&nbsp; How do we diagnose problems with the output
+itself (like HTML and JavaScript errors)?&nbsp; Where the hell is
+System.out.println()?&nbsp; We can't view what's going on inside of the web
+browser!</p>
+<p>Yes you can!</p>
+<p>Firebug does exactly that:&nbsp; allow you to view what is going on inside of
+the browser.&nbsp; You can see how Firefox is interpreting your HTML, CSS,
+and JavaScript.&nbsp; You can also see raw HTTP sessions, response times, and
+can step though JavaScript code.&nbsp; Finally, a way to see exactly what the
+browser sees! Note: &nbsp;<a class="reference external" href="http://www.chromium.org/devtools">Chrome has a
+tool</a> similar to Firebug built in.
+&nbsp;Internet Explorer also has a <a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Explorer_Developer_Toolbar">similar
+plugin</a>.</p>
+</div>
+<div class="section" id="getting-firebug">
+<h2>Getting Firebug</h2>
+<p>Firefox has a pretty awesome plug-in engine.&nbsp; To get Firebug, simply
+go to <a class="reference external" href="http://www.getfirebug.com">getfirebug.com</a> and click the
+&quot;Install Firebug for Firefox&quot; button in the upper-right hand corner of
+the page.&nbsp; Easy!</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started</h2>
+<p>You'll notice that you have a new icon in the lower-right hand corner
+of the Firefox window after restarting the browser.&nbsp; This button
+toggles the Firebug display.&nbsp; By clicking on this button, you can
+toggle the Firebug view on and off.&nbsp; When you toggle the window on,
+you'll get something that looks like this:</p>
+<p><img alt="Firebug window" src="http://getfirebug.com/wiki/images/7/7d/Console_Panel.png" /></p>
+<p>You'll notice that there are 6 tabs along the top: console, HTML, CSS,
+script, DOM, and net.</p>
+</div>
+<div class="section" id="console">
+<h2>Console</h2>
+<p>The console is actually a JavaScrip console. &nbsp;It allows you to execute
+JavaScript code and observe errors, both in real time. &nbsp;This means that
+you can type lines of JavaScript code right into the console and they'll
+execute on-the-spot. &nbsp;I personally don't use this feature too much, but
+I'm sure others do. &nbsp;It's worth noting here that when you click on the
+Console tab for the first time it will be disabled. &nbsp;Several of the tabs
+are disabled by default when you start Firebug. &nbsp;This is because of
+performance reasons -- there's no sense in starting up every single tab
+(some of which can be a burden to the system) if you just want to debug
+some HTML.</p>
+</div>
+<div class="section" id="html">
+<h2>HTML</h2>
+<p>This panel allows you to see how your HTML is being interpreted by
+FF.&nbsp; It also allows you to see the 'current' HTML.&nbsp; That means that if
+you write some JavaScript code that modifies the page, this view will
+reflect those changes. &nbsp;You can also modify HTML through this console.
+This panel also has a tool that allows you to visually select an
+element and then takes you to the appropriate place in the code.
+Conversely, if you float your mouse over a bit of HTML code, the
+element within the HTML page will be highlighted.</p>
+</div>
+<div class="section" id="css">
+<h2>CSS</h2>
+<p>Similar to the HTML panel, this view allows you to see how your CSS
+rules are interpreted and applied.&nbsp; You can turn off individual rules,
+add rules, or modify rules on-the-fly.&nbsp; You can even see which rules
+supersede other rules and which rules are superseded.&nbsp; This is really
+useful for testing changes in CSS without having to go through the
+write-save-reload-view process.&nbsp; You can change the CSS within the
+browser and view the changes without having to constantly switch
+windows.</p>
+</div>
+<div class="section" id="script">
+<h2>Script</h2>
+<p>This section is the most mystical and magical thing that you'll see
+today if you have ever had to do any sort of JavaScript debugging
+prior to knowing about Firebug.&nbsp; Firebug will allow you all of the
+same debugging features for JavaScript that Netbeans would give you
+for Java.&nbsp; You can step through lines of code, set up break points,
+and view variable values during execution.&nbsp; It'll even show you the
+stack, which is useful for trying to figure out which anonymous
+functions you're buried in. &nbsp;Syntax and interpretation errors are also
+caught easily using this tool.</p>
+</div>
+<div class="section" id="dom">
+<h2>DOM</h2>
+<p>The DOM explorer allows you to navigate the DOM and to view each
+object's properties.&nbsp; This is helpful when doing JavaScript debugging
+and design. &nbsp;Unlike the HTML view, the DOM view will show you the
+JavaScript properties for objects or elements that you're interested in.</p>
+</div>
+<div class="section" id="net">
+<h2>Net</h2>
+<p>This panel allows you to see network traffic from a high level.&nbsp; It
+will show each HTTP(S) request that the browser makes, the time it
+took for the server to respond, the length and time of the response,
+it's content, etc etc.&nbsp; This is really useful for trying to track down
+latency problems or to view AJAX or web service communications. &nbsp;It
+also allows you to benchmark your web sites performance (eg, is the
+page loading slow due to a slow server response, or the browser
+choking on JavaScript code?). &nbsp;This view provides sub-tabs that allow
+you to drill down to view only certain types of requests.</p>
+</div>
+<div class="section" id="exercise">
+<h2>Exercise</h2>
+<p>In order to help show off some of Firebug's features, I decided to
+make up an
+<a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/10/firebugExample.html.zip">example</a>
+to show some of the potential uses. &nbsp;Some of the exercises are in text,
+while others will be verbally stated. &nbsp;This file probably won't make too
+much sense unless you're in class to see the demo.</p>
+</div>
+<div class="section" id="ze-end">
+<h2>Ze End</h2>
+<p>Feel free to leave comments or to ask questions!</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'firebug-intro';
+        var disqus_url = '../../../../2010/10/20/firebug-intro/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

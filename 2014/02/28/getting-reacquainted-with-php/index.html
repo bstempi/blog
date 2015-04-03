@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="PHP,Symfony" />
+        <meta name="description" content="By day, I&#39;m a Java developer.  Back when I was a systems administrator and a college student, I used PHP quite a bit.  It was my scripting language; my glue; my web platform.  I even have some PHP source published (Github, BitBucket).  When I started with PHP, I wasn ..." />
+
+    <title>Getting Reacquainted with PHP - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2014/02/28/getting-reacquainted-with-php/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2014/02/28/getting-reacquainted-with-php/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2014/02/28/getting-reacquainted-with-php/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2014/02/28/getting-reacquainted-with-php/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2014/02/28/getting-reacquainted-with-php/"
+                           rel="bookmark"
+                           title="Permalink to Getting Reacquainted with PHP">
+                            Getting Reacquainted with PHP
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2014-02-28T14:59:00-05:00"> Fri 28 February 2014</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/php.html">PHP</a> /                 <a href="../../../../tag/symfony.html">Symfony</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p><a class="reference external" href="http://www.linkedin.com/in/brianstempin">By day</a>, I'm a Java
+developer. &nbsp;Back when I was a systems administrator and a college
+student, I used PHP quite a bit. &nbsp;It was my scripting language; my glue;
+my web platform. &nbsp;I even have some PHP source published
+(<a class="reference external" href="https://github.com/bstempi/cloudmarketwatch.com">Github</a>,
+<a class="reference external" href="https://bitbucket.org/bstempi/projecteuler">BitBucket</a>). &nbsp;When I
+started with PHP, I wasn't using anything in the way of a framework. &nbsp;No
+MVC-bits, no ORM, no serializer, no dependency management. &nbsp;Nothing.
+&nbsp;This is wildly different than my Java development experience, where I
+regularly depend on things like Maven for dependency management, Guice
+or Spring for dependency injection, and Camel or Hadoop for an
+application framework. &nbsp;Where was this stuff for PHP?</p>
+<div class="section" id="it-s-there">
+<h2>It's There</h2>
+<p>Some of it was there when I first started with PHP, but a lot of it has
+been vastly improved since then. &nbsp;The fact is that I never knew these
+types of tools existed 10 years ago. &nbsp;Now that I'm going back and doing
+some PHP development, I'm rediscovering the PHP ecosystem. &nbsp;I'm finding
+some analogs for my familiar Java stack and some new tools that I wish I
+had elsewhere.</p>
+</div>
+<div class="section" id="symfony2">
+<h2>Symfony2</h2>
+<p>I had read a little bit about the original
+<a class="reference external" href="http://symfony.com/">Symfony</a> a few years back, but I never had much
+of a chance to use it. &nbsp;I started writing a few one-off web apps and
+decided that I wanted something lighter weight than Java. &nbsp;I remembered
+dealing with Symfony, so I took at look to see if it was something that
+would suit me. &nbsp;Since I'd last used it, Symfony2 had some out.</p>
+<p>What an awesome piece of software!</p>
+<p>Symfony2 is an absolute pleasure to use. &nbsp;It just kind of makes sense.
+&nbsp;I think the most impressive bit about it is that it ties together so
+many other tools and does so in a way that allows you to switch out
+different tools. &nbsp;It just <em>felt</em> better than the Java stacks I had
+worked with.</p>
+</div>
+<div class="section" id="composer">
+<h2>Composer</h2>
+<p><a class="reference external" href="https://getcomposer.org/">Composer</a> is one of the de facto
+dependency management systems in the PHP world and is the one used by
+Symfony2. &nbsp;In short: &nbsp;it's simple. &nbsp;It has a JSON file that lists the
+library and version dependencies. &nbsp;Thats it...thats enough to get
+someone started. &nbsp;It also has a plugin and scripting capabilities like
+Maven does, except that it doesn't feel anywhere near as clunky. &nbsp;It
+works pretty well and tends to be much less verbose.</p>
+</div>
+<div class="section" id="friends-of-symfony">
+<h2>Friends of Symfony</h2>
+<p>The <a class="reference external" href="https://github.com/FriendsOfSymfony">FOS bundles</a> are a pretty
+awesome addition to Symfony. &nbsp;Specifically, the rest bundle is
+top-notch. &nbsp;It just kind of handles routing, serialization, and
+validation with relatively little input from me. &nbsp;<a class="reference external" href="http://docs.spring.io/spring/docs/3.0.0.M3/reference/html/ch18s02.html">Spring does
+this</a>,
+and I've used Spring for providing data via a RESTful service before.
+&nbsp;While the FOSRest bundle has some documentation problems, it was still
+much more of a pleasure than dealing with the setup and verbosity of
+Spring. &nbsp;Routing in particular is a bit painful with the version of
+Spring that I used. &nbsp;Symfony, instead of forcing me to annotate every
+method with the URL, allows me to extend a controller class and to
+create the methods that I want. &nbsp;If I follow a simple naming convention,
+it just works. &nbsp;If I want to override the default URL scheme, I can. &nbsp;It
+just feels more powerful, and I don't have to wait for a servlet to
+restart between tests. &nbsp;I feel like I'm just sitting around and waiting
+less.</p>
+</div>
+<div class="section" id="doctrine">
+<h2>Doctrine</h2>
+<p><a class="reference external" href="http://www.doctrine-project.org/">Doctrine</a> is the default ORM
+packaged with Symfony2. &nbsp;If you've used
+<a class="reference external" href="http://hibernate.org/">Hibernate</a>, then Doctrine should seem
+familiar. &nbsp;For the most part, they're very similar. &nbsp;They both hydrate
+and persist object graphs; they both have a query language; they both
+have some sort of caching. &nbsp;My big beef with Hibernate was its dealings
+with entity relationships. &nbsp;I felt like Hibernate or the documentation
+(I'm not sure which one, and I'm too lazy to find out) made figuring out
+which entity should (or did) own a relationship to some other entity a
+pain. &nbsp;A royal pain. &nbsp;I remember spending days on that in previous
+projects. &nbsp;Perhaps I was being thick back then, but I don't remember
+having those pains with Doctrine. &nbsp;I felt like the documentation was
+much more concise and that relationship management was much easier to
+follow.</p>
+</div>
+<div class="section" id="performance">
+<h2>Performance</h2>
+<p>I've spent this entire post gushing over how I've started to really like
+Symfony and how I'm getting back into PHP development. &nbsp;The down side?
+&nbsp;Performance. &nbsp;Unlike Java, there's no PHP process that sits around and
+listens for requests. &nbsp;Also, threading is not a common practice in PHP.
+&nbsp;<a class="reference external" href="http://us2.php.net/pthreads">Threading exists</a>, but few use it.
+&nbsp;Each request is a process or comes from a process pool. &nbsp;Each requests
+is basically an application restart, which can get expensive and is not
+great for performance. &nbsp;Event CLI tools like composer can seem slow at
+times.</p>
+<p>That said, there are solutions on the horizon (I haven't tried any yet).
+&nbsp;Tools like <a class="reference external" href="https://github.com/reactphp/react">Reactor</a> exist and
+claim to erase this cost.</p>
+</div>
+<div class="section" id="its-just-satisfying">
+<h2>Its Just...Satisfying</h2>
+<p>That's it. &nbsp;For whatever reason, despite some of the (large) down-sides
+of PHP, working with is has just been satisfying. &nbsp;I don't know if I'm
+actually any more productive, but I certainly feel like it. &nbsp;Anywho,
+here's to doing more of my side projects in PHP and to seeing its
+ecosystem continue to evolve and grow!</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'getting-reacquainted-with-php';
+        var disqus_url = '../../../../2014/02/28/getting-reacquainted-with-php/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

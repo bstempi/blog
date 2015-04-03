@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="IPB,Wildfire Games" />
+        <meta name="description" content="Despite my apparent lack of activity, I&#39;ve been doing quite a bit of work for WFG lately.  Our messaging board system and some other parts of our website run on the Invision Power Board version 2.  We&#39;d happily keep chugging along, but IBP2 is no longer supported, so ..." />
+
+    <title>IPB3 Upgrade for Wildfire Games - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2011/03/06/ipb3-upgrade-for-wildfire-games/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2011/03/06/ipb3-upgrade-for-wildfire-games/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2011/03/06/ipb3-upgrade-for-wildfire-games/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2011/03/06/ipb3-upgrade-for-wildfire-games/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2011/03/06/ipb3-upgrade-for-wildfire-games/"
+                           rel="bookmark"
+                           title="Permalink to IPB3 Upgrade for Wildfire Games">
+                            IPB3 Upgrade for Wildfire Games
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2011-03-06T12:36:00-05:00"> Sun 06 March 2011</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/community.html">Community</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/ipb.html">IPB</a> /                 <a href="../../../../tag/wildfire-games.html">Wildfire Games</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>Despite my apparent lack of activity, I've been doing quite a bit of
+work for WFG lately. &nbsp;Our messaging board system and some other parts of
+our website run on the Invision Power Board version 2. &nbsp;We'd happily
+keep chugging along, but IBP2 is no longer supported, so we have to move
+to IPB3 in order to keep getting updates and new features. &nbsp;Since it's a
+fairly large forum (more than 200,000 posts), I thought that I'd take
+the opportunity to write about it.</p>
+<div class="section" id="process">
+<h2>Process</h2>
+<p>The process for upgrading wasn't that bad. &nbsp;All I had to do was to
+upload some new files, run upgrade.php, and then log into the admin
+panel and rebuild the posts. &nbsp;Done! &nbsp;Granted, the process took a while
+(rebuilding posts take a <em>lot</em> of DB time), but it didn't require that
+much effort.</p>
+</div>
+<div class="section" id="benefits">
+<h2>Benefits</h2>
+<p>I don't mean to sound like a sales pitch, but there were some very good
+reasons for upgrading:</p>
+<ul class="simple">
+<li>Updates. &nbsp;IPB2 was no longer maintained, so we weren't getting
+security updates.</li>
+<li>Spam control. &nbsp;IPB2 didn't have any built-in measures for controlling
+spam, but v3 does.</li>
+<li>Ban-hammer. &nbsp;IPB3 makes it much easier to patrol the forums and to
+remove offensive posts or to warn users.</li>
+<li>Editors. &nbsp;The new version has a much nicer post editor.</li>
+</ul>
+</div>
+<div class="section" id="experience">
+<h2>Experience</h2>
+<p>The upgrade was pretty easy...just upload a few files, run a PHP script,
+and wa-la! &nbsp;Easy.</p>
+<p>Kind of.</p>
+<p>The version of the package that I was given, 3.1.3, contains an error.
+&nbsp;The error was found by one of our developers, Ykkrosh (Phillip):</p>
+<blockquote>
+Assuming this is about the formatting buttons in the post interface,
+it looks like it fails when it tries processing the
+&quot;ed-0_palette_otherstyles_img center&quot; element, because that name
+contains a space and so it breaks the selector passed to
+querySelectorAll since they don't escape it properly
+('#ed-0_palette_otherstyles_img center input[type=&quot;submit&quot;]'). (I
+have no idea why they mess around with id selectors instead of just
+calling Element.querySelectorAll directly). Given they have lots of
+different selector implementations and it might take effort to fix
+bugs in all of them, I guess the safer solution is to get rid of the
+&quot;img center&quot; and &quot;img left&quot; etc custom BBcodes, since I think we
+only use them for aligning images in the site content pages (which
+don't use this forum any more).</blockquote>
+<p>This error caused all kinds of headaches. &nbsp;The WYSIWYG editor for adding
+and editing posts would display HTML tags instead of formatting the text
+for you. &nbsp;If you were leaving a reply, it would also clear the text
+field if the field lost and then regained focus. &nbsp;What a pain!</p>
+<p>BUT -- Everything post-upgrade has been pretty awesome. &nbsp;We now have a
+new theme, a &quot;portal,&quot; and a few other nice features. &nbsp;Over all, it's
+been a great success!</p>
+</div>
+<div class="section" id="the-moar-you-know">
+<h2>The Moar You Know</h2>
+<p>So, what did I take away from this? &nbsp;A few things:</p>
+<ol class="arabic simple">
+<li>You can <strong>never</strong> test enough. &nbsp;I ran through several test upgrades
+on my hosting account to make sure that nothing was broken and
+identified a few configuration bugs. &nbsp;Some of the other team members
+even submitted bug reports, which made me feel good -- I'd rather
+find stuff in testing than after deployment. &nbsp;Yet, somehow we all
+neglected to actually try to post :p. &nbsp;There were some simple and
+crucial tests that I could have run to prevent the few days of
+headaches that I ended up causing our forum users.</li>
+<li>I could have saved a lot of time by performing the upgrade on a local
+machine instead of a shared host. &nbsp;As I said earlier in the post,
+part of the upgrade requires rebuilding the posts, which means that
+all 200,000+ posts have to be read and processed. &nbsp;My shared host
+took several hours to do this, partly because there are CPU limits on
+my account and because I'm competing for resources. &nbsp;It probably
+would have been smarter to run the upgrade on one of my local
+machines and then to upload the results to my host.</li>
+<li>Janitorial work is important. &nbsp;Some of the headaches that I
+encountered during my upgrade process came from obscure database and
+directory names. &nbsp;To make matters worse, I didn't clean things out.
+&nbsp;If I spend some time playing website janitor for a bit, I'll
+probably be able to avoid most of those headaches next time we do a
+major upgrade. &nbsp;Since we have a new website in the works, I have an
+opportunity to apply this lesson now-ish.</li>
+</ol>
+</div>
+<div class="section" id="thanks">
+<h2>Thanks</h2>
+<p>I owe a big thanks to the following people, in no particular order:</p>
+<ul class="simple">
+<li>k776 (Kieran): &nbsp;Thank you so much for staying on IRC with me during
+the upgrade! &nbsp;Having someone to talk to during the process made the
+whole thing go quicker. &nbsp;Having a second set of eyes and someone who
+could assist me was a huge help and motivator.</li>
+<li>Ykkrosh (Phillip): &nbsp;You solved the most crucial bug in the upgrade.
+&nbsp;You rock!</li>
+<li>Jeru (Aviv): &nbsp;Thanks for helping out with testing and steering the
+process. &nbsp;Thanks for being so dedicated.</li>
+<li>Wijitmaker (Jason): &nbsp;Every time I needed something from IPB, you were
+there to supply it. &nbsp;I never had to wait for support from you -- you
+were &quot;just there&quot; with a reply in an instant. &nbsp;Thanks for being so
+responsive.</li>
+<li>feneur (Erik): &nbsp;You've always been there when I needed input and to
+provide encouragement and praise. &nbsp;Thanks for making me feel like
+part of the team.</li>
+<li>The rest of the WFG team and our users: &nbsp;Thank you all so much for
+your patience, persistence, and feedback.</li>
+</ul>
+<p>Onto beta 4 and our new website!</p>
+</div>
+
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'ipb3-upgrade-for-wildfire-games';
+        var disqus_url = '../../../../2011/03/06/ipb3-upgrade-for-wildfire-games/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>

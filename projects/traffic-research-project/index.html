@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="description" content="During the past few semesters, I&#39;ve been working with Prof. Slobodan Vucetic on a graduate level research project.  I was originally introduced to him through Jon Ikoniak while I was looking for work.  After talking to Prof. Slobodan for about a semester, he presented me with a few projects ..." />
+
+    <title>Traffic Research Project - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../projects/traffic-research-project/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../projects/traffic-research-project/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../projects/traffic-research-project/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../projects/traffic-research-project/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse         in
+">
+                    <li>
+                        <a href="../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">25</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<div class="row">
+    <div class="col-lg-12">
+        <section id="content" class="body">
+            <h1 class="page-header">Traffic Research Project</h1>
+            <div class="entry-content">
+                <p>During the past few semesters, I've been working with Prof. <a class="reference external" href="http://www.ist.temple.edu/~vucetic/">Slobodan
+Vucetic</a> on a graduate level
+research project. &nbsp;I was originally introduced to him through Jon
+Ikoniak while I was looking for work. &nbsp;After talking to Prof. Slobodan
+for about a semester, he presented me with a few projects that had
+either gone dormant or could use some sort of help. &nbsp;Some of these
+projects were about algorithm optimization on&nbsp;micro devices and various
+types of <a class="reference external" href="http://en.wikipedia.org/wiki/Machine_learning">machine
+learning</a>. &nbsp;One of the
+last ones that he brought up was a project that aimed to be able to
+predict traffic patterns and travel time.</p>
+<div class="section" id="sounds-like-fun">
+<h2>Sounds Like Fun</h2>
+<p>So, why did the traffic project catch my eye? &nbsp;For a few reasons.
+The first is that it seemed to be within my field. &nbsp;I felt that I
+could pick up
+<a class="reference external" href="http://en.wikipedia.org/wiki/Geographic_information_system">GIS</a>
+tools and start playing with them pretty quickly. &nbsp;Some of the tools
+themselves sounded like fun -- I have never really used
+<a class="reference external" href="http://www.postgresql.org/">PostgreSQL</a>, let alone the <a class="reference external" href="http://postgis.refractions.net/download/">PostGIS
+plug-in</a>, before. &nbsp;The
+prospect of being able to turn my results into a web application was
+also pretty exciting. &nbsp;What better way to show off your work then by
+letting people us it on-line?</p>
+</div>
+<div class="section" id="a-little-more-project-background">
+<h2>A Little More Project Background</h2>
+<p>The city
+of&nbsp;<a class="reference external" href="http://www.google.com/search?ie=UTF-8&amp;q=minneapolis+mn">Minneapolis</a>
+has a couple of thousand of sensors strewn across its highway system.
+These sensors report data once every ten minutes, 24 hours a day, 7
+days a week. &nbsp;Prof. Slobodan had managed to get a few years worth of
+this data. &nbsp;The end goal was to use this historical data to predict
+future patterns. &nbsp;A PhD student had worked on the project for some
+time, but was missing some key data structures. &nbsp;It turns out that
+knowing how sensors are related makes a pretty large difference when
+trying to make a prediction. &nbsp;For whatever reason, this type of
+structure was never created.</p>
+<p>That's where I was to initially come in. &nbsp;My job was to create a
+<a class="reference external" href="http://en.wikipedia.org/wiki/Graph_(mathematics)">graph</a> that
+described how sensors were related. &nbsp;We needed to know which sensors fed
+into which other sensors. &nbsp;Before actually starting on this project,
+Prof. Slobodan handed me a <a class="reference external" href="http://pragprog.com/titles/sdgis/gis-for-web-developers">book on GIS
+systems</a> and
+asked me to read it. &nbsp;After doing so, I felt pretty confident that GIS
+systems were the answer to this portion of the project. &nbsp;From there, I
+was off and running!</p>
+</div>
+<div class="section" id="method">
+<h2>Method</h2>
+<p>Before I get into &quot;the how,&quot; I should probably give a list of tools
+that I used:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.postgresql.org/">PostgreSQL</a> with <a class="reference external" href="http://postgis.refractions.net/download/">PostGIS
+extension</a> -- These two
+tools allowed me to create databases that had geometry columns. &nbsp;This
+allowed me to store and query for parts of maps with SQL.</li>
+<li><a class="reference external" href="http://www.qgis.org/">QGIS</a> -- I used this tool to view the GIS
+data that I had stored inside of Postgres. &nbsp;It even allows me to do
+queries and to style my geometries based on the other data in that
+geometry's row. &nbsp;Pretty neat!</li>
+<li><a class="reference external" href="http://php.net/index.php">PHP</a> -- I used PHP to tie things
+together. &nbsp;Most of my work dealt with the database, so PHP was used
+mostly as a query container. &nbsp;It was also used in another part of the
+project to deliver geometry data to the web client via an AJAX call.</li>
+<li><a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap</a> -- The data that
+came from the <a class="reference external" href="http://www.dot.state.mn.us/">MNDOT</a> wasn't very
+good -- the metadata wasn't good enough for me
+to&nbsp;discriminate&nbsp;between highways and side streets. &nbsp;OpenStreetMaps
+has an awesome amount of data attached to each geometry, making it
+easy for me to filter my queries based on what type (highway,
+residential, ramp) of road I was trying to view.</li>
+<li><a class="reference external" href="http://openlayers.org/">OpenLayers</a> -- This package allowed me to
+display GIS data in a Google Maps type of manor. &nbsp;Life saver!</li>
+</ul>
+<p>So, here's what I was given by Prof. Vucetic:</p>
+<ul class="simple">
+<li>Some &quot;raw&quot; (they were really pre-processed) sensor readings (for
+later use)</li>
+<li>A <a class="reference external" href="http://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> file
+containing the coordinates of each sensor</li>
+</ul>
+<p>In order to figure out how each sensor was related to each other, I had
+to figure out how they were related to the roads. &nbsp;I had to figure out
+which sensor belonged to which road segment. &nbsp;I did this by using a few
+clever geospatial queries. &nbsp;In short, I associated each sensor with the
+highway that it was closest to. &nbsp;This let do a problem though:
+&nbsp;sometimes multiple sensors were associated to the same logical road
+segment. &nbsp;In order to get around this, I used a clever geospatial query
+to redraw the map so that no road segment was over 0.5 miles in length.
+&nbsp;This was short enough to allow each station to be associated to its own
+segment. &nbsp;From here, I &quot;reduced&quot; the road graph -- I removed the
+segments that did not have sensors attached to them. &nbsp;What I was left
+with was a graph that contained only road segments that were attached to
+sensors. &nbsp;I now had a sensor graph.</p>
+<p>From here, we did some editing by hand. &nbsp;The map had some built-in
+errors that caused some pretty weird behaviors. &nbsp;The &quot;match the sensor
+to the closest road segment&quot; method wasn't fool-proof, either. &nbsp;It
+worked great until there were intersections or places where highways
+intertwined. &nbsp;Some manual editing and sanity checking in QGIS got us the
+rest of the way there. &nbsp;I guess I should note that we didn't check every
+single segment -- errors in the graph still exist.</p>
+<p>The next part was up to Vladimir and Prof. Vucetic. &nbsp;They used some sort
+of <a class="reference external" href="http://en.wikipedia.org/wiki/Linear_regression">linear
+regression</a> algorithm
+to analyze the historical data and to come up with some alpha and beta
+values for an equation to generate a predicted travel speed for a given
+sensor at a given time. &nbsp;This list of alphas and betas was then handed
+over to me. &nbsp;This is where the web application starts.</p>
+<p>In order to really show the usefulness of our work, we decided to create
+a web app that would offer the user a route based on travel time. &nbsp;In
+order to reduce the amount of time spent on the interface, I force the
+user to select a sensor instead of allowing them to pick random points
+or to use addresses. &nbsp;When a user selects two points, they can either
+opt to get a shortest distance or a shortest travel time route. &nbsp;Both
+are achieved by using a simple <a class="reference external" href="http://en.wikipedia.org/wiki/Dijkstra's_algorithm">Dykstra
+algorithm</a>. &nbsp;In
+the case of the shortest distance query, I simply use each road
+segment's length as the weight (these values are pregenerated to save
+time). &nbsp;In the case of the travel time query, I have to calculate the
+travel time for each segment. &nbsp;I query for the distance, alpha, beta,
+and historical speed for this segment at the chosen point in time. &nbsp;A *
+historical speed + B gives the predicted speed, which is used with the
+segment length to predict the travel time.</p>
+<p>This was slow. &nbsp;There are several thousand edges in the road graph. &nbsp;In
+order to solve this performance problem, I sought to reduce the graph
+size. &nbsp;I decided that the best way to do this was to precache links
+between sensors. &nbsp;Given two adjacent sensors, I can query for the path
+(the road segments) between the two (as well as the overall length,
+etc). &nbsp;I opted to find the shortest distance between each sensor for a
+couple of reasons. &nbsp;For one, the station graph is much smaller than the
+road graph. &nbsp;Secondly, if I know a predicted travel speed, it does not
+make sense to take a longer drive between two sensors -- I may avoid
+certain sensors, but I'll always take the shortest path between sensors,
+which yields the shortest driving time. &nbsp;This reduction in graph size
+allows for sub-second route generation in our model. &nbsp;As a point of
+comparison, the old method took minutes.</p>
+<p>Now that I was able to generate routes, I had to display them.
+&nbsp;OpenLayers was a life-saver. &nbsp;It did almost everything I needed
+out-of-the-box. &nbsp;I was able to display all of the sensors over a map of
+Minneapolis that was provided my OpenStreetMap. &nbsp;Allowing a user to
+select two sensors was pretty easy, but displaying an arbitrary line was
+not. &nbsp;In order to get around this, I wrote a small PHP script. &nbsp;This
+script would figure out the route (which road segments and in which
+order they were to be traveled) and would query the database for the
+geometries in <a class="reference external" href="http://en.wikipedia.org/wiki/Well-known_text">WKT</a>
+(Well Known Text) format. &nbsp;This was then sent to the web browser and
+rendered by OpenLayers. &nbsp;I was not able to display my routes in a web
+browser! &nbsp;Pretty cool.</p>
+</div>
+<div class="section" id="afterthoughts">
+<h2>Afterthoughts</h2>
+<p>There are several things that I'd like to fix. &nbsp;For one, I'd love to
+find a better way for the user to select their source and destinations
+-- the current interface is a bit fussy and busy. &nbsp;The second thing
+would be to add the ability to do U-turns. &nbsp;Currently, the software
+doesn't acknowledge the ability to exit and reenter the highway -- it
+ignores all side roads. &nbsp;U-turns would make it much easier to find
+examples of places that our software would avoid traffic. &nbsp;Thirdly,
+it'd be nice to compare the shortest distance route to the shortest
+time route. &nbsp;It'd be useful to display something along the lines of,
+&quot;Shortest distance travel time: 20 min, Shortest possible travel time:
+10 min.&quot;</p>
+<p>There were some technical aspects of the project that I would have
+changed as well. &nbsp;I don't think that I did a good job of documenting
+each of my datasets or of tracking my source code changes. &nbsp;I think that
+I should have also implemented some of my solutions as SQL stored
+procedures instead of PHP scripts. &nbsp;It would have also been nice to have
+a little framework for running experiments -- perhaps something that
+could run a series of scripts and label the resulting datasets so that I
+could examine them later. &nbsp;I don't know -- I just felt a little
+overwhelmed with tables.</p>
+<p>I think the project was a great success. &nbsp;We can now make predictions
+and immediately put them to use. &nbsp;I also wrote my software in such a way
+that I can do the same GIS operations on other datasets and produce the
+graphs needed to do predictions. &nbsp;Despite my user interface being a bit
+fussy, the application looks nice and behaves most of the time.</p>
+</div>
+<div class="section" id="eye-candy">
+<h2>Eye Candy</h2>
+<p>Here are some screenshots of the different tools and pieces of
+software during use.</p>
+<p><a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/04/Future-Of-Computing-2010-Poster.ppt">Future Of Computing 2010
+Poster</a> (ppt)</p>
+<p><a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/04/Future-Of-Computing-2010-Poster.pdf">Future Of Computing 2010 Poster</a> (pdf)</p>
+<p><a class="reference external" href="../../images/Poster1.png"><img alt="Traffic Router 1" src="../../images/Poster1-300x141.png" /></a><a class="reference external" href="../../images/Poster2.png"><img alt="Traffic Router 2" src="../../images/Poster2-300x141.png" /></a><a class="reference external" href="../../images/Poster3.png"><img alt="Traffic Router 3" src="../../images/Poster3-300x144.png" /></a><a class="reference external" href="../../images/Poster4.png"><img alt="QGIS Screenshot" src="../../images/Poster4-300x189.png" /></a><a class="reference external" href="../../images/SS4_3038.jpg"><img alt="me and my poster" src="../../images/SS4_3038-300x200.jpg" /></a></p>
+</div>
+
+            </div>
+        </section>
+    </div>
+</div>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2014 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../theme/js/pelican_twitchy.min.js"></script>
+</body>
+</html>
