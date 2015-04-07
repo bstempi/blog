@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="Python" />
+        <meta name="description" content="Yep, that&#39;s right...I kicked WordPress to the curb and decided to do the whole staticly-generated-pages-thing. When I originally started this blog, WordPress just made the most sense. It was easy to install, easy to maintain, had plenty of skins and plugins available, and just worked. So, why the ..." />
+
+    <title>Perhaps You've Noticed: I Have a New Blog - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2015/04/06/new-blog/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2015/04/06/new-blog/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2015/04/06/new-blog/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2015/04/06/new-blog/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">4</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2015/04/06/new-blog/"
+                           rel="bookmark"
+                           title="Permalink to Perhaps You've Noticed: I Have a New Blog">
+                            Perhaps You've Noticed:  I Have a New Blog
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2015-04-06T19:15:00-04:00"> Mon 06 April 2015</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/python.html">Python</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>Yep, that's right...I kicked WordPress to the curb and decided to do the whole staticly-generated-pages-thing.  When I
+originally started this blog, WordPress just made the most sense.  It was easy to install, easy to maintain, had plenty
+of skins and plugins available, and just worked.</p>
+<p>So, why the departure?  The reason is two-fold:  <a href="http://www.bluehost.com/">bluehost</a> is slow, and I don't write often
+enough to justify the WordPress maintenance.</p>
+<p>Bluehost being slow was definitely the biggest factor for me.  I helped develop a WordPress site for <a href="http://play0ad.com/">0 A.D.</a>
+and it runs much, much faster than my blog.  The 0 A.D. site has a lot more plugins, themeing, traffic, and activity than
+my blog, yet it runs tons faster.  Its not that they use some sort of super-servers or anything like that.  I think its
+because bluehost just does a crappy job at making sure that their machines aren't shared between too many different sites.
+The convenience just isn't worth the bad impression that a slow site makes on visitors (some of which are potential employers).</p>
+<p>Secondly, WordPress upgrades and major releases cost me more time than writing does.  If I can't be bothered with making sure that
+my theme and plugins work with the newest release, then why bother?  This also means that hosting isn't an option for me,
+either.  I definitely don't want to have to worry about my VPS getting <a href="http://funnystack.com/wp-content/uploads/2014/05/Funny-Weightlifting-40.jpg">b0rked</a>
+because of the latest 0-day exploit.  Its just not worth it.</p>
+<h1>Static Pages to the Rescue</h1>
+<p>Static pages solve all of these problems.  I don't have to worry about updates or server vulnerabilities.  I don't have
+to worry about 0-days coming along and murdering my content.  I don't have to worry about speed.  Everything is better.</p>
+<p>Its also cheaper.  I'm currently having my blog hosted via <a href="https://pages.github.com/">GitHub Pages</a> for free, but I
+could have just as easily hosted it on S3 and Cloudfront for less than a dollar a month since I don't see a huge amount
+of traffic.</p>
+<h1>Tooling</h1>
+<p>So, how do I go about making static pages?  I use a tool called <a href="http://blog.getpelican.com/">Pelican</a>.  Its pretty
+similar to <a href="http://jekyllrb.com/">Jekyll</a>, except that its written in Python and not Ruby.  I settled on Pelican because
+I have familiarity with the Python stack and because I happen to already have a bunch of Python stuff installed.
+It also has some nice tools for porting content from WordPress.  The only thing that I had to handle after porting the
+content was manually porting the images and fixing links.  That's it.</p>
+<p>Publishing is pretty simple, too.  Once I generate the content, I just use <a href="https://github.com/davisp/ghp-import">ghp-import</a>
+to check it into GitHub, and wa-la!  My content is posted.  I could use something like TravisCI to do this for me, but
+its a bit of a pain to have to find a way to share credentials with a build service like that.  Its just simpler for me
+to run the one extra command after a commit and push to publish.</p>
+<h1>Final Thoughts</h1>
+<p>I love how much faster and easier it is to maintain my blog.  Getting Pelican &amp; co set up might sound intimidating, but
+its not.  Its very much worth it.  I should have done this a long time ago.</p>
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+    <div id="show-comments" class="span7 text-center">
+        <a href="../../../../2015/04/06/new-blog/#disqus_thread" data-disqus-identifier="new-blog" class="btn btn-default">Show Comments</a>
+    </div>
+    <section id="comments" class="comments hidden">
+        <hr/>
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2015 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-7381557-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'bstempiblog'; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'new-blog';
+        var disqus_url = '../../../../2015/04/06/new-blog/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /*load script for comment count*/
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    
+        $('#show-comments').click(function () {
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+            $('#show-comments').fadeOut();
+            /*$('#comments').toggleClass('hidden');*/
+            $('#comments').fadeIn().removeClass('hidden');
+        });
+</script>
+
+<!-- /disqus --></body>
+</html>
