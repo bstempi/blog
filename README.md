@@ -3,8 +3,9 @@ Brian Stempin's Blog
 
 Here are the instructions for generating and publishing static pages from this repo:
 
-*  Checkout this repo
-*  Run `virtualenv .virtualenv/`  It's already added to the gitignore
+*  Checkout this repo and `cd` into it
+*  Run `virtualenv env/`  It's already added to the gitignore
+     *  Enable it by running `source env/bin/activate`
 *  If you have pip installed, run `ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip install -r requirements.txt`.  If you don't have pip installed, then install it.
 *  To generate page in dev mode and to regenerate on content changes, run `pelican -v -r --ignore-cache content`
 *  To run a small web server to view generated pages, run `python -m SimpleHTTPServer 9000`
