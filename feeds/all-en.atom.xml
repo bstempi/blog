@@ -6,32 +6,32 @@ of skins and plugins available, and just worked.&lt;/p&gt;
 enough to justify the WordPress maintenance.&lt;/p&gt;
 &lt;p&gt;Bluehost being slow was definitely the biggest factor for me.  I helped develop a WordPress site for &lt;a href="http://play0ad.com/"&gt;0 A.D.&lt;/a&gt;
 and it runs much, much faster than my blog.  The 0 A.D. site has a lot more plugins, themeing, traffic, and activity than
-my blog, yet it runs tons faster.  Its not that they use some sort of super-servers or anything like that.  I think its
+my blog, yet it runs tons faster.  It's not that they use some sort of super-servers or anything like that.  I think it's
 because bluehost just does a crappy job at making sure that their machines aren't shared between too many different sites.
 The convenience just isn't worth the bad impression that a slow site makes on visitors (some of which are potential employers).&lt;/p&gt;
 &lt;p&gt;Secondly, WordPress upgrades and major releases cost me more time than writing does.  If I can't be bothered with making sure that
 my theme and plugins work with the newest release, then why bother?  This also means that hosting isn't an option for me,
 either.  I definitely don't want to have to worry about my VPS getting &lt;a href="http://funnystack.com/wp-content/uploads/2014/05/Funny-Weightlifting-40.jpg"&gt;b0rked&lt;/a&gt;
-because of the latest 0-day exploit.  Its just not worth it.&lt;/p&gt;
+because of the latest 0-day exploit.  It's just not worth it.&lt;/p&gt;
 &lt;h1&gt;Static Pages to the Rescue&lt;/h1&gt;
 &lt;p&gt;Static pages solve all of these problems.  I don't have to worry about updates or server vulnerabilities.  I don't have
 to worry about 0-days coming along and murdering my content.  I don't have to worry about speed.  Everything is better.&lt;/p&gt;
-&lt;p&gt;Its also cheaper.  I'm currently having my blog hosted via &lt;a href="https://pages.github.com/"&gt;GitHub Pages&lt;/a&gt; for free, but I
+&lt;p&gt;It's also cheaper.  I'm currently having my blog hosted via &lt;a href="https://pages.github.com/"&gt;GitHub Pages&lt;/a&gt; for free, but I
 could have just as easily hosted it on S3 and Cloudfront for less than a dollar a month since I don't see a huge amount
 of traffic.&lt;/p&gt;
 &lt;h1&gt;Tooling&lt;/h1&gt;
-&lt;p&gt;So, how do I go about making static pages?  I use a tool called &lt;a href="http://blog.getpelican.com/"&gt;Pelican&lt;/a&gt;.  Its pretty
-similar to &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt;, except that its written in Python and not Ruby.  I settled on Pelican because
+&lt;p&gt;So, how do I go about making static pages?  I use a tool called &lt;a href="http://blog.getpelican.com/"&gt;Pelican&lt;/a&gt;.  It's pretty
+similar to &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt;, except that it's written in Python and not Ruby.  I settled on Pelican because
 I have familiarity with the Python stack and because I happen to already have a bunch of Python stuff installed.
 It also has some nice tools for porting content from WordPress.  The only thing that I had to handle after porting the
 content was manually porting the images and fixing links.  That's it.&lt;/p&gt;
 &lt;p&gt;Publishing is pretty simple, too.  Once I generate the content, I just use &lt;a href="https://github.com/davisp/ghp-import"&gt;ghp-import&lt;/a&gt;
 to check it into GitHub, and wa-la!  My content is posted.  I could use something like TravisCI to do this for me, but
-its a bit of a pain to have to find a way to share credentials with a build service like that.  Its just simpler for me
+it's a bit of a pain to have to find a way to share credentials with a build service like that.  It's just simpler for me
 to run the one extra command after a commit and push to publish.&lt;/p&gt;
 &lt;h1&gt;Final Thoughts&lt;/h1&gt;
 &lt;p&gt;I love how much faster and easier it is to maintain my blog.  Getting Pelican &amp;amp; co set up might sound intimidating, but
-its not.  Its very much worth it.  I should have done this a long time ago.&lt;/p&gt;</summary><category term="Python"></category></entry><entry><title>Update to my Vindinium Client</title><link href="http://brianstempin.com/2014/10/20/update-to-my-vindinium-client/" rel="alternate"></link><updated>2014-10-20T22:27:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2014-10-20:2014/10/20/update-to-my-vindinium-client/</id><summary type="html">&lt;p&gt;I &lt;a class="reference external" href="http://brianstempin.com/2014/09/28/vindinium/"&gt;previously
+it's not.  It's very much worth it.  I should have done this a long time ago.&lt;/p&gt;</summary><category term="Python"></category></entry><entry><title>Update to my Vindinium Client</title><link href="http://brianstempin.com/2014/10/20/update-to-my-vindinium-client/" rel="alternate"></link><updated>2014-10-20T22:27:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2014-10-20:2014/10/20/update-to-my-vindinium-client/</id><summary type="html">&lt;p&gt;I &lt;a class="reference external" href="http://brianstempin.com/2014/09/28/vindinium/"&gt;previously
 wrote&lt;/a&gt; about a
 game called Vindinium and how I was writing a client in Java.&lt;/p&gt;
 &lt;p&gt;Well, I have something that I think is useful: &amp;nbsp;a &lt;a class="reference external" href="https://github.com/bstempi/vindinium-client/releases/tag/1.0.0"&gt;1.0.0
