@@ -58,4 +58,4 @@ ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
 SHARE = True
 
 #Google Analytics
-#GOOGLE_ANALYTICS='UA-8040053-2'
+GOOGLE_ANALYTICS='UA-7381557-4'
