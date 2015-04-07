@@ -58,4 +58,8 @@ ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
 SHARE = True
 
 #Google Analytics
-GOOGLE_ANALYTICS='UA-7381557-4'
+GOOGLE_ANALYTICS = 'UA-7381557-4'
+
+#Disqus
+DISQUS_SITENAME = 'bstempiblog'
+DISQUS_LOAD_LATER = True
