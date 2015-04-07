@@ -2,3 +2,4 @@ webassets
 cssmin
 pelican
 markdown
+ghp-import
