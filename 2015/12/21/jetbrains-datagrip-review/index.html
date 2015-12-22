@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="tools,database" />
+        <meta name="description" content="Recently, JetBrains released a new product called DataGrip. It&#39;s basically IntelliJ for databases, and so far, I love it! Granted: I&#39;m biased. I do all of my Java and Python development using IntelliJ and PyCharm, respectively. That being said, I think that even if I were still using ..." />
+
+    <title>JetBrians DataGrip Review - BMS's Blog</title>
+
+    <link rel="stylesheet" href="http://brianstempin.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://brianstempin.com/theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="http://brianstempin.com/theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="http://brianstempin.com/theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="http://brianstempin.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="http://brianstempin.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="http://brianstempin.com/static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="http://brianstempin.com" title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="http://brianstempin.com/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2015/12/21/jetbrains-datagrip-review/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2015/12/21/jetbrains-datagrip-review/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="http://brianstempin.com/">
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://brianstempin.com/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2015/12/21/jetbrains-datagrip-review/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2015/12/21/jetbrains-datagrip-review/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="http://brianstempin.com/about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://brianstempin.com/projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://brianstempin.com/resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="http://brianstempin.com/category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="http://brianstempin.com/category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">5</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="http://brianstempin.com/2015/12/21/jetbrains-datagrip-review/"
+                           rel="bookmark"
+                           title="Permalink to JetBrians DataGrip Review">
+                            JetBrians DataGrip Review
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2015-12-21T20:27:00-05:00"> Mon 21 December 2015</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="http://brianstempin.com/category/general-work-stuff.html">General Work Stuff</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="http://brianstempin.com/tag/tools.html">tools</a> /                 <a href="http://brianstempin.com/tag/database.html">database</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>Recently, <a href="https://www.jetbrains.com/">JetBrains</a> released a new product called <a href="https://www.jetbrains.com/datagrip/">DataGrip</a>.  It's basically IntelliJ for databases, and so far, I love it!  Granted:  I'm biased.  I do all of my Java and Python development using IntelliJ and PyCharm, respectively.  That being said, I think that even if I were still using some other IDE on a day-to-day basis, DataGrip would still be at the top of my list as a general database access and manipulation tool.</p>
+<h1>Making Quick Data Analysis Quicker</h1>
+<p>I don't know about you, but I really hate the <code>sqlite</code> command line tool.  It lacks autocomplete and is really picky.  <code>sqlite</code>, however, is a really handy tool for doing some quick analysis of CSVs or TSVs, so I end up using it quite a bit.  In my few uses of DataGrip, I used it instead of the <code>sqlite</code> command line client to query databases that I had already built.</p>
+<h1>Observation One: Adding a New Data Source Was Kind of Confusing</h1>
+<p>By default, DG doesn't come with any (many?  I'm not sure) of the drivers installed!  This was really confusing the first time I tried to add a data source.  To DG's credit:  if you go to the driver screen, you can click a download link that will get and install the driver for you.  I understand that licensing issues sometimes prevent vendors from including libraries such as these in their products.  What I don't get, however, is why they didn't take this ease-of-installation feature a step further.</p>
+<p><img alt="Screenshot showing the drivers screen" src="http://brianstempin.com/images/download-driver-screenshot.png" title="Screenshot showing the drivers screen. WTF, JetBrains?!" /></p>
+<p>If they detect that this is the firs time that I've run this product, why not offer to download them all for me?  If JetBrains is ok giving me a download and installation facility, then they should present it to me up-front so that I can download all of the drivers I need and never think of it again.</p>
+<h1>Observation Two:  The Autocomplete is Really Nice</h1>
+<p>I know that autocomplete has been around forever, but there's something especially nice about this one.  It's snappy.  Very snappy.  Exceptionally snappy.  Perhaps this might change once I throw larger schemas at it, but it's snappy enough to remind me of why I left <a href="http://www.eclipse.org/">Eclipse</a>-land in the first place and to be glad to see JetBrains releasing new tools.</p>
+<h1>Observation Three:  Exporting Results is a Breeze</h1>
+<p>If I'm doing a quick or one-off analysis, I usually want to export the results so that I can chart it or sent it to a colleague.  The export tools are wonderful.  There aren't a ton of formats that you can export into, but the ones that I would expect were present.  You can also "export to clipboard," allowing you to copy-paste results easily.  For someone that's running exploratory queries that have relatively small result sets, this is pretty awesome.  It allows me to easily put my output into a web page (as JSON or CSV) for charting (in my case, I use <a href="http://nvd3.org/">NVD3</a>).</p>
+<h1>Overall</h1>
+<p>DataGrip is a pretty cool tool.  Lately I haven't had a go-to tool for connecting to and running SQL queries.  This just became "it" for me.  I'm curious to see what it does on larger queries with larger result sets.  I'm sure the tool has it's limits, but from what I've seen, I'm confident they're pretty sane and reasonable.</p>
+<p>I'm looking forward to find ways to leverage DG to chart and graph data as quickly as I can query it.  Good job, JetBrains!</p>
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+    <div id="show-comments" class="span7 text-center">
+        <a href="http://brianstempin.com/2015/12/21/jetbrains-datagrip-review/#disqus_thread" data-disqus-identifier="jetbrains-datagrip-review" class="btn btn-default">Show Comments</a>
+    </div>
+    <section id="comments" class="comments hidden">
+        <hr/>
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2015 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="http://brianstempin.com/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://brianstempin.com/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="http://brianstempin.com/theme/js/pelican_twitchy.min.js"></script>
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-7381557-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'bstempiblog'; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'jetbrains-datagrip-review';
+        var disqus_url = 'http://brianstempin.com/2015/12/21/jetbrains-datagrip-review/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /*load script for comment count*/
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    
+        $('#show-comments').click(function () {
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+            $('#show-comments').fadeOut();
+            /*$('#comments').toggleClass('hidden');*/
+            $('#comments').fadeIn().removeClass('hidden');
+        });
+</script>
+
+<!-- /disqus --></body>
+</html>
