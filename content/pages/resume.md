@@ -165,7 +165,7 @@ I handle a lot of Wildfire Game's web needs, such as performing forum and WordPr
 part of the team to migrate WFG's website to WordPress using a custom theme generated in-house.
 
 ### Philadelphia HSCC Instructor,  BDPA Philadelphia ###
-### Jun 2009 - Oct 2011 ####
+#### Jun 2009 - Oct 2011 ####
 
 I taught a class that instructs high school students in the following areas: JavaMySQL, JSP, HTML.  In doing
 so, I used the following tools: Moodle, PHPMyAdmin, SSH This class prepares BDPA students for the
