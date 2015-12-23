@@ -24,6 +24,28 @@ exploring and visualizing them.
 Employment
 -----------
 
+### Data Engineer, Showroom Logic ###
+#### June 2015 - Present ####
+
+I'm currently responsible for architecting and implementing our data pipeline using Python and AWS (Elastic Beanstalk, CloudFormation, Simple Workflow, S3, RDS).
+
+
+### Instructor, NYCDA (part time) ###
+#### December 2015 - Present ####
+
+I teach entry-level development courses in Philly.
+
+Courses taught:
+
+* WebDev 100, Dec 2015 - Mar 2016
+
+### Open Source Developer III, NRG (contract) ###
+#### April 2015 - May 2015 ####
+
+I was the developer lead of a team that was charged with implementing a new pricing system.  This system's job is to set the price for electricity for all of NRG's customers while following federal, state, and local utility pricing regulations.
+
+I was doing this using Python 3, the Django REST Framework, and AWS.
+
 ### Software Engineer, 50onRED ####
 #### Sep 2013 - Mar 2015 ####
 
