@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="Python,AWS,tools" />
+        <meta name="description" content="Bottom line up front: Project link: Github Read the docs link: RTD At my place of work, I&#39;m in charge of the Data Pipeline team. Part of this team&#39;s job is to make data retrieval and processing reliable and flexible. After doing some thinking, we realized that solutions ..." />
+
+    <title>Introducing PySwfAws - BMS's Blog</title>
+
+    <link rel="stylesheet" href="http://brianstempin.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://brianstempin.com/theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="http://brianstempin.com/theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="http://brianstempin.com/theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="http://brianstempin.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="http://brianstempin.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="http://brianstempin.com/static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="http://brianstempin.com" title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="http://brianstempin.com/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2015/12/23/introducing-pyswfaws/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2015/12/23/introducing-pyswfaws/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="http://brianstempin.com/">
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://brianstempin.com/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2015/12/23/introducing-pyswfaws/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2015/12/23/introducing-pyswfaws/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="http://brianstempin.com/about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://brianstempin.com/projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://brianstempin.com/resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="http://brianstempin.com/category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="http://brianstempin.com/category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">6</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="http://brianstempin.com/2015/12/23/introducing-pyswfaws/"
+                           rel="bookmark"
+                           title="Permalink to Introducing PySwfAws">
+                            Introducing PySwfAws
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2015-12-23T16:18:00-05:00"> Wed 23 December 2015</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="http://brianstempin.com/category/general-work-stuff.html">General Work Stuff</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="http://brianstempin.com/tag/python.html">Python</a> /                 <a href="http://brianstempin.com/tag/aws.html">AWS</a> /                 <a href="http://brianstempin.com/tag/tools.html">tools</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>Bottom line up front:</p>
+<ul>
+<li>Project link:  <a href="https://github.com/bstempi/pyswf">Github</a></li>
+<li>Read the docs link:  <a href="http://pyswf.readthedocs.org/en/stable/">RTD</a></li>
+</ul>
+<p>At my <a href="http://showroomlogic.com">place of work</a>, I'm in charge of the Data Pipeline team.  Part of this team's job is to make data retrieval and processing reliable and flexible.  After doing some thinking, we realized that solutions such as <a href="https://www.rabbitmq.com/">RabbitMq</a> + <a href="http://www.celeryproject.org/">Celery</a> are missing something: durability in the scheduling process.  The tasks are durable because their request goes to a durable queue.  If the task fails, then it can be retried.  If the node dies, then some other node will be assigned the request.  The process that creates these requests, however, is not durable.  If the scheduling process dies the work will continue, but there will be no one to alert.</p>
+<p>We decided that we needed this state.  We decided that we needed Amazon's <a href="https://aws.amazon.com/swf/">SWF</a>.</p>
+<h1>Brief Intro to SWF</h1>
+<p>I personally found Amazon's description confusing, so here's mine.  In short:  there are two different kinds of workers:  deciders and activities.</p>
+<p>Activity workers are just like tasks in Celery.  They get some sort of request, do work, and return a result (I succeeded/failed, or "42").</p>
+<p>Deciders are where the magic is found.  In something like Celery, the process requesting tasks is, itself, not part of Celery.  It has no durable state.  The SWF decider is the opposite of that.  The workflow state is tracked by SWF.  It might look something like, "Hey, you schedueled 100 tasks; 15 are done, 10 are running, and 1 failed."  Every time that state changes, SWF schedules a decider task.  It guarantees that there is only 1 decision happening for any given workflow, so you don't have to worry about concurrency issues.  When a decision task runs, it is passed the workflow state and has an opportunity to make decisions.  It can say things like, "Hey, let's reschedule that one task that failed," or, "We really needed that one task, so let's fail the whole workflow and cancel any pending work," or, "I don't care about that failed task, carry on."  The key part here is that the decider is stateless.  If the node that is running a decision dies, then some other node will pick up the decison task and issue decisions.  SWF handles the tricky bit of managing the state, and all you have to do is write these two types of workers.  Sounds easy, doesn't it?</p>
+<h1>It's Not Easy</h1>
+<p>Seriously:  it's not.</p>
+<p>Imagine for a minute that your decider program took in a list of events.  Those events might reference eachother (e.g., "event 3 was scheduled because of event 2").  There are something like 60-90 different event types.  Trying to build some sort of state machine around a list of events is quite tedious.  Can you imagine having to write the case statement or if-else ladder from hell?  Me, either.</p>
+<h1>Frameworks</h1>
+<p>Someone at Amazon recognized this and the <a href="http://docs.aws.amazon.com/amazonswf/latest/awsflowguide/welcome.html">Flow</a> frameworks were born.  There are two versions:  one for Java and one for Ruby.  Unfortunately, this doesn't help us in Python land.  <a href="http://docs.pythonboto.org/en/latest/">Boto</a> will allow us to interact directly with the API, but it will not help with unraveling that heap of events in our decider programs.</p>
+<p>The way that the Flow framework operates is by using a "replay" strategy.  In short:  the decider is written as if it is calling the activity task directly.  The framework intercepts the call and will "fill it in."  For instance, if it was never seen before, then it will be scheduled.  If it was requested in a previous invocation, the framework will stub it with the last known state.  Later in the program when the user tries to access the results of some activity worker, the framework will again intercept the call.  If the result exists, it will be retrieved from the history and returned.  If it doesn't exist, then the execution of the decier program will stop; any decisions that were noted will be returned to SWF.</p>
+<h1>Building a Framework in Python Using the Replay Strategy</h1>
+<p>I decided that this strategy was wise and that I wanted to do the same thing.  First thing's first:  how do I intercept calls?  I decided to use <a href="http://venusian.readthedocs.org/en/latest/">Venusian</a> decorators.  Unlike regular decorators, Venusian allows me to wait until runtime to decide which function should serve as the decorator for some given decoration.  This way, I can make the behavior be dynamic.  Is the project running in "local-mode"?  Allow the function calls to pass through.  Is the project running in "distributed-mode"?  Intercept the calls and do magic in the background.</p>
+<p>Running things in local mode is somewhat trivial, so let's gloss pass that for a moment.</p>
+<p>Running things in distributed mode is a bit more difficult.  What do I need to intercept and how do I do it?  When running a decider program, we want to intercept calls to activity workers.  What do we return?  In my case:  a <code>Promise</code>.  The idea here is that the user may always expect activities inside of a decider to return a <code>Promise</code>.  They may check to see if that promise is complete (<code>Promise.is_ready</code>) or they may attempt to get it's result (<code>Promise.result</code>).  When running in distributed mode, we will populate this promise using the workflow history.  If the user attempts to get the result of a promise before it is ready, we stop the execution of the decider program.  Any new decisions that were made during the program's run will be returned to SWF.  If the decider program successfully returns, then we consider the workflow to be complete.  If it throws an exception, then we consider it failed.</p>
+<h1>Examples</h1>
+<p>Here's a simple exaple of an activity worker.  We'll pretend that all of the imports are taken care of:</p>
+<div class="highlight"><pre>@activity_task(swf_domain=&#39;example&#39;,
+swf_task_type=&#39;TestActivityA&#39;,
+swf_task_version=&#39;1.0&#39;,
+swf_task_list=&#39;activity_a_unit_test&#39;)
+def activity_task_a(b):
+    return b + b
+</pre></div>
+
+
+<p>Here, the decorator tells the framework how to communicate with SWF by giving it the domain, task type, task version, and task list to use when communicating.  Let's look an example decider:</p>
+<div class="highlight"><pre>@decision_task(swf_domain=&#39;example&#39;,
+swf_workflow_type=&#39;TestWorkflow&#39;,
+swf_workflow_version=&#39;1.0&#39;,
+swf_task_list=&#39;unit_test_a&#39;)
+def decider_a():
+    a1 = activity_task_a(5)
+    a2 = activity_task_a(10)
+    return a1.result + a2.result
+</pre></div>
+
+
+<p>Just like with our worker, we have some context in the decorator that allows the framework to figure out how to communicate with AWS.  Here is an example to run the activity worker and decider:</p>
+<div class="highlight"><pre>activity_task_a_runner = DistributedActivityWorker(activity_task_a)
+activity_task_a_runner.start()
+</pre></div>
+
+
+<div class="highlight"><pre>decision_task_a_runner = DistributedDecisionWorker(decider_a)
+decision_task_a_runner.start()
+</pre></div>
+
+
+<p>The <code>DistributedActivityWorker</code> is reponsible for connecting to SWF, asking for tasks, parsing the results, and passing them to the user's activity task function.  Pretty simple.</p>
+<p>The <code>DistributedDecisionWorker</code> does a similar job.  It will contact SWF and ask for a decison task.  It will then parse the results and use the history to stub out any promises that the user asks for.  In our example, <code>a1</code> and <code>a2</code> will be stubbed out by promises.  By the last line of <code>decider_a()</code>, the user is requesting the results of those calculations.  If they don't exist, execution of that method will cease and control will be returned to the <code>DistributedDecisionWorker</code>, which will handle how to return results to SWF.  Much simpler than having to parse your own histories, right?!</p>
+<h1>Gotchas</h1>
+<p>The replay method comes with a big gotcha:  programs must be determinisitc.  If a workflow has 1,000 events, then your decider program <em>might</em> get called up to 1,000 times.  This means that things like hitting a database or generating a random number might happen more than once and will likely have different results eac time, causing your program to fail.</p>
+<p>There are some other gotchas that apply to SWF that are worth discussing here.  One is that there is a limit to how large your response objects may be.  This means that there is also a limit to how much data a given activity or decider may return.  This can be painful if you're passing around datasets for transformation or music files for processing.</p>
+<h1>Framework Extras</h1>
+<p>PySwfAws has some features to mitigate the gotchas.</p>
+<h2>@cached</h2>
+<p>The <code>@cached</code> decorator allows you to cache the call of a method.  Let's say that we have the followning method:</p>
+<div class="highlight"><pre>def accessDb():
+    results = doSomeQuery()
+    return results[0]
+</pre></div>
+
+
+<p>This method may not be deterministic.  If the underlying data changes or the results are not reliably ordered, then this function is probably not deterministic.  By putting the <code>@cached</code> decorator to it, you cache each function invocation.  For example:</p>
+<div class="highlight"><pre>@decision_task(swf_domain=&#39;example&#39;,
+swf_workflow_type=&#39;TestWorkflow&#39;,
+swf_workflow_version=&#39;1.0&#39;,
+swf_task_list=&#39;unit_test_a&#39;)
+def decider_a():
+    call1 = accessDb()
+    call2 = accessDb()
+
+    return call1 + call2
+
+@cached
+def accessDb():
+    results = doSomeQuery()
+    return results[0]  
+</pre></div>
+
+
+<p>In this case, <code>accessDb()</code> is invoked twice in the decider function.  No matter how many times that decider function is called, the <code>accessDb()</code> function will only be invoked twice.  Each time, the results will be cached.  That means that even if this program runs 1,000 times during a workflow, exactly two invocations will happen.</p>
+<h2>Out of Band Storage</h2>
+<p>What happens when the thing that you want to cache is too large to store in SWF?  What if the arguments to a task or the return value of a task are too large?  SWF has no answer.</p>
+<p>PySwfAws will allow you to store data outside of SWF.  For example:</p>
+<div class="highlight"><pre>@cached(result_data_serializer=JsonSerializer(), result_data_store=S3DataStore(bucket=&#39;swf-data&#39;))
+def accessDb():
+    results = doSomeQuery()
+    return results[0]  
+</pre></div>
+
+
+<p>By passing options to the <code>@cached</code> decorator, we can tell it to store the cached result as JSON into some bucket named <code>swf-data</code> on S3.  Similar options exist on the activity and decision task decorators to control how input <em>and</em> output are serialized and stored.  For instance, you can take your input as JSON from SWF and then save the results as Protobuf in S3.  You are now free to throw as much data as you want around SWF.</p>
+<h2>Timers</h2>
+<p>SWF has the notion of timers.  Using this feature, you could implement reliable CRON tasks.  The way that a user can invoke a timer in a decier program is by using a promise like this:</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">promise</span> <span class="kn">import</span> <span class="n">Timer</span> <span class="k">as</span> <span class="n">PTimer</span>
+
+<span class="n">timer</span> <span class="o">=</span> <span class="n">PTimer</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The <code>timer</code> variable will be a promise.  When the promise is ready, then the timer has "fired."  If you call <code>timer.result</code>, it'll return <code>None</code>.  The idea here is that you can call <code>timer.result</code> in order to force your program to wait for that timer to fire.  It will either return or cause execution to cease until the timer is ready.</p>
+<h1>Conclusion</h1>
+<p>Currently, this project is in Alpha.  I activley use it at work, but it is quite unstable at the moment.  Please use at your own risk and feel free to submit pull requests.</p>
+<p>I plan to keep activley working on this and we intend to rely on it quite heavily at Showroom Logic.  I'm not quite sure what 1.0 looks like because I have yet to make a roadmap.  Eventually, I'll create one.  For right now, the numbering is a bit arbitrary.</p>
+<h1>Unrelated Note:  Naming</h1>
+<p>I understand that the project's name is awful.  I orginally wanted to name it PySwf, but that name was already taken by a project that deals with Flash projects.  I'll rename it in the future.</p>
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+    <div id="show-comments" class="span7 text-center">
+        <a href="http://brianstempin.com/2015/12/23/introducing-pyswfaws/#disqus_thread" data-disqus-identifier="introducing-pyswfaws" class="btn btn-default">Show Comments</a>
+    </div>
+    <section id="comments" class="comments hidden">
+        <hr/>
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2015 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="http://brianstempin.com/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://brianstempin.com/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="http://brianstempin.com/theme/js/pelican_twitchy.min.js"></script>
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-7381557-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'bstempiblog'; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'introducing-pyswfaws';
+        var disqus_url = 'http://brianstempin.com/2015/12/23/introducing-pyswfaws/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /*load script for comment count*/
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    
+        $('#show-comments').click(function () {
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+            $('#show-comments').fadeOut();
+            /*$('#comments').toggleClass('hidden');*/
+            $('#comments').fadeIn().removeClass('hidden');
+        });
+</script>
+
+<!-- /disqus --></body>
+</html>
