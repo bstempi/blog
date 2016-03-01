@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="AWS,tools" />
+        <meta name="description" content="Like most apps on the internet, the stuff that I write at Showroom Logic has scheduled tasks that must happen in a predictable fashion. In our case, we have some reports to run and deliver. Our app, like lots of internet apps, is distributed and runs in a Docker container ..." />
+
+    <title>Replacing the Cron in AWS - BMS's Blog</title>
+
+    <link rel="stylesheet" href="http://brianstempin.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://brianstempin.com/theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="http://brianstempin.com/theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="http://brianstempin.com/theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="http://brianstempin.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="http://brianstempin.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="http://brianstempin.com/static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="http://brianstempin.com" title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="http://brianstempin.com/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="http://brianstempin.com/">
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://brianstempin.com/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="http://brianstempin.com/about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://brianstempin.com/projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://brianstempin.com/resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="http://brianstempin.com/category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="http://brianstempin.com/category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">7</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/"
+                           rel="bookmark"
+                           title="Permalink to Replacing the Cron in AWS">
+                            Replacing the Cron in AWS
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2016-02-29T18:34:00-05:00"> Mon 29 February 2016</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="http://brianstempin.com/category/general-work-stuff.html">General Work Stuff</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="http://brianstempin.com/tag/aws.html">AWS</a> /                 <a href="http://brianstempin.com/tag/tools.html">tools</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>Like most apps on the internet, the stuff that I write at <a href="http://showroomlogic.com">Showroom Logic</a> has scheduled tasks that must happen in a predictable fashion.  In our case, we have some reports to run and deliver.  Our app, like lots of internet apps, is distributed and runs in a Docker container on Amazon's Elastic Beanstalk.  So, what are our options?</p>
+<h1>How About Cron?</h1>
+<p><code>cron</code>'s been the go-to solution for this type of problem for some years.  It's simple:  you edit a file to give it the schedule, tell it what program to execute, and BAM!  Instant scheduled tasks!  Unfortunately, it wasn't this simple for us.</p>
+<h2>Distributed Apps</h2>
+<p><code>cron</code> isn't great for distributed apps.  How do you handle concurrency?  Do all machines in a cluster attempt to run the task with some sort of central locking?  Do you just schedule the task on one machine and hope that particular machine never dies?  <code>cron</code> is great for simple, single-machien apps, but has issues once the topic of distribution of work is broached.</p>
+<h2>Docker Containers</h2>
+<p>It turns out that running <code>cron</code> in Docker containers is not easy.  For one, many people use environment variables to configure their containers, which can be problematic:  these variables are often not visible to the command that <code>cron</code> schedules.  I once used <a href="https://www.ekito.fr/people/run-a-cron-job-with-docker/">this guide</a>, which was great, but commenters mentioned this flaw.  At my company, we often use environment variables to store things like database credentials for use in Django, so this kind of hurt.  How am I supposed to run a Django command on a regular basis if these variables aren't visible?  One answer was to <a href="http://stackoverflow.com/questions/26822067/running-cron-python-jobs-within-docker">wrap <code>cron</code> with a Python script</a>, but this seemed like a lot of work and over-kill.  No, thank you.</p>
+<h1>External Scheduling</h1>
+<p>Since it's not practial to expect every machine in a distributed environment to try to kick off some process, I decided that maybe it was best to have an external agent to call into our app to start a process.  Imagine for a moment that some central scheduluer machine, running <code>cron</code>, called a special URL in my app.  This could be something like, <code>https://my-app/admin/start-daily-processes</code> and it could be secured with some sort of token authentication so that only designated callers could trigger it.  This solves the first problem (the distributed environment), but not the second one (<code>cron</code> doesn't play well with Docker).</p>
+<p>I took a look through AWS's documentation and took a look at <a href="https://aws.amazon.com/lambda/">Lambda</a>.  Lambda would allow me to write some piece of code, perhaps something to make a web service call, and to not have to worry about how it's called or where it's run.  This sounded good to me for a few reasons:</p>
+<ol>
+<li>This required minimal permissions.  All the script would be doing was to make an HTTP call, so no roles or special IAM privileges would be needed.</li>
+<li>It required minimal code.  <code>urllib3</code> is already installed in the Lambda environment, so the code that I would have to write would be quite small.</li>
+<li>It's free.  Once call per day running on the minimal settings for less than a second per run falls well within the free tier.  It's an extra moving part without being an extra cost.</li>
+</ol>
+<p>How would I trigger this thing, though?  Well, it turns out that Lambda and CloudWatch have an answer to this:</p>
+<ol>
+<li>Create a Lambda function.</li>
+<li>Click on the "Events sources tab."</li>
+<li>Click on "Add event source" and select the "CloudWatch Evnets - Schedule" option.  This will prompt you to create a CloudWatch rule with a <code>cron</code>-like syntax that triggers your Lambda function on a regular schedule.</li>
+</ol>
+<p>Here's the dialog to schedule the event:
+<img alt="CloudWatch Events - Schedule dialog" src="http://brianstempin.com/images/lambda-add-event-source-screenshot.png" /></p>
+<p>Here's a screenshot of the rule in CloudWatch:
+<img alt="CouldWatch rule" src="http://brianstempin.com/images/lambda-screenshot.png" /></p>
+<p>Fortunately for the user, Lambda will have links to the CloudWatch rule and vice versa.  This makes management pretty easy.  By this point, I had some Lambda that could tell my app to start processes that needed to run on a regular basis.</p>
+<h1>Conclusion</h1>
+<p>I had the following problems:</p>
+<ul>
+<li><code>cron</code> didn't run well (at all?) in Docker</li>
+<li><code>cron</code> did not work well for a distributed app</li>
+</ul>
+<p>I used:</p>
+<ul>
+<li>A special controller in my web app, using token auth, that started a background process when invoked</li>
+<li>An AWS Lambda function which invoked this URL</li>
+<li>An AWS CloudWatch rule (configured via Lambda) that triggered this Lambda function</li>
+</ul>
+<p>This has the following advantages:</p>
+<ul>
+<li>It's distributed app friendly:  Lambda doesn't care who gets the request, but that they carry it out.</li>
+<li>It's reliable:  CloudWatch and Lambda are both run by AWS, so you don't have to worry about maintenance, etc.</li>
+<li>It's cheap, if not free:  My use of Lambda falls within the free tier.  I'm pretty sure my CloudWatch usage does as well.</li>
+<li>The Lambda function has the ability to alert you if it wasn't able to kick off the task:  It could use a Slack hook or something similar to alert users that it didn't get a <code>200 OK</code> back from the app when trying to invoke it.</li>
+</ul>
+<p>It also has the following disadvantages:</p>
+<ul>
+<li>Nothing is in one place:  There are 3 different systems at work here:  Yours, Lambda, and CloudWatch.</li>
+<li>Additional tooling:  I wrote my Lambda function without putting it in source control and without having some sort of build/deploy process.  This requires additional tooling and/or setup.</li>
+<li>Depending on your usage, it might add cost:  If you have a ton of things to schedule, then you might end up paying for Lambda and/or CloudWatch usage.</li>
+</ul>
+<p>We're new to this approach, so while I wish that I could write about it being rock-solid even after the end of Earth as we know it, I simply can't.  What I can say is that this feels much more natural than <code>cron</code> and has served us well so far.</p>
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+    <div id="show-comments" class="span7 text-center">
+        <a href="http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/#disqus_thread" data-disqus-identifier="replacing-the-cron-in-aws" class="btn btn-default">Show Comments</a>
+    </div>
+    <section id="comments" class="comments hidden">
+        <hr/>
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2016 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="http://brianstempin.com/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://brianstempin.com/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="http://brianstempin.com/theme/js/pelican_twitchy.min.js"></script>
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-7381557-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'bstempiblog'; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'replacing-the-cron-in-aws';
+        var disqus_url = 'http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /*load script for comment count*/
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    
+        $('#show-comments').click(function () {
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+            $('#show-comments').fadeOut();
+            /*$('#comments').toggleClass('hidden');*/
+            $('#comments').fadeIn().removeClass('hidden');
+        });
+</script>
+
+<!-- /disqus --></body>
+</html>

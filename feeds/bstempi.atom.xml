@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/bstempi.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2015-12-23T16:18:00-05:00</updated><entry><title>Introducing PySwfAws</title><link href="http://brianstempin.com/2015/12/23/introducing-pyswfaws/" rel="alternate"></link><updated>2015-12-23T16:18:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2015-12-23:2015/12/23/introducing-pyswfaws/</id><summary type="html">&lt;p&gt;Bottom line up front:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/bstempi.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2016-02-29T18:34:00-05:00</updated><entry><title>Replacing the Cron in AWS</title><link href="http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/" rel="alternate"></link><updated>2016-02-29T18:34:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2016-02-29:2016/02/29/replacing-the-cron-in-aws/</id><summary type="html">&lt;p&gt;Like most apps on the internet, the stuff that I write at &lt;a href="http://showroomlogic.com"&gt;Showroom Logic&lt;/a&gt; has scheduled tasks that must happen in a predictable fashion.  In our case, we have some reports to run and deliver.  Our app, like lots of internet apps, is distributed and runs in a Docker container on Amazon's Elastic Beanstalk.  So, what are our options?&lt;/p&gt;
+&lt;h1&gt;How About Cron?&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;cron&lt;/code&gt;'s been the go-to solution for this type of problem for some years.  It's simple:  you edit a file to give it the schedule, tell it what program to execute, and BAM!  Instant scheduled tasks!  Unfortunately, it wasn't this simple for us.&lt;/p&gt;
+&lt;h2&gt;Distributed Apps&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;cron&lt;/code&gt; isn't great for distributed apps.  How do you handle concurrency?  Do all machines in a cluster attempt to run the task with some sort of central locking?  Do you just schedule the task on one machine and hope that particular machine never dies?  &lt;code&gt;cron&lt;/code&gt; is great for simple, single-machien apps, but has issues once the topic of distribution of work is broached.&lt;/p&gt;
+&lt;h2&gt;Docker Containers&lt;/h2&gt;
+&lt;p&gt;It turns out that running &lt;code&gt;cron&lt;/code&gt; in Docker containers is not easy.  For one, many people use environment variables to configure their containers, which can be problematic:  these variables are often not visible to the command that &lt;code&gt;cron&lt;/code&gt; schedules.  I once used &lt;a href="https://www.ekito.fr/people/run-a-cron-job-with-docker/"&gt;this guide&lt;/a&gt;, which was great, but commenters mentioned this flaw.  At my company, we often use environment variables to store things like database credentials for use in Django, so this kind of hurt.  How am I supposed to run a Django command on a regular basis if these variables aren't visible?  One answer was to &lt;a href="http://stackoverflow.com/questions/26822067/running-cron-python-jobs-within-docker"&gt;wrap &lt;code&gt;cron&lt;/code&gt; with a Python script&lt;/a&gt;, but this seemed like a lot of work and over-kill.  No, thank you.&lt;/p&gt;
+&lt;h1&gt;External Scheduling&lt;/h1&gt;
+&lt;p&gt;Since it's not practial to expect every machine in a distributed environment to try to kick off some process, I decided that maybe it was best to have an external agent to call into our app to start a process.  Imagine for a moment that some central scheduluer machine, running &lt;code&gt;cron&lt;/code&gt;, called a special URL in my app.  This could be something like, &lt;code&gt;https://my-app/admin/start-daily-processes&lt;/code&gt; and it could be secured with some sort of token authentication so that only designated callers could trigger it.  This solves the first problem (the distributed environment), but not the second one (&lt;code&gt;cron&lt;/code&gt; doesn't play well with Docker).&lt;/p&gt;
+&lt;p&gt;I took a look through AWS's documentation and took a look at &lt;a href="https://aws.amazon.com/lambda/"&gt;Lambda&lt;/a&gt;.  Lambda would allow me to write some piece of code, perhaps something to make a web service call, and to not have to worry about how it's called or where it's run.  This sounded good to me for a few reasons:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;This required minimal permissions.  All the script would be doing was to make an HTTP call, so no roles or special IAM privileges would be needed.&lt;/li&gt;
+&lt;li&gt;It required minimal code.  &lt;code&gt;urllib3&lt;/code&gt; is already installed in the Lambda environment, so the code that I would have to write would be quite small.&lt;/li&gt;
+&lt;li&gt;It's free.  Once call per day running on the minimal settings for less than a second per run falls well within the free tier.  It's an extra moving part without being an extra cost.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;How would I trigger this thing, though?  Well, it turns out that Lambda and CloudWatch have an answer to this:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Create a Lambda function.&lt;/li&gt;
+&lt;li&gt;Click on the "Events sources tab."&lt;/li&gt;
+&lt;li&gt;Click on "Add event source" and select the "CloudWatch Evnets - Schedule" option.  This will prompt you to create a CloudWatch rule with a &lt;code&gt;cron&lt;/code&gt;-like syntax that triggers your Lambda function on a regular schedule.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Here's the dialog to schedule the event:
+&lt;img alt="CloudWatch Events - Schedule dialog" src="http://brianstempin.com/images/lambda-add-event-source-screenshot.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Here's a screenshot of the rule in CloudWatch:
+&lt;img alt="CouldWatch rule" src="http://brianstempin.com/images/lambda-screenshot.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Fortunately for the user, Lambda will have links to the CloudWatch rule and vice versa.  This makes management pretty easy.  By this point, I had some Lambda that could tell my app to start processes that needed to run on a regular basis.&lt;/p&gt;
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;I had the following problems:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;cron&lt;/code&gt; didn't run well (at all?) in Docker&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cron&lt;/code&gt; did not work well for a distributed app&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I used:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A special controller in my web app, using token auth, that started a background process when invoked&lt;/li&gt;
+&lt;li&gt;An AWS Lambda function which invoked this URL&lt;/li&gt;
+&lt;li&gt;An AWS CloudWatch rule (configured via Lambda) that triggered this Lambda function&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This has the following advantages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It's distributed app friendly:  Lambda doesn't care who gets the request, but that they carry it out.&lt;/li&gt;
+&lt;li&gt;It's reliable:  CloudWatch and Lambda are both run by AWS, so you don't have to worry about maintenance, etc.&lt;/li&gt;
+&lt;li&gt;It's cheap, if not free:  My use of Lambda falls within the free tier.  I'm pretty sure my CloudWatch usage does as well.&lt;/li&gt;
+&lt;li&gt;The Lambda function has the ability to alert you if it wasn't able to kick off the task:  It could use a Slack hook or something similar to alert users that it didn't get a &lt;code&gt;200 OK&lt;/code&gt; back from the app when trying to invoke it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It also has the following disadvantages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nothing is in one place:  There are 3 different systems at work here:  Yours, Lambda, and CloudWatch.&lt;/li&gt;
+&lt;li&gt;Additional tooling:  I wrote my Lambda function without putting it in source control and without having some sort of build/deploy process.  This requires additional tooling and/or setup.&lt;/li&gt;
+&lt;li&gt;Depending on your usage, it might add cost:  If you have a ton of things to schedule, then you might end up paying for Lambda and/or CloudWatch usage.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We're new to this approach, so while I wish that I could write about it being rock-solid even after the end of Earth as we know it, I simply can't.  What I can say is that this feels much more natural than &lt;code&gt;cron&lt;/code&gt; and has served us well so far.&lt;/p&gt;</summary><category term="AWS"></category><category term="tools"></category></entry><entry><title>Introducing PySwfAws</title><link href="http://brianstempin.com/2015/12/23/introducing-pyswfaws/" rel="alternate"></link><updated>2015-12-23T16:18:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2015-12-23:2015/12/23/introducing-pyswfaws/</id><summary type="html">&lt;p&gt;Bottom line up front:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Project link:  &lt;a href="https://github.com/bstempi/pyswf"&gt;Github&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Read the docs link:  &lt;a href="http://pyswf.readthedocs.org/en/stable/"&gt;RTD&lt;/a&gt;&lt;/li&gt;
@@ -22,7 +73,7 @@
 &lt;p&gt;Running things in distributed mode is a bit more difficult.  What do I need to intercept and how do I do it?  When running a decider program, we want to intercept calls to activity workers.  What do we return?  In my case:  a &lt;code&gt;Promise&lt;/code&gt;.  The idea here is that the user may always expect activities inside of a decider to return a &lt;code&gt;Promise&lt;/code&gt;.  They may check to see if that promise is complete (&lt;code&gt;Promise.is_ready&lt;/code&gt;) or they may attempt to get it's result (&lt;code&gt;Promise.result&lt;/code&gt;).  When running in distributed mode, we will populate this promise using the workflow history.  If the user attempts to get the result of a promise before it is ready, we stop the execution of the decider program.  Any new decisions that were made during the program's run will be returned to SWF.  If the decider program successfully returns, then we consider the workflow to be complete.  If it throws an exception, then we consider it failed.&lt;/p&gt;
 &lt;h1&gt;Examples&lt;/h1&gt;
 &lt;p&gt;Here's a simple exaple of an activity worker.  We'll pretend that all of the imports are taken care of:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;@activity_task(swf_domain=&amp;#39;example&amp;#39;,
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@activity_task(swf_domain=&amp;#39;example&amp;#39;,
 swf_task_type=&amp;#39;TestActivityA&amp;#39;,
 swf_task_version=&amp;#39;1.0&amp;#39;,
 swf_task_list=&amp;#39;activity_a_unit_test&amp;#39;)
@@ -32,7 +83,7 @@ def activity_task_a(b):
 
 
 &lt;p&gt;Here, the decorator tells the framework how to communicate with SWF by giving it the domain, task type, task version, and task list to use when communicating.  Let's look an example decider:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;@decision_task(swf_domain=&amp;#39;example&amp;#39;,
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@decision_task(swf_domain=&amp;#39;example&amp;#39;,
 swf_workflow_type=&amp;#39;TestWorkflow&amp;#39;,
 swf_workflow_version=&amp;#39;1.0&amp;#39;,
 swf_task_list=&amp;#39;unit_test_a&amp;#39;)
@@ -44,12 +95,12 @@ def decider_a():
 
 
 &lt;p&gt;Just like with our worker, we have some context in the decorator that allows the framework to figure out how to communicate with AWS.  Here is an example to run the activity worker and decider:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;activity_task_a_runner = DistributedActivityWorker(activity_task_a)
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;activity_task_a_runner = DistributedActivityWorker(activity_task_a)
 activity_task_a_runner.start()
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;decision_task_a_runner = DistributedDecisionWorker(decider_a)
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;decision_task_a_runner = DistributedDecisionWorker(decider_a)
 decision_task_a_runner.start()
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -63,14 +114,14 @@ decision_task_a_runner.start()
 &lt;p&gt;PySwfAws has some features to mitigate the gotchas.&lt;/p&gt;
 &lt;h2&gt;@cached&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;@cached&lt;/code&gt; decorator allows you to cache the call of a method.  Let's say that we have the followning method:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;def accessDb():
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def accessDb():
     results = doSomeQuery()
     return results[0]
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This method may not be deterministic.  If the underlying data changes or the results are not reliably ordered, then this function is probably not deterministic.  By putting the &lt;code&gt;@cached&lt;/code&gt; decorator to it, you cache each function invocation.  For example:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;@decision_task(swf_domain=&amp;#39;example&amp;#39;,
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@decision_task(swf_domain=&amp;#39;example&amp;#39;,
 swf_workflow_type=&amp;#39;TestWorkflow&amp;#39;,
 swf_workflow_version=&amp;#39;1.0&amp;#39;,
 swf_task_list=&amp;#39;unit_test_a&amp;#39;)
@@ -91,7 +142,7 @@ def accessDb():
 &lt;h2&gt;Out of Band Storage&lt;/h2&gt;
 &lt;p&gt;What happens when the thing that you want to cache is too large to store in SWF?  What if the arguments to a task or the return value of a task are too large?  SWF has no answer.&lt;/p&gt;
 &lt;p&gt;PySwfAws will allow you to store data outside of SWF.  For example:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;@cached(result_data_serializer=JsonSerializer(), result_data_store=S3DataStore(bucket=&amp;#39;swf-data&amp;#39;))
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@cached(result_data_serializer=JsonSerializer(), result_data_store=S3DataStore(bucket=&amp;#39;swf-data&amp;#39;))
 def accessDb():
     results = doSomeQuery()
     return results[0]  
@@ -101,7 +152,7 @@ def accessDb():
 &lt;p&gt;By passing options to the &lt;code&gt;@cached&lt;/code&gt; decorator, we can tell it to store the cached result as JSON into some bucket named &lt;code&gt;swf-data&lt;/code&gt; on S3.  Similar options exist on the activity and decision task decorators to control how input &lt;em&gt;and&lt;/em&gt; output are serialized and stored.  For instance, you can take your input as JSON from SWF and then save the results as Protobuf in S3.  You are now free to throw as much data as you want around SWF.&lt;/p&gt;
 &lt;h2&gt;Timers&lt;/h2&gt;
 &lt;p&gt;SWF has the notion of timers.  Using this feature, you could implement reliable CRON tasks.  The way that a user can invoke a timer in a decier program is by using a promise like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;promise&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Timer&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;PTimer&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;promise&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Timer&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;PTimer&lt;/span&gt;
 
 &lt;span class="n"&gt;timer&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;PTimer&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;seconds&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
