@@ -1,5 +1,5 @@
 Title: Resume
-Modified: 2015-04-01 16:00
+Modified: 2017-08-16 08:00
 Slug: resume
 Url: resume/
 Save_as: resume/index.html
@@ -24,10 +24,26 @@ exploring and visualizing them.
 Employment
 -----------
 
-### Data Engineer, Showroom Logic ###
-#### June 2015 - Present ####
+### Senior Software Engineer, Enterra Solutions ###
+#### October 2016 - current ####
 
-I'm currently responsible for architecting and implementing our data pipeline using Python and AWS (Elastic Beanstalk, CloudFormation, Simple Workflow, S3, RDS).
+I'm currently responsible for designing and leading the implementation of Enterra's next generation of ETL tools.  Currently, we implement most of our ETL as SQL scripts.  Most of these scripts aren't scalable and are very difficult to test.  We decided to move to Spark so that we could easily introduce unit tests, break up large transformations across several functions, and scale out.  Our current Spark jobs are written using Python.
+
+Prior to writing ETL jobs, I was responsible for implementing and maintaining a small handful of service.  Most of our projects were monoliths, so the decision was made to break up our projects into smaller, reusable services that we could leverage in later projects.  These services are all containerized and meant to be easily deployable and configurable via Docker.  My services were designed by the data science team, the head of engineering, and me.  They're written in Python and rely heavily on Pandas and SciPy.
+
+I'm doing this using Spark, Python 3, Pandas, SciPy, RabbitMQ, Docker, Azure, and AWS
+
+### Data Engineer, Showroom Logic ###
+#### June 2015 - June 2016 ####
+
+I was a responsible for rearchitecting and implementing our data pipeline.  Our goals were to break up this monolith in to a few distributed services, increase reliability, replace the difficult-to-read ETL sprocs with something more maintainable/testable, and to be able to distribute the ETL work, preventing the database from having to do everything.
+
+We did this by decomposing some of the responsibilities of the pipeline into simpler CRUD applications with RESTful interfaces.  Other parts of the application were written as Amazon SWF applications.  These applications were all designed so that they could be autoscaled in order to increase capacity on demand.
+
+The ETL pipeline redesign was shelved at one point due to a change in the company's priorities, but the approaches and technologies introduced still made it into other parts of the business.  At one point, we were tasked with fixing a reporting system that was written mostly in SQL and was glued together with PHP.  Replacing it was easier than trying to patch it, so we replaced it with an SWF application that used Pandas to perform transformations and calculations.  The resulting system was much more reliable, easier to debug, and easier to test.
+
+
+I was doing this using Python 3, the Django REST Framework, Docker, Pandas, and AWS (S3, Elastic Beanstalk, SWF)
 
 
 ### Instructor, NYCDA (part time) ###
@@ -49,7 +65,7 @@ I was doing this using Python 3, the Django REST Framework, and AWS.
 ### Software Engineer, 50onRED ####
 #### Sep 2013 - Mar 2015 ####
 
-I manage our automated ETL processes. These processes involve processing a few terabytes per week of log
+I managed our automated ETL processes. These processes involve processing a few terabytes per week of log
 data that drives our reporting and billing. We use Camel to listen to SQS, launch Hadoop jobs, and then load
 the results into Redshift or other Hadoop jobs. By using Camel and Hadoop to do this, we're able to easily
 schedule several jobs at the same time and build in resiliency and alerting. This architecture has allowed us
