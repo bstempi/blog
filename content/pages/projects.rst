@@ -13,10 +13,11 @@ a sort of portfolio.  The mix contains both professional and personal
 projects.  I'm listing them chronologically, starting with the most
 recent:
 
+-  `Project Euler <{filename}projects/project-euler.rst>`__
 -  `0 A.D. Webmaster <{filename}projects/0-a-d-webmaster.rst>`__
 -  Temple University GenEd Department Website
 -  `Traffic Research
-   Project <{filename}projects/traffic-research-project   .rst/>`__ (GIS, PHP,
+   Project <{filename}projects/traffic-research-project.rst/>`__ (GIS, PHP,
    PostgreSQL)
 -  Philly BDPA's HSCC Website (Moodle, PHP)
 -  `Temple ACM's Folding@Home
