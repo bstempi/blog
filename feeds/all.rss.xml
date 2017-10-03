@@ -1,5 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BMS's Blog</title><link>http://brianstempin.com/</link><description>Because my crap has to live somewhere</description><atom:link href="http://brianstempin.com/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 29 Feb 2016 18:34:00 -0500</lastBuildDate><item><title>Replacing the Cron in AWS</title><link>http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/</link><description>&lt;p&gt;Like most apps on the internet, the stuff that I write at &lt;a href="http://showroomlogic.com"&gt;Showroom Logic&lt;/a&gt; has scheduled tasks that must happen in a predictable fashion.  In our case, we have some reports to run and deliver.  Our app, like lots of internet apps, is distributed and runs in a Docker container on Amazon's Elastic Beanstalk.  So, what are our options?&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BMS's Blog</title><link>http://brianstempin.com/</link><description>Because my crap has to live somewhere</description><atom:link href="http://brianstempin.com/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 29 Sep 2017 13:30:00 -0400</lastBuildDate><item><title>PySpark Timestamp Performance</title><link>http://brianstempin.com/2017/09/29/pyspark-timestamp-performance/</link><description>&lt;p&gt;In my &lt;a href="http://www.enterrasolutions.com/"&gt;most recent role&lt;/a&gt;, we're using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model.   During this process, we were using PySpark's &lt;code&gt;pyspark.sql.types.DateType&lt;/code&gt; to store date information.  At some point, we decided that we wanted more precision, so we opted to use &lt;code&gt;pyspark.sql.types.TimestampType&lt;/code&gt; instead.  When switching, we noticed a considerable slow-down.  What once was a processor-intensive task was now failing to occupy all cores of our cluster, causing an obvious slow-down.  What gives, Spark?  The goal of this post is to explore why this happens in Spark 2.1.1.&lt;/p&gt;
+&lt;h1&gt;Demonstrating the Performance Impact&lt;/h1&gt;
+&lt;p&gt;Before going any further, I suppose that I should give a concrete example of this issue.  To make it easy to follow this demonstration, I'm going to use a &lt;a href="https://github.com/jupyter/docker-stacks/tree/master/all-spark-notebook"&gt;Docker container provided by Project Jupyter&lt;/a&gt; that includes Spark and Jupyter notebook.  I'll leave it to the reader to get a container running and a notebook open if they want to follow.&lt;/p&gt;
+&lt;p&gt;You can see the &lt;a href="http://brianstempin.com/notebooks/Timestamp+demonstration.html"&gt;full notebook here&lt;/a&gt;, but for the sake of the article I'm going to be brief.  Imagine that you have a dataframe with one million dates and a second one with one million timestamps.  Let's call them &lt;code&gt;date_df&lt;/code&gt; and &lt;code&gt;timestamp_df&lt;/code&gt;, respectively.  In order to demonstrate this issue, we need to perform some actions on them.  Let's pretend we have the following code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def date_identity(some_date):
+    return some_date
+
+def timestamp_identity(some_dt):
+    return dt
+
+date_identity_udf = func.udf(date_identity, DateType())
+timestamp_identity_udf = func.udf(timestamp_identity, TimestampType())
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;These identity functions don't do anything; they simply return what they're given.  Let's try to apply these transformations to their respective data frames.  YMMV - the important thing here is not the absolute numbers, but the numbers relative to each other.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;transformed_date_df = date_df.withColumn(&amp;#39;identity&amp;#39;, date_identity_udf(col(&amp;#39;some_date&amp;#39;)))
+timeit.timeit(transformed_date_df.count, number=1)
+
+transformed_timestamp_df = timestamp_df.withColumn(&amp;#39;identity&amp;#39;, timestamp_identity_udf(col(&amp;#39;some_timestamp&amp;#39;)))
+timeit.timeit(transformed_timestamp_df.count, number=1)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The numbers I got for those calculations, operating on a million items each on a rather large VM was 0.68 and 18.27 seconds, respectively.  That means the identity function for the &lt;code&gt;TimestampType&lt;/code&gt; took over 26 times longer to run!  Where was all of this time going?&lt;/p&gt;
+&lt;h1&gt;Data Serialization and Interlanguage Communication&lt;/h1&gt;
+&lt;p&gt;Spark is not written in Python, so what happens when we write Spark code in Python?  In the case that we're doing operations on dataframes and columns, we're simply using Python to build a plan, allowing Spark do all of the work.  In this case, little or no actual Python code is run on any of the worker nodes.  &lt;/p&gt;
+&lt;p&gt;What happens when we introduce something like a Python UDF?  Well, now we are forcing Spark to run Python code on each of the workers.  Spark is not written in Python, so some work has to be done to take data out of the JVM memory model and marshal it into something that Python can interpret and work with.  This is in part where some of the &lt;code&gt;pyspark.sql.types&lt;/code&gt; module comes in.  Let's take a look at the &lt;a href="http://spark.apache.org/docs/2.1.1/api/python/_modules/pyspark/sql/types.html#TimestampType"&gt;source for one of the dta types&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="n"&gt;TimestampType&lt;/span&gt;(&lt;span class="n"&gt;AtomicType&lt;/span&gt;):
+
+    &lt;span class="n"&gt;__metaclass__&lt;/span&gt; = &lt;span class="n"&gt;DataTypeSingleton&lt;/span&gt;
+
+    &lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;needConversion&lt;/span&gt;(&lt;span class="k"&gt;self&lt;/span&gt;):
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;True&lt;/span&gt;
+
+    &lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;toInternal&lt;/span&gt;(&lt;span class="k"&gt;self&lt;/span&gt;, &lt;span class="n"&gt;dt&lt;/span&gt;):
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="nb"&gt;not&lt;/span&gt; &lt;span class="n"&gt;None:&lt;/span&gt;
+            &lt;span class="n"&gt;seconds&lt;/span&gt; = (&lt;span class="n"&gt;calendar&lt;/span&gt;.&lt;span class="n"&gt;timegm&lt;/span&gt;(&lt;span class="n"&gt;dt&lt;/span&gt;.&lt;span class="n"&gt;utctimetuple&lt;/span&gt;()) &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt;.&lt;span class="n"&gt;tzinfo&lt;/span&gt;
+                       &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="nb"&gt;time&lt;/span&gt;.&lt;span class="n"&gt;mktime&lt;/span&gt;(&lt;span class="n"&gt;dt&lt;/span&gt;.&lt;span class="n"&gt;timetuple&lt;/span&gt;()))
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;(&lt;span class="n"&gt;seconds&lt;/span&gt;) * &lt;span class="mi"&gt;1000000&lt;/span&gt; + &lt;span class="n"&gt;dt&lt;/span&gt;.&lt;span class="n"&gt;microsecond&lt;/span&gt;
+
+    &lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;fromInternal&lt;/span&gt;(&lt;span class="k"&gt;self&lt;/span&gt;, &lt;span class="n"&gt;ts&lt;/span&gt;):
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;ts&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="nb"&gt;not&lt;/span&gt; &lt;span class="n"&gt;None:&lt;/span&gt;
+            &lt;span class="c c-Singleline"&gt;# using int to avoid precision loss in float&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;.&lt;span class="n"&gt;datetime&lt;/span&gt;.&lt;span class="n"&gt;fromtimestamp&lt;/span&gt;(&lt;span class="n"&gt;ts&lt;/span&gt; // &lt;span class="mi"&gt;1000000&lt;/span&gt;).&lt;span class="n"&gt;replace&lt;/span&gt;(&lt;span class="n"&gt;microsecond&lt;/span&gt;=&lt;span class="n"&gt;ts&lt;/span&gt; % &lt;span class="mi"&gt;1000000&lt;/span&gt;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;(Sorry for the code being hard to read -- I need to fix my theme)&lt;/p&gt;
+&lt;p&gt;We can see that this class appears to be responsible for marshalling/unmarshalling between Python and Spark data types.  The &lt;code&gt;toInternal()&lt;/code&gt; method takes timestamps and turns them into Python &lt;code&gt;int&lt;/code&gt;s (if you're using Python 3, that is...) and &lt;code&gt;fromInternal()&lt;/code&gt; takes an &lt;code&gt;int&lt;/code&gt; and returns a &lt;code&gt;datetime&lt;/code&gt;.  Since our UDF isn't doing any real work, it would lead us to believe that the only task benig carried out is this data conversion.  Let's test it to see if we can prove this.&lt;/p&gt;
+&lt;h1&gt;Breaking Apart the Marshalling and Unmarshalling&lt;/h1&gt;
+&lt;p&gt;What we want to do is to time how long it takes to convert date-&amp;gt;int, int-&amp;gt;date, timestamp-&amp;gt;int, and int-&amp;gt;timestamp.  If any of these pop out at us, then we will be able to narrow down our performance problem.&lt;/p&gt;
+&lt;p&gt;If you're interested in the code used to test each part of the process, I suggest you take a look at &lt;a href="http://brianstempin.com/notebooks/Timestamp+demonstration.html"&gt;the notebook&lt;/a&gt; that was used to run the test.  Here are the results I came up with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;date-&amp;gt;int:  0.619 sec, baseline&lt;/li&gt;
+&lt;li&gt;int-&amp;gt;date:  1.889 sec, ~200% increase&lt;/li&gt;
+&lt;li&gt;timestamp-&amp;gt;int:  18.260 sec, ~2800% increase&lt;/li&gt;
+&lt;li&gt;int-&amp;gt;timestamp:  52.889 sec, ~8400% increase&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are a few conclusions we can draw here:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Dates are always cheaper than timestamps&lt;/li&gt;
+&lt;li&gt;Going from a numeric type to a Python &lt;code&gt;datetime.date&lt;/code&gt; or &lt;code&gt;datetime.datetime&lt;/code&gt; is more expensive than the opposite operation&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The last thing that I'd like to present is a screenshot of &lt;code&gt;htop&lt;/code&gt;.  During the date operations, all cores are busy.  Here's what it looks like during the timestamp operations:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="y u no use all coares, Spark?!" src="http://brianstempin.com/images/pyspark-underutilization.png" title="Underutilized cores" /&gt;&lt;/p&gt;
+&lt;p&gt;This is a clear sign of contention.&lt;/p&gt;
+&lt;h1&gt;An Attempt to Circumvent the Contention&lt;/h1&gt;
+&lt;p&gt;At this point, we've identified, on a shallow level, the operations that are causing a slow-down and some contention.  I'm not entirely sure why.  In order to answer that, I'd really have to dig through the Spark source code.  Instead of doing that, I'd like to share an approach that a colleague and I came up with to significantly speed things up.&lt;/p&gt;
+&lt;p&gt;Instead of doing calculations that return &lt;code&gt;timestamps&lt;/code&gt;, we do calculations that ultimately return &lt;code&gt;long&lt;/code&gt;s and have Spark cast them to &lt;code&gt;timestamps&lt;/code&gt;.  Here's an example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def timestamp_to_long(dt):
+    &amp;quot;&amp;quot;&amp;quot;
+    This function takes a timestamp and returns it as microseconds from epoc, respecting timezone.  If no tzinfo is specified,
+    UTC is assumed.
+    :param dt:
+    :return:
+    &amp;quot;&amp;quot;&amp;quot;
+    if dt is None:
+        return None
+
+    if not dt.tzinfo:
+        dt = dt.replace(tzinfo=datetime.timezone.utc)
+
+    return int(
+        ((dt - datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)) / datetime.timedelta(microseconds=1)))
+
+
+def some_timestamp_function(ts):
+    # User magic happens here, then we convert to a long
+    return timestamp_to_long(ts)
+
+
+ts_udf = udf(some_timestamp_function, LongType())
+df = df.withColumn(&amp;#39;manipulated_ts&amp;#39;, ts_udf(col(&amp;#39;some_ts_col&amp;#39;)).cast(&amp;#39;timestamp&amp;#39;))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;How do we know it works?  In short, it worked in our case.  We had an ETL job that was manipulating about seven billion dates with a UDF which ran sluggisly and had very poor processor utilization.  The only change we made was to return &lt;code&gt;longs&lt;/code&gt; and cast them...that's it!  All of the date math/manipulation/etc happens with the &lt;code&gt;datetime.datetime&lt;/code&gt; class withing a pure Python UDF.  &lt;/p&gt;
+&lt;p&gt;So, where's my proof?  &lt;/p&gt;
+&lt;p&gt;I don't really have any...if I were to repeat the tests above where we swap out the identity UDFs for UDFs that return &lt;code&gt;longs&lt;/code&gt;, we get similar times.  The only explanation that comes to mind is that Spark is able to do additional operations when using our fix that it can't do otherwise, so the increase we see in CPU utilization is not caused by our method of &lt;code&gt;timestamp&lt;/code&gt; handling, but rather Spark's ability to do other operations at the same time.&lt;/p&gt;
+&lt;p&gt;Why this slowdown happens and why my proposed fix works (in my case...YMMV) is a bit of a mystery to me, but I intend to keep trying to find a way to demonstrate it!  I'd also be interested to hear if you've had significant slowdowns due to &lt;code&gt;timestamp&lt;/code&gt; manipulation or if this fix helps you.  Drop me a line, and happy hacking!&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">bstempi</dc:creator><pubDate>Fri, 29 Sep 2017 13:30:00 -0400</pubDate><guid>tag:brianstempin.com,2017-09-29:2017/09/29/pyspark-timestamp-performance/</guid><category>Python</category><category>Spark</category><category>tools</category></item><item><title>Replacing the Cron in AWS</title><link>http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/</link><description>&lt;p&gt;Like most apps on the internet, the stuff that I write at &lt;a href="http://showroomlogic.com"&gt;Showroom Logic&lt;/a&gt; has scheduled tasks that must happen in a predictable fashion.  In our case, we have some reports to run and deliver.  Our app, like lots of internet apps, is distributed and runs in a Docker container on Amazon's Elastic Beanstalk.  So, what are our options?&lt;/p&gt;
 &lt;h1&gt;How About Cron?&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;cron&lt;/code&gt;'s been the go-to solution for this type of problem for some years.  It's simple:  you edit a file to give it the schedule, tell it what program to execute, and BAM!  Instant scheduled tasks!  Unfortunately, it wasn't this simple for us.&lt;/p&gt;
 &lt;h2&gt;Distributed Apps&lt;/h2&gt;

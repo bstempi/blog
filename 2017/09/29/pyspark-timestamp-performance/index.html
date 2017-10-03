@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="Python,Spark,tools" />
+        <meta name="description" content="In my most recent role, we&#39;re using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model. During this process, we were using PySpark&#39;s pyspark.sql.types.DateType to store date information. At some point, we ..." />
+
+    <title>PySpark Timestamp Performance - BMS's Blog</title>
+
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="../../../../theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="../../../../static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="../../../.." title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../../../../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2017/09/29/pyspark-timestamp-performance/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2017/09/29/pyspark-timestamp-performance/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook"><i class="fa fa-facebook-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter"><i class="fa fa-twitter-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../../../../">
+                    </a>
+                </li>
+                    <li>
+                        <a href="../../../../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=../../../../2017/09/29/pyspark-timestamp-performance/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=../../../../2017/09/29/pyspark-timestamp-performance/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/brian.stempin" title="Facebook">
+                            <i class="fa fa-facebook-square fa-lg padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/bstempi" title="Twitter">
+                            <i class="fa fa-twitter-square fa-lg padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="../../../../about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../../../resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../../../../category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">26</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../../../../category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">8</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../../../../category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="../../../../2017/09/29/pyspark-timestamp-performance/"
+                           rel="bookmark"
+                           title="Permalink to PySpark Timestamp Performance">
+                            PySpark Timestamp Performance
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-09-29T13:30:00-04:00"> Fri 29 September 2017</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="../../../../category/general-work-stuff.html">General Work Stuff</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="../../../../tag/python.html">Python</a> /                 <a href="../../../../tag/spark.html">Spark</a> /                 <a href="../../../../tag/tools.html">tools</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>In my <a href="http://www.enterrasolutions.com/">most recent role</a>, we're using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model.   During this process, we were using PySpark's <code>pyspark.sql.types.DateType</code> to store date information.  At some point, we decided that we wanted more precision, so we opted to use <code>pyspark.sql.types.TimestampType</code> instead.  When switching, we noticed a considerable slow-down.  What once was a processor-intensive task was now failing to occupy all cores of our cluster, causing an obvious slow-down.  What gives, Spark?  The goal of this post is to explore why this happens in Spark 2.1.1.</p>
+<h1>Demonstrating the Performance Impact</h1>
+<p>Before going any further, I suppose that I should give a concrete example of this issue.  To make it easy to follow this demonstration, I'm going to use a <a href="https://github.com/jupyter/docker-stacks/tree/master/all-spark-notebook">Docker container provided by Project Jupyter</a> that includes Spark and Jupyter notebook.  I'll leave it to the reader to get a container running and a notebook open if they want to follow.</p>
+<p>You can see the <a href="../../../../notebooks/Timestamp+demonstration.html">full notebook here</a>, but for the sake of the article I'm going to be brief.  Imagine that you have a dataframe with one million dates and a second one with one million timestamps.  Let's call them <code>date_df</code> and <code>timestamp_df</code>, respectively.  In order to demonstrate this issue, we need to perform some actions on them.  Let's pretend we have the following code:</p>
+<div class="highlight"><pre><span></span>def date_identity(some_date):
+    return some_date
+
+def timestamp_identity(some_dt):
+    return dt
+
+date_identity_udf = func.udf(date_identity, DateType())
+timestamp_identity_udf = func.udf(timestamp_identity, TimestampType())
+</pre></div>
+
+
+<p>These identity functions don't do anything; they simply return what they're given.  Let's try to apply these transformations to their respective data frames.  YMMV - the important thing here is not the absolute numbers, but the numbers relative to each other.</p>
+<div class="highlight"><pre><span></span>transformed_date_df = date_df.withColumn(&#39;identity&#39;, date_identity_udf(col(&#39;some_date&#39;)))
+timeit.timeit(transformed_date_df.count, number=1)
+
+transformed_timestamp_df = timestamp_df.withColumn(&#39;identity&#39;, timestamp_identity_udf(col(&#39;some_timestamp&#39;)))
+timeit.timeit(transformed_timestamp_df.count, number=1)
+</pre></div>
+
+
+<p>The numbers I got for those calculations, operating on a million items each on a rather large VM was 0.68 and 18.27 seconds, respectively.  That means the identity function for the <code>TimestampType</code> took over 26 times longer to run!  Where was all of this time going?</p>
+<h1>Data Serialization and Interlanguage Communication</h1>
+<p>Spark is not written in Python, so what happens when we write Spark code in Python?  In the case that we're doing operations on dataframes and columns, we're simply using Python to build a plan, allowing Spark do all of the work.  In this case, little or no actual Python code is run on any of the worker nodes.  </p>
+<p>What happens when we introduce something like a Python UDF?  Well, now we are forcing Spark to run Python code on each of the workers.  Spark is not written in Python, so some work has to be done to take data out of the JVM memory model and marshal it into something that Python can interpret and work with.  This is in part where some of the <code>pyspark.sql.types</code> module comes in.  Let's take a look at the <a href="http://spark.apache.org/docs/2.1.1/api/python/_modules/pyspark/sql/types.html#TimestampType">source for one of the dta types</a>:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">TimestampType</span>(<span class="n">AtomicType</span>):
+
+    <span class="n">__metaclass__</span> = <span class="n">DataTypeSingleton</span>
+
+    <span class="n">def</span> <span class="n">needConversion</span>(<span class="k">self</span>):
+        <span class="k">return</span> <span class="nb">True</span>
+
+    <span class="n">def</span> <span class="n">toInternal</span>(<span class="k">self</span>, <span class="n">dt</span>):
+        <span class="k">if</span> <span class="n">dt</span> <span class="k">is</span> <span class="nb">not</span> <span class="n">None:</span>
+            <span class="n">seconds</span> = (<span class="n">calendar</span>.<span class="n">timegm</span>(<span class="n">dt</span>.<span class="n">utctimetuple</span>()) <span class="k">if</span> <span class="n">dt</span>.<span class="n">tzinfo</span>
+                       <span class="k">else</span> <span class="nb">time</span>.<span class="n">mktime</span>(<span class="n">dt</span>.<span class="n">timetuple</span>()))
+            <span class="k">return</span> <span class="nb">int</span>(<span class="n">seconds</span>) * <span class="mi">1000000</span> + <span class="n">dt</span>.<span class="n">microsecond</span>
+
+    <span class="n">def</span> <span class="n">fromInternal</span>(<span class="k">self</span>, <span class="n">ts</span>):
+        <span class="k">if</span> <span class="n">ts</span> <span class="k">is</span> <span class="nb">not</span> <span class="n">None:</span>
+            <span class="c c-Singleline"># using int to avoid precision loss in float</span>
+            <span class="k">return</span> <span class="n">datetime</span>.<span class="n">datetime</span>.<span class="n">fromtimestamp</span>(<span class="n">ts</span> // <span class="mi">1000000</span>).<span class="n">replace</span>(<span class="n">microsecond</span>=<span class="n">ts</span> % <span class="mi">1000000</span>)
+</pre></div>
+
+
+<p>(Sorry for the code being hard to read -- I need to fix my theme)</p>
+<p>We can see that this class appears to be responsible for marshalling/unmarshalling between Python and Spark data types.  The <code>toInternal()</code> method takes timestamps and turns them into Python <code>int</code>s (if you're using Python 3, that is...) and <code>fromInternal()</code> takes an <code>int</code> and returns a <code>datetime</code>.  Since our UDF isn't doing any real work, it would lead us to believe that the only task benig carried out is this data conversion.  Let's test it to see if we can prove this.</p>
+<h1>Breaking Apart the Marshalling and Unmarshalling</h1>
+<p>What we want to do is to time how long it takes to convert date-&gt;int, int-&gt;date, timestamp-&gt;int, and int-&gt;timestamp.  If any of these pop out at us, then we will be able to narrow down our performance problem.</p>
+<p>If you're interested in the code used to test each part of the process, I suggest you take a look at <a href="../../../../notebooks/Timestamp+demonstration.html">the notebook</a> that was used to run the test.  Here are the results I came up with:</p>
+<ul>
+<li>date-&gt;int:  0.619 sec, baseline</li>
+<li>int-&gt;date:  1.889 sec, ~200% increase</li>
+<li>timestamp-&gt;int:  18.260 sec, ~2800% increase</li>
+<li>int-&gt;timestamp:  52.889 sec, ~8400% increase</li>
+</ul>
+<p>There are a few conclusions we can draw here:</p>
+<ol>
+<li>Dates are always cheaper than timestamps</li>
+<li>Going from a numeric type to a Python <code>datetime.date</code> or <code>datetime.datetime</code> is more expensive than the opposite operation</li>
+</ol>
+<p>The last thing that I'd like to present is a screenshot of <code>htop</code>.  During the date operations, all cores are busy.  Here's what it looks like during the timestamp operations:</p>
+<p><img alt="y u no use all coares, Spark?!" src="../../../../images/pyspark-underutilization.png" title="Underutilized cores" /></p>
+<p>This is a clear sign of contention.</p>
+<h1>An Attempt to Circumvent the Contention</h1>
+<p>At this point, we've identified, on a shallow level, the operations that are causing a slow-down and some contention.  I'm not entirely sure why.  In order to answer that, I'd really have to dig through the Spark source code.  Instead of doing that, I'd like to share an approach that a colleague and I came up with to significantly speed things up.</p>
+<p>Instead of doing calculations that return <code>timestamps</code>, we do calculations that ultimately return <code>long</code>s and have Spark cast them to <code>timestamps</code>.  Here's an example:</p>
+<div class="highlight"><pre><span></span>def timestamp_to_long(dt):
+    &quot;&quot;&quot;
+    This function takes a timestamp and returns it as microseconds from epoc, respecting timezone.  If no tzinfo is specified,
+    UTC is assumed.
+    :param dt:
+    :return:
+    &quot;&quot;&quot;
+    if dt is None:
+        return None
+
+    if not dt.tzinfo:
+        dt = dt.replace(tzinfo=datetime.timezone.utc)
+
+    return int(
+        ((dt - datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)) / datetime.timedelta(microseconds=1)))
+
+
+def some_timestamp_function(ts):
+    # User magic happens here, then we convert to a long
+    return timestamp_to_long(ts)
+
+
+ts_udf = udf(some_timestamp_function, LongType())
+df = df.withColumn(&#39;manipulated_ts&#39;, ts_udf(col(&#39;some_ts_col&#39;)).cast(&#39;timestamp&#39;))
+</pre></div>
+
+
+<p>How do we know it works?  In short, it worked in our case.  We had an ETL job that was manipulating about seven billion dates with a UDF which ran sluggisly and had very poor processor utilization.  The only change we made was to return <code>longs</code> and cast them...that's it!  All of the date math/manipulation/etc happens with the <code>datetime.datetime</code> class withing a pure Python UDF.  </p>
+<p>So, where's my proof?  </p>
+<p>I don't really have any...if I were to repeat the tests above where we swap out the identity UDFs for UDFs that return <code>longs</code>, we get similar times.  The only explanation that comes to mind is that Spark is able to do additional operations when using our fix that it can't do otherwise, so the increase we see in CPU utilization is not caused by our method of <code>timestamp</code> handling, but rather Spark's ability to do other operations at the same time.</p>
+<p>Why this slowdown happens and why my proposed fix works (in my case...YMMV) is a bit of a mystery to me, but I intend to keep trying to find a way to demonstrate it!  I'd also be interested to hear if you've had significant slowdowns due to <code>timestamp</code> manipulation or if this fix helps you.  Drop me a line, and happy hacking!</p>
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2017 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../../../../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../../../../theme/js/pelican_twitchy.min.js"></script>
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'pyspark-timestamp-performance';
+        var disqus_url = '../../../../2017/09/29/pyspark-timestamp-performance/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<!-- /disqus --></body>
+</html>
