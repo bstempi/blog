@@ -44,7 +44,7 @@ DEFAULT_PAGINATION = 5
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 
-STATIC_PATHS = ['images', 'pdfs', 'extra/custom.css', 'extra/CNAME']
+STATIC_PATHS = ['images', 'extra/custom.css', 'extra/CNAME', 'notebooks']
 
 EXTRA_PATH_METADATA = {
     'extra/custom.css': {'path': 'static/custom.css'},
@@ -53,6 +53,9 @@ EXTRA_PATH_METADATA = {
 
 ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}/'
 ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
+
+ARTICLE_EXCLUDES = ['notebooks']
+PAGE_EXCLUDES = ['notebooks']
 
 # Share
 SHARE = True
