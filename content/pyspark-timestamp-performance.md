@@ -14,7 +14,7 @@ Before going any further, I suppose that I should give a concrete example of thi
 
 You can see the [full notebook here]({filename}/notebooks/Timestamp+demonstration.html), but for the sake of the article I'm going to be brief.  Imagine that you have a dataframe with one million dates and a second one with one million timestamps.  Let's call them `date_df` and `timestamp_df`, respectively.  In order to demonstrate this issue, we need to perform some actions on them.  Let's pretend we have the following code:
 
-```
+```python
 def date_identity(some_date):
     return some_date
 
@@ -27,7 +27,7 @@ timestamp_identity_udf = func.udf(timestamp_identity, TimestampType())
 
 These identity functions don't do anything; they simply return what they're given.  Let's try to apply these transformations to their respective data frames.  YMMV - the important thing here is not the absolute numbers, but the numbers relative to each other.
 
-```
+```python
 transformed_date_df = date_df.withColumn('identity', date_identity_udf(col('some_date')))
 timeit.timeit(transformed_date_df.count, number=1)
 
@@ -44,7 +44,7 @@ Spark is not written in Python, so what happens when we write Spark code in Pyth
 
 What happens when we introduce something like a Python UDF?  Well, now we are forcing Spark to run Python code on each of the workers.  Spark is not written in Python, so some work has to be done to take data out of the JVM memory model and marshal it into something that Python can interpret and work with.  This is in part where some of the `pyspark.sql.types` module comes in.  Let's take a look at the [source for one of the dta types](http://spark.apache.org/docs/2.1.1/api/python/_modules/pyspark/sql/types.html#TimestampType):
 
-```
+```python
 class TimestampType(AtomicType):
 
     __metaclass__ = DataTypeSingleton
@@ -97,7 +97,7 @@ At this point, we've identified, on a shallow level, the operations that are cau
 
 Instead of doing calculations that return `timestamps`, we do calculations that ultimately return `long`s and have Spark cast them to `timestamps`.  Here's an example:
 
-```
+```python
 def timestamp_to_long(dt):
     """
     This function takes a timestamp and returns it as microseconds from epoc, respecting timezone.  If no tzinfo is specified,

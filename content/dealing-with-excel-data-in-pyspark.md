@@ -26,7 +26,7 @@ Making Sense of the Binary Content
 
 The is the part where we need to take that binary data and turn it into something sensible.  My thought was that Pandas has built-in support for Excel files, so perhaps that'd be a good tool to do a transformation.  Because we're using Spark, we can use a `map` function to work on several of these files in parallel.  Here's a simple example:
 
-```
+```python
 import functools
 import io
 
@@ -71,7 +71,7 @@ Most people probably aren't going to want to stop with a collection of Pandas DF
 
 Ok, that's simple enough.  We can take our Pandas DFs, convert them to Spark `Row` objects, and as long as they're homogenous, Spark will recognize it as a data frame.  Here's how I accomplished that in a project:
 
-```
+```python
 def flatten_pd_df(pd_df):
     """
     Given a Pandas DF that has appropriately named columns, this function will iterate the rows and generate Spark Row
