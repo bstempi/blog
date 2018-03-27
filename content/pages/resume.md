@@ -25,9 +25,9 @@ Employment
 -----------
 
 ### Senior Software Engineer, Enterra Solutions ###
-#### October 2016 - current ####
+#### October 2016 - December 2017 ####
 
-I'm currently responsible for designing and leading the implementation of Enterra's next generation of ETL tools.  Currently, we implement most of our ETL as SQL scripts.  Most of these scripts aren't scalable and are very difficult to test.  We decided to move to Spark so that we could easily introduce unit tests, break up large transformations across several functions, and scale out.  Our current Spark jobs are written using Python.
+I was responsible for designing and leading the implementation of Enterra's next generation of ETL tools.  Previously, then implemented most of our ETL as SQL scripts.  Most of these scripts aren't scalable and are very difficult to test.  We decided to move to Spark so that we could easily introduce unit tests, break up large transformations across several functions, and scale out.  Their current Spark jobs are written using Python.
 
 Prior to writing ETL jobs, I was responsible for implementing and maintaining a small handful of service.  Most of our projects were monoliths, so the decision was made to break up our projects into smaller, reusable services that we could leverage in later projects.  These services are all containerized and meant to be easily deployable and configurable via Docker.  My services were designed by the data science team, the head of engineering, and me.  They're written in Python and rely heavily on Pandas and SciPy.
 
