@@ -296,23 +296,23 @@
 <h1>Demonstrating the Performance Impact</h1>
 <p>Before going any further, I suppose that I should give a concrete example of this issue.  To make it easy to follow this demonstration, I'm going to use a <a href="https://github.com/jupyter/docker-stacks/tree/master/all-spark-notebook">Docker container provided by Project Jupyter</a> that includes Spark and Jupyter notebook.  I'll leave it to the reader to get a container running and a notebook open if they want to follow.</p>
 <p>You can see the <a href="http://brianstempin.com/notebooks/Timestamp+demonstration.html">full notebook here</a>, but for the sake of the article I'm going to be brief.  Imagine that you have a dataframe with one million dates and a second one with one million timestamps.  Let's call them <code>date_df</code> and <code>timestamp_df</code>, respectively.  In order to demonstrate this issue, we need to perform some actions on them.  Let's pretend we have the following code:</p>
-<div class="highlight"><pre><span></span>def date_identity(some_date):
-    return some_date
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">date_identity</span><span class="p">(</span><span class="n">some_date</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">some_date</span>
 
-def timestamp_identity(some_dt):
-    return dt
+<span class="k">def</span> <span class="nf">timestamp_identity</span><span class="p">(</span><span class="n">some_dt</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">dt</span>
 
-date_identity_udf = func.udf(date_identity, DateType())
-timestamp_identity_udf = func.udf(timestamp_identity, TimestampType())
+<span class="n">date_identity_udf</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">udf</span><span class="p">(</span><span class="n">date_identity</span><span class="p">,</span> <span class="n">DateType</span><span class="p">())</span>
+<span class="n">timestamp_identity_udf</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">udf</span><span class="p">(</span><span class="n">timestamp_identity</span><span class="p">,</span> <span class="n">TimestampType</span><span class="p">())</span>
 </pre></div>
 
 
 <p>These identity functions don't do anything; they simply return what they're given.  Let's try to apply these transformations to their respective data frames.  YMMV - the important thing here is not the absolute numbers, but the numbers relative to each other.</p>
-<div class="highlight"><pre><span></span>transformed_date_df = date_df.withColumn(&#39;identity&#39;, date_identity_udf(col(&#39;some_date&#39;)))
-timeit.timeit(transformed_date_df.count, number=1)
+<div class="highlight"><pre><span></span><span class="n">transformed_date_df</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">date_identity_udf</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;some_date&#39;</span><span class="p">)))</span>
+<span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">transformed_date_df</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-transformed_timestamp_df = timestamp_df.withColumn(&#39;identity&#39;, timestamp_identity_udf(col(&#39;some_timestamp&#39;)))
-timeit.timeit(transformed_timestamp_df.count, number=1)
+<span class="n">transformed_timestamp_df</span> <span class="o">=</span> <span class="n">timestamp_df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">timestamp_identity_udf</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;some_timestamp&#39;</span><span class="p">)))</span>
+<span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">transformed_timestamp_df</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
@@ -320,23 +320,23 @@ timeit.timeit(transformed_timestamp_df.count, number=1)
 <h1>Data Serialization and Interlanguage Communication</h1>
 <p>Spark is not written in Python, so what happens when we write Spark code in Python?  In the case that we're doing operations on dataframes and columns, we're simply using Python to build a plan, allowing Spark do all of the work.  In this case, little or no actual Python code is run on any of the worker nodes.  </p>
 <p>What happens when we introduce something like a Python UDF?  Well, now we are forcing Spark to run Python code on each of the workers.  Spark is not written in Python, so some work has to be done to take data out of the JVM memory model and marshal it into something that Python can interpret and work with.  This is in part where some of the <code>pyspark.sql.types</code> module comes in.  Let's take a look at the <a href="http://spark.apache.org/docs/2.1.1/api/python/_modules/pyspark/sql/types.html#TimestampType">source for one of the dta types</a>:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">TimestampType</span>(<span class="n">AtomicType</span>):
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TimestampType</span><span class="p">(</span><span class="n">AtomicType</span><span class="p">):</span>
 
-    <span class="n">__metaclass__</span> = <span class="n">DataTypeSingleton</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">DataTypeSingleton</span>
 
-    <span class="n">def</span> <span class="n">needConversion</span>(<span class="k">self</span>):
-        <span class="k">return</span> <span class="nb">True</span>
+    <span class="k">def</span> <span class="nf">needConversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
 
-    <span class="n">def</span> <span class="n">toInternal</span>(<span class="k">self</span>, <span class="n">dt</span>):
-        <span class="k">if</span> <span class="n">dt</span> <span class="k">is</span> <span class="nb">not</span> <span class="n">None:</span>
-            <span class="n">seconds</span> = (<span class="n">calendar</span>.<span class="n">timegm</span>(<span class="n">dt</span>.<span class="n">utctimetuple</span>()) <span class="k">if</span> <span class="n">dt</span>.<span class="n">tzinfo</span>
-                       <span class="k">else</span> <span class="nb">time</span>.<span class="n">mktime</span>(<span class="n">dt</span>.<span class="n">timetuple</span>()))
-            <span class="k">return</span> <span class="nb">int</span>(<span class="n">seconds</span>) * <span class="mi">1000000</span> + <span class="n">dt</span>.<span class="n">microsecond</span>
+    <span class="k">def</span> <span class="nf">toInternal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">utctimetuple</span><span class="p">())</span> <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span>
+                       <span class="k">else</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()))</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">seconds</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">microsecond</span>
 
-    <span class="n">def</span> <span class="n">fromInternal</span>(<span class="k">self</span>, <span class="n">ts</span>):
-        <span class="k">if</span> <span class="n">ts</span> <span class="k">is</span> <span class="nb">not</span> <span class="n">None:</span>
-            <span class="c c-Singleline"># using int to avoid precision loss in float</span>
-            <span class="k">return</span> <span class="n">datetime</span>.<span class="n">datetime</span>.<span class="n">fromtimestamp</span>(<span class="n">ts</span> // <span class="mi">1000000</span>).<span class="n">replace</span>(<span class="n">microsecond</span>=<span class="n">ts</span> % <span class="mi">1000000</span>)
+    <span class="k">def</span> <span class="nf">fromInternal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ts</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># using int to avoid precision loss in float</span>
+            <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ts</span> <span class="o">//</span> <span class="mi">1000000</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">microsecond</span><span class="o">=</span><span class="n">ts</span> <span class="o">%</span> <span class="mi">1000000</span><span class="p">)</span>
 </pre></div>
 
 
@@ -362,30 +362,30 @@ timeit.timeit(transformed_timestamp_df.count, number=1)
 <h1>An Attempt to Circumvent the Contention</h1>
 <p>At this point, we've identified, on a shallow level, the operations that are causing a slow-down and some contention.  I'm not entirely sure why.  In order to answer that, I'd really have to dig through the Spark source code.  Instead of doing that, I'd like to share an approach that a colleague and I came up with to significantly speed things up.</p>
 <p>Instead of doing calculations that return <code>timestamps</code>, we do calculations that ultimately return <code>long</code>s and have Spark cast them to <code>timestamps</code>.  Here's an example:</p>
-<div class="highlight"><pre><span></span>def timestamp_to_long(dt):
-    &quot;&quot;&quot;
-    This function takes a timestamp and returns it as microseconds from epoc, respecting timezone.  If no tzinfo is specified,
-    UTC is assumed.
-    :param dt:
-    :return:
-    &quot;&quot;&quot;
-    if dt is None:
-        return None
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">timestamp_to_long</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function takes a timestamp and returns it as microseconds from epoc, respecting timezone.  If no tzinfo is specified,</span>
+<span class="sd">    UTC is assumed.</span>
+<span class="sd">    :param dt:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
 
-    if not dt.tzinfo:
-        dt = dt.replace(tzinfo=datetime.timezone.utc)
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">:</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
 
-    return int(
-        ((dt - datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)) / datetime.timedelta(microseconds=1)))
-
-
-def some_timestamp_function(ts):
-    # User magic happens here, then we convert to a long
-    return timestamp_to_long(ts)
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span>
+        <span class="p">((</span><span class="n">dt</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1970</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">))</span> <span class="o">/</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">microseconds</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span>
 
 
-ts_udf = udf(some_timestamp_function, LongType())
-df = df.withColumn(&#39;manipulated_ts&#39;, ts_udf(col(&#39;some_ts_col&#39;)).cast(&#39;timestamp&#39;))
+<span class="k">def</span> <span class="nf">some_timestamp_function</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="c1"># User magic happens here, then we convert to a long</span>
+    <span class="k">return</span> <span class="n">timestamp_to_long</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+
+
+<span class="n">ts_udf</span> <span class="o">=</span> <span class="n">udf</span><span class="p">(</span><span class="n">some_timestamp_function</span><span class="p">,</span> <span class="n">LongType</span><span class="p">())</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;manipulated_ts&#39;</span><span class="p">,</span> <span class="n">ts_udf</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;some_ts_col&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">))</span>
 </pre></div>
 
 

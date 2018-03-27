@@ -246,7 +246,7 @@ span.glyphicon-chevron-down, .collapsed span.glyphicon-chevron-up{
 .highlight pre span.n,
 .highlight pre span.p,
 .highlight pre span.s {
-    color: #3e3f3a;
+    /* color: #3e3f3a; */
 }
 
 

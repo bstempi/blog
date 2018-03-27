@@ -345,22 +345,22 @@
 <p>When schema is None, it will try to infer the schema (column names and types) from data, which should be an RDD of Row, or namedtuple, or dict.</p>
 </blockquote>
 <p>Ok, that's simple enough.  We can take our Pandas DFs, convert them to Spark <code>Row</code> objects, and as long as they're homogenous, Spark will recognize it as a data frame.  Here's how I accomplished that in a project:</p>
-<div class="highlight"><pre><span></span>def flatten_pd_df(pd_df):
-    &quot;&quot;&quot;
-    Given a Pandas DF that has appropriately named columns, this function will iterate the rows and generate Spark Row
-    objects.  It&#39;s recommended that this method be invoked via Spark&#39;s `flatMap`.
-    :param pd_df: 
-    :return: 
-    &quot;&quot;&quot;
-    rows = list()
-    for index, series in pd_df.iterrows():
-        # Takes a row of a df, exports it as a dict, and then passes an unpacked-dict into the Row constructor
-        row_dict = {str(k): v for k, v in series.to_dict().items()}
-        rows.append(Row(**row_dict))
-    return rows
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">flatten_pd_df</span><span class="p">(</span><span class="n">pd_df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a Pandas DF that has appropriately named columns, this function will iterate the rows and generate Spark Row</span>
+<span class="sd">    objects.  It&#39;s recommended that this method be invoked via Spark&#39;s `flatMap`.</span>
+<span class="sd">    :param pd_df: </span>
+<span class="sd">    :return: </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">pd_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="c1"># Takes a row of a df, exports it as a dict, and then passes an unpacked-dict into the Row constructor</span>
+        <span class="n">row_dict</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">series</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Row</span><span class="p">(</span><span class="o">**</span><span class="n">row_dict</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">rows</span>
 
-rdd_of_rows = rdd_of_pandas_dfs.flatMap(flatten_pd_df)
-spark_df = some_sql_context.createDataFrame(rdd_of_rows)
+<span class="n">rdd_of_rows</span> <span class="o">=</span> <span class="n">rdd_of_pandas_dfs</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="n">flatten_pd_df</span><span class="p">)</span>
+<span class="n">spark_df</span> <span class="o">=</span> <span class="n">some_sql_context</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">rdd_of_rows</span><span class="p">)</span>
 </pre></div>
 
 
