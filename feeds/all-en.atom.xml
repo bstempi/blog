@@ -1,5 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/all-en.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2017-09-29T13:30:00-04:00</updated><entry><title>PySpark Timestamp Performance</title><link href="http://brianstempin.com/2017/09/29/pyspark-timestamp-performance/" rel="alternate"></link><updated>2017-09-29T13:30:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2017-09-29:2017/09/29/pyspark-timestamp-performance/</id><summary type="html">&lt;p&gt;In my &lt;a href="http://www.enterrasolutions.com/"&gt;most recent role&lt;/a&gt;, we're using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model.   During this process, we were using PySpark's &lt;code&gt;pyspark.sql.types.DateType&lt;/code&gt; to store date information.  At some point, we decided that we wanted more precision, so we opted to use &lt;code&gt;pyspark.sql.types.TimestampType&lt;/code&gt; instead.  When switching, we noticed a considerable slow-down.  What once was a processor-intensive task was now failing to occupy all cores of our cluster, causing an obvious slow-down.  What gives, Spark?  The goal of this post is to explore why this happens in Spark 2.1.1.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/all-en.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2017-10-05T13:30:00-04:00</updated><entry><title>Dealing With Excel Data in PySpark</title><link href="http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/" rel="alternate"></link><updated>2017-10-05T13:30:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2017-10-05:2017/10/05/dealing-with-excel-data-in-pyspark/</id><summary type="html">&lt;p&gt;Have you ever asked yourself, "how do I read in 10,000 Excel files and process them using Spark?"  I hope not...it sounds like a terrible task...but in case you have, it just so happens I might have an approach your interested in.&lt;/p&gt;
+&lt;h2&gt;General Approach&lt;/h2&gt;
+&lt;p&gt;PySpark does not support Excel directly, but it does support reading in binary data.  So, here's the thought pattern:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Read a bunch of Excel files in as an RDD, one record per file&lt;/li&gt;
+&lt;li&gt;Using some sort of &lt;code&gt;map&lt;/code&gt; function, feed each binary blob to Pandas to read, creating an RDD of (file name, tab name, Pandas DF) tuples&lt;/li&gt;
+&lt;li&gt;(optional) if the Pandas data frames are all the same shape, then we can convert them all into Spark data frames&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Reading in Excel Files as Binary Blobs&lt;/h2&gt;
+&lt;p&gt;This one is pretty easy:  &lt;a href="http://spark.apache.org/docs/2.1.1/api/python/pyspark.html#pyspark.SparkContext.binaryFiles"&gt;SparkContext.binaryFiles()&lt;/a&gt; is your friend here.  If you give it a directory, it'll read each file in the directory as a binary blob and place it into an RDD.  If you have 10 files, you'll get back an RDD with 10 entries, each one containing the file name and it's contents.&lt;/p&gt;
+&lt;h2&gt;Making Sense of the Binary Content&lt;/h2&gt;
+&lt;p&gt;The is the part where we need to take that binary data and turn it into something sensible.  My thought was that Pandas has built-in support for Excel files, so perhaps that'd be a good tool to do a transformation.  Because we're using Spark, we can use a &lt;code&gt;map&lt;/code&gt; function to work on several of these files in parallel.  Here's a simple example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;functools&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;io&lt;/span&gt;
+
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pd_dfs_from_excel_rdd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rdd_record&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pandas_opts&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;file_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rdd_record&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;file_contents&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rdd_record&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+    &lt;span class="n"&gt;file_like_obj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;io&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BytesIO&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;file_contents&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;df_dict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_excel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;file_like_obj&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;pandas_opts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;dfs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;sheet_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sheet_df&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;df_dict&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+        &lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;file_path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sheet_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sheet_df&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;dfs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;dfs&lt;/span&gt;
+
+
+&lt;span class="n"&gt;spark_context&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt; &lt;span class="c1"&gt;# Start your context here&lt;/span&gt;
+&lt;span class="n"&gt;excel_files_rdd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;spark_context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;binaryFiles&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;some_path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;pandas_opts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;sheetname&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;header&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;parsing_func&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;functools&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;partial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pd_dfs_from_excel_rdd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pandas_opts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;pandas_opts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;parsed_excel_sheets&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;excel_files_rdd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flatMap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parsing_func&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Presto!  If we give Pandas Excel files, we get back an RDD that contains (file path, sheet name, sheet df) tuples.  The other magic that happens here is with the &lt;code&gt;partial&lt;/code&gt;.  Our map function takes an RDD record and some Pandas options, but Spark will only pass in the former.  So, we create some Pandas options, create a partial that only takes RDD entries, and we're off.  You can change the &lt;code&gt;pandas_opts&lt;/code&gt; to your liking and things will still work.&lt;/p&gt;
+&lt;h2&gt;Going From Pandas DFs to Spark DFs&lt;/h2&gt;
+&lt;p&gt;Most people probably aren't going to want to stop with a collection of Pandas DFs.  Far more interesting and performant things can be done with Spark DFs.  PySpark contains the &lt;a href="http://spark.apache.org/docs/2.1.1/api/python/pyspark.sql.html#pyspark.sql.SQLContext.createDataFrame"&gt;SQLContext.createDataFrame&lt;/a&gt;, which has the folling snippet:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;When schema is None, it will try to infer the schema (column names and types) from data, which should be an RDD of Row, or namedtuple, or dict.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Ok, that's simple enough.  We can take our Pandas DFs, convert them to Spark &lt;code&gt;Row&lt;/code&gt; objects, and as long as they're homogenous, Spark will recognize it as a data frame.  Here's how I accomplished that in a project:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def flatten_pd_df(pd_df):
+    &amp;quot;&amp;quot;&amp;quot;
+    Given a Pandas DF that has appropriately named columns, this function will iterate the rows and generate Spark Row
+    objects.  It&amp;#39;s recommended that this method be invoked via Spark&amp;#39;s `flatMap`.
+    :param pd_df: 
+    :return: 
+    &amp;quot;&amp;quot;&amp;quot;
+    rows = list()
+    for index, series in pd_df.iterrows():
+        # Takes a row of a df, exports it as a dict, and then passes an unpacked-dict into the Row constructor
+        row_dict = {str(k): v for k, v in series.to_dict().items()}
+        rows.append(Row(**row_dict))
+    return rows
+
+rdd_of_rows = rdd_of_pandas_dfs.flatMap(flatten_pd_df)
+spark_df = some_sql_context.createDataFrame(rdd_of_rows)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This function will get each Pandas data frame, iterate through it's rows as a dictionary, and use this dictionary to instantiate a Spark &lt;code&gt;Row&lt;/code&gt; object.  At the end of this, we have an RDD of &lt;code&gt;Row&lt;/code&gt;s.  Happy days!&lt;/p&gt;
+&lt;h2&gt;Closing&lt;/h2&gt;
+&lt;p&gt;Not that I hope that anyone has to deal with tons and tons of Excel data, but if you do, hopefully this is of use.  If it was, drop me a line!  I'd love to hear from you&lt;/p&gt;</summary><category term="Python"></category><category term="Spark"></category><category term="tools"></category></entry><entry><title>PySpark Timestamp Performance</title><link href="http://brianstempin.com/2017/09/29/pyspark-timestamp-performance/" rel="alternate"></link><updated>2017-09-29T13:30:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2017-09-29:2017/09/29/pyspark-timestamp-performance/</id><summary type="html">&lt;p&gt;In my &lt;a href="http://www.enterrasolutions.com/"&gt;most recent role&lt;/a&gt;, we're using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model.   During this process, we were using PySpark's &lt;code&gt;pyspark.sql.types.DateType&lt;/code&gt; to store date information.  At some point, we decided that we wanted more precision, so we opted to use &lt;code&gt;pyspark.sql.types.TimestampType&lt;/code&gt; instead.  When switching, we noticed a considerable slow-down.  What once was a processor-intensive task was now failing to occupy all cores of our cluster, causing an obvious slow-down.  What gives, Spark?  The goal of this post is to explore why this happens in Spark 2.1.1.&lt;/p&gt;
 &lt;h1&gt;Demonstrating the Performance Impact&lt;/h1&gt;
 &lt;p&gt;Before going any further, I suppose that I should give a concrete example of this issue.  To make it easy to follow this demonstration, I'm going to use a &lt;a href="https://github.com/jupyter/docker-stacks/tree/master/all-spark-notebook"&gt;Docker container provided by Project Jupyter&lt;/a&gt; that includes Spark and Jupyter notebook.  I'll leave it to the reader to get a container running and a notebook open if they want to follow.&lt;/p&gt;
 &lt;p&gt;You can see the &lt;a href="http://brianstempin.com/notebooks/Timestamp+demonstration.html"&gt;full notebook here&lt;/a&gt;, but for the sake of the article I'm going to be brief.  Imagine that you have a dataframe with one million dates and a second one with one million timestamps.  Let's call them &lt;code&gt;date_df&lt;/code&gt; and &lt;code&gt;timestamp_df&lt;/code&gt;, respectively.  In order to demonstrate this issue, we need to perform some actions on them.  Let's pretend we have the following code:&lt;/p&gt;

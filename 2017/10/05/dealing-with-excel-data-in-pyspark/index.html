@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="bstempi" />
-        <meta name="keywords" content="Algorithms,GIS,PHP" />
-        <meta name="description" content="Yeah, yeah, I know what you&#39;re thinking:  Why PHP? Well, I have a fairly small graph (&lt; 650 nodes), so trying to get a C or Java to interact with my preexisting PHP software isn&#39;t worth the boost in performance.  The implementation I found can read my graph from ..." />
+        <meta name="keywords" content="Python,Spark,tools" />
+        <meta name="description" content="Have you ever asked yourself, &#34;how do I read in 10,000 Excel files and process them using Spark?&#34; I hope not...it sounds like a terrible task...but in case you have, it just so happens I might have an approach your interested in. General Approach PySpark does not ..." />
 
-    <title>Dijkstra's Algorithm in PHP - BMS's Blog</title>
+    <title>Dealing With Excel Data in PySpark - BMS's Blog</title>
 
     <link rel="stylesheet" href="http://brianstempin.com/theme/css/bootstrap.min.css" type="text/css"/>
     <link href="http://brianstempin.com/theme/css/font-awesome.min.css" rel="stylesheet">
@@ -56,12 +56,12 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
                     <li>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2010/02/27/dijkstras-algorithm-in-php/" title="Share via Facebook" target="popup">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/" title="Share via Facebook" target="popup">
                             <i class="fa fa-facebook-square padding-small"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2010/02/27/dijkstras-algorithm-in-php/" title="Share via Google+" target="popup">
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/" title="Share via Google+" target="popup">
                             <i class="fa fa-google-plus padding-small"></i>
                         </a>
                     </li>
@@ -120,13 +120,13 @@
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
                     <li>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2010/02/27/dijkstras-algorithm-in-php/" target="popup">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/" target="popup">
                             <i class="fa fa-facebook-square padding-small"></i>
                             Facebook
                         </a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2010/02/27/dijkstras-algorithm-in-php/" target="popup">
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/" target="popup">
                             <i class="fa fa-google-plus padding-small"></i>
                             Google+
                         </a>
@@ -222,14 +222,14 @@
                             <span class="badge pull-right categorybadge">26</span>
                         </a>
                     </li>
-                    <li >
+                    <li class="active">
                         <a href="http://brianstempin.com/category/general-work-stuff.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             General Work Stuff
                             <span class="badge pull-right categorybadge">9</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li >
                         <a href="http://brianstempin.com/category/traffic-research-project.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Traffic Research Project
@@ -264,24 +264,24 @@
             <div class="col-lg-12">
                 <header class="page-header">
                     <h1>
-                        <a href="http://brianstempin.com/2010/02/27/dijkstras-algorithm-in-php/"
+                        <a href="http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/"
                            rel="bookmark"
-                           title="Permalink to Dijkstra's Algorithm in PHP">
-                            Dijkstra's Algorithm in PHP
+                           title="Permalink to Dealing With Excel Data in PySpark">
+                            Dealing With Excel Data in PySpark
                         </a>
                         <small>
 <div class="post-info">
     <div class="publish-info-block">
         <small>
             <span class="published">
-                <i class="fa fa-calendar padding-small"></i><time datetime="2010-02-27T03:27:00-05:00"> Sat 27 February 2010</time>
+                <i class="fa fa-calendar padding-small"></i><time datetime="2017-10-05T13:30:00-04:00"> Thu 05 October 2017</time>
             </span>
             <span class="category">
-                <i class="fa fa-folder-open padding-small"></i><a href="http://brianstempin.com/category/traffic-research-project.html">Traffic Research Project</a>
+                <i class="fa fa-folder-open padding-small"></i><a href="http://brianstempin.com/category/general-work-stuff.html">General Work Stuff</a>
             </span>
             <span class="tags">
                 <i class="fa fa-tags padding-small"></i>
-                <a href="http://brianstempin.com/tag/algorithms.html">Algorithms</a> /                 <a href="http://brianstempin.com/tag/gis.html">GIS</a> /                 <a href="http://brianstempin.com/tag/php.html">PHP</a>            </span>
+                <a href="http://brianstempin.com/tag/python.html">Python</a> /                 <a href="http://brianstempin.com/tag/spark.html">Spark</a> /                 <a href="http://brianstempin.com/tag/tools.html">tools</a>            </span>
         </small>
     </div>
 </div><!-- /.post-info -->                        </small>
@@ -292,27 +292,87 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="entry-content">
-                    <p>Yeah, yeah, I know what you're thinking:&nbsp; Why PHP?</p>
-<p>Well, I have a fairly small graph (&lt; 650 nodes), so trying to get a C or
-Java to interact with my preexisting PHP software isn't worth the boost
-in performance.&nbsp; The implementation I found can read my graph from my
-database, calculate the shortest distance to every node given the first,
-and then give me a path to a specific node in &lt; .5 seconds.&nbsp; For what
-I'm doing, that's acceptable.&nbsp; Plus, I plan on caching most of this data
-since my graph doesn't change very often.</p>
-<p>Anyway, here's where I found my code:
-<a class="reference external" href="http://en.giswiki.net/wiki/Dijkstra%27s_algorithm#PHP">http://en.giswiki.net/wiki/Dijkstra%27s_algorithm#PHP</a>Also,
-here's a link to <a class="reference external" href="http://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">Dijkstra's algorithm</a>.</p>
-<p>PS -- if you decide to use that code, I'm pretty sure you can just get
-rid of all mentions of $matrixWidth.&nbsp; They don't appear to use it in the
-algorithm itself.</p>
+                    <p>Have you ever asked yourself, "how do I read in 10,000 Excel files and process them using Spark?"  I hope not...it sounds like a terrible task...but in case you have, it just so happens I might have an approach your interested in.</p>
+<h2>General Approach</h2>
+<p>PySpark does not support Excel directly, but it does support reading in binary data.  So, here's the thought pattern:</p>
+<ol>
+<li>Read a bunch of Excel files in as an RDD, one record per file</li>
+<li>Using some sort of <code>map</code> function, feed each binary blob to Pandas to read, creating an RDD of (file name, tab name, Pandas DF) tuples</li>
+<li>(optional) if the Pandas data frames are all the same shape, then we can convert them all into Spark data frames</li>
+</ol>
+<h2>Reading in Excel Files as Binary Blobs</h2>
+<p>This one is pretty easy:  <a href="http://spark.apache.org/docs/2.1.1/api/python/pyspark.html#pyspark.SparkContext.binaryFiles">SparkContext.binaryFiles()</a> is your friend here.  If you give it a directory, it'll read each file in the directory as a binary blob and place it into an RDD.  If you have 10 files, you'll get back an RDD with 10 entries, each one containing the file name and it's contents.</p>
+<h2>Making Sense of the Binary Content</h2>
+<p>The is the part where we need to take that binary data and turn it into something sensible.  My thought was that Pandas has built-in support for Excel files, so perhaps that'd be a good tool to do a transformation.  Because we're using Spark, we can use a <code>map</code> function to work on several of these files in parallel.  Here's a simple example:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">io</span>
 
+
+<span class="k">def</span> <span class="nf">pd_dfs_from_excel_rdd</span><span class="p">(</span><span class="n">rdd_record</span><span class="p">,</span> <span class="n">pandas_opts</span><span class="p">):</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">rdd_record</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">file_contents</span> <span class="o">=</span> <span class="n">rdd_record</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">file_like_obj</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
+    <span class="n">df_dict</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file_like_obj</span><span class="p">,</span> <span class="o">**</span><span class="n">pandas_opts</span><span class="p">)</span>
+
+    <span class="n">dfs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">sheet_name</span><span class="p">,</span> <span class="n">sheet_df</span> <span class="ow">in</span> <span class="n">df_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">sheet_name</span><span class="p">,</span> <span class="n">sheet_df</span><span class="p">)</span>
+        <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dfs</span>
+
+
+<span class="n">spark_context</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Start your context here</span>
+<span class="n">excel_files_rdd</span> <span class="o">=</span> <span class="n">spark_context</span><span class="o">.</span><span class="n">binaryFiles</span><span class="p">(</span><span class="n">some_path</span><span class="p">)</span>
+
+<span class="n">pandas_opts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;sheetname&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">}</span>
+
+<span class="n">parsing_func</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">pd_dfs_from_excel_rdd</span><span class="p">,</span> <span class="n">pandas_opts</span><span class="o">=</span><span class="n">pandas_opts</span><span class="p">)</span>
+
+<span class="n">parsed_excel_sheets</span> <span class="o">=</span> <span class="n">excel_files_rdd</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="n">parsing_func</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Presto!  If we give Pandas Excel files, we get back an RDD that contains (file path, sheet name, sheet df) tuples.  The other magic that happens here is with the <code>partial</code>.  Our map function takes an RDD record and some Pandas options, but Spark will only pass in the former.  So, we create some Pandas options, create a partial that only takes RDD entries, and we're off.  You can change the <code>pandas_opts</code> to your liking and things will still work.</p>
+<h2>Going From Pandas DFs to Spark DFs</h2>
+<p>Most people probably aren't going to want to stop with a collection of Pandas DFs.  Far more interesting and performant things can be done with Spark DFs.  PySpark contains the <a href="http://spark.apache.org/docs/2.1.1/api/python/pyspark.sql.html#pyspark.sql.SQLContext.createDataFrame">SQLContext.createDataFrame</a>, which has the folling snippet:</p>
+<blockquote>
+<p>When schema is None, it will try to infer the schema (column names and types) from data, which should be an RDD of Row, or namedtuple, or dict.</p>
+</blockquote>
+<p>Ok, that's simple enough.  We can take our Pandas DFs, convert them to Spark <code>Row</code> objects, and as long as they're homogenous, Spark will recognize it as a data frame.  Here's how I accomplished that in a project:</p>
+<div class="highlight"><pre><span></span>def flatten_pd_df(pd_df):
+    &quot;&quot;&quot;
+    Given a Pandas DF that has appropriately named columns, this function will iterate the rows and generate Spark Row
+    objects.  It&#39;s recommended that this method be invoked via Spark&#39;s `flatMap`.
+    :param pd_df: 
+    :return: 
+    &quot;&quot;&quot;
+    rows = list()
+    for index, series in pd_df.iterrows():
+        # Takes a row of a df, exports it as a dict, and then passes an unpacked-dict into the Row constructor
+        row_dict = {str(k): v for k, v in series.to_dict().items()}
+        rows.append(Row(**row_dict))
+    return rows
+
+rdd_of_rows = rdd_of_pandas_dfs.flatMap(flatten_pd_df)
+spark_df = some_sql_context.createDataFrame(rdd_of_rows)
+</pre></div>
+
+
+<p>This function will get each Pandas data frame, iterate through it's rows as a dictionary, and use this dictionary to instantiate a Spark <code>Row</code> object.  At the end of this, we have an RDD of <code>Row</code>s.  Happy days!</p>
+<h2>Closing</h2>
+<p>Not that I hope that anyone has to deal with tons and tons of Excel data, but if you do, hopefully this is of use.  If it was, drop me a line!  I'd love to hear from you</p>
                 </div>
                 <footer class="text-right">
                     <p>- bstempi</p>
                 </footer>
     <div id="show-comments" class="span7 text-center">
-        <a href="http://brianstempin.com/2010/02/27/dijkstras-algorithm-in-php/#disqus_thread" data-disqus-identifier="dijkstras-algorithm-in-php" class="btn btn-default">Show Comments</a>
+        <a href="http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/#disqus_thread" data-disqus-identifier="dealing-with-excel-data-in-pyspark" class="btn btn-default">Show Comments</a>
     </div>
     <section id="comments" class="comments hidden">
         <hr/>
@@ -377,8 +437,8 @@ algorithm itself.</p>
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'bstempiblog'; // required: replace example with your forum shortname
 
-            var disqus_identifier = 'dijkstras-algorithm-in-php';
-        var disqus_url = 'http://brianstempin.com/2010/02/27/dijkstras-algorithm-in-php/';
+            var disqus_identifier = 'dealing-with-excel-data-in-pyspark';
+        var disqus_url = 'http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/';
 
     var disqus_config = function () {
         this.language = "en";
