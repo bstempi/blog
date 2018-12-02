@@ -24,12 +24,28 @@ exploring and visualizing them.
 Employment
 -----------
 
+### Software Engineer, Telnyx ###
+#### April 2018 - current ####
+
+I currently work on the Inventory and Revenue Squad, where my primary responsibility is in writing software to control the lifecycle of telephone numbers. We do this by running a several microservices that work together to manage our internal inventory, purchase and release inventory from other telcos, communicate with the billing and other systems to communicate status changes, and carry our user orders to on-board customers onto our platform.
+
+We operate in a multi-cloud environment where being distributed and durable is key to our success. We achieve this through separation of concerns and making sure that the appropriate concerns lie with the appropriate service. We also leverage a durable FSM model for processing our number orders in a distributed fashion using shared locks. We can have an order in-flight that will continue even after server/service failure thanks event streaming.
+
+I'm doing this using Python 3 (specifically, AIO), Docker, and PostgreSQL
+
+### Senior Data Engineer (Contract), Flexion ###
+#### February 2018 - April 2018  ####
+
+I was responsible for finding ways to leverage data analysis tools and techniques within a greenfield microservices environment.
+
+I was using a mixture of Python 3, Django and the Django REST Framework, NodeJS, and MySQL.
+
 ### Senior Software Engineer, Enterra Solutions ###
 #### October 2016 - December 2017 ####
 
-I was responsible for designing and leading the implementation of Enterra's next generation of ETL tools.  Previously, then implemented most of our ETL as SQL scripts.  Most of these scripts aren't scalable and are very difficult to test.  We decided to move to Spark so that we could easily introduce unit tests, break up large transformations across several functions, and scale out.  Their current Spark jobs are written using Python.
+I was responsible for designing and leading the implementation of Enterra's next generation of ETL tools. Currently, we implement most of our ETL as SQL scripts. Most of these scripts aren't scalable and are very difficult to test. We decided to move to Spark so that we could easily introduce unit tests, break up large transformations across several functions, and scale out. Our current Spark jobs are written using Python.
 
-Prior to writing ETL jobs, I was responsible for implementing and maintaining a small handful of service.  Most of our projects were monoliths, so the decision was made to break up our projects into smaller, reusable services that we could leverage in later projects.  These services are all containerized and meant to be easily deployable and configurable via Docker.  My services were designed by the data science team, the head of engineering, and me.  They're written in Python and rely heavily on Pandas and SciPy.
+Prior to writing ETL jobs, I was responsible for implementing and maintaining a small handful of service. Most of our projects were monoliths, so the decision was made to break up our projects into smaller, reusable services that we could leverage in later projects. These services are all containerized and meant to be easily deployable and configurable via Docker. My services were designed by the data science team, the head of engineering, and me. They're written in Python and rely heavily on Pandas and SciPy.
 
 I'm doing this using Spark, Python 3, Pandas, SciPy, RabbitMQ, Docker, Azure, and AWS
 
