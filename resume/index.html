@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Brian Stempin" />
-        <meta name="description" content="Brian M. Stempin, Software Engineer Software Engineer that specializes in big data and web services Summary I&#39;m a Temple University alumnus with BS in Information Science and Technology. Throughout my career, I&#39;ve felt under-challenged. I find that a lot of developers don&#39;t see themselves as engineers or ..." />
+        <meta name="description" content="Brian M. Stempin, Software Engineer Software Engineer that specializes in big data and web services Summary I&#39;m a seasoned data/software engineer that specializes in data pipelines and distributed process. My main tools are Python, Scala, Hadoop, and AWS. I have a track record of being effective at working ..." />
 
     <title>Resume - BMS's Blog</title>
 
@@ -266,18 +266,14 @@
                 <h1>Brian M. Stempin, Software Engineer</h1>
 <p>Software Engineer that specializes in big data and web services</p>
 <h2>Summary</h2>
-<p>I'm a Temple University alumnus with BS in Information Science and Technology. Throughout my career,
-I've felt under-challenged. I find that a lot of developers don't see themselves as engineers or problem solvers,
-but rather text editors. I'm an engineer, problem solver, learner, teacher, leader, and follower. I want to find
-a job that both appreciates and rewards me for my ability to think analytically, work hard, and communicate
-honestly. To me, each one is important. If I am missing any of them, then I'm not achieving enough. I feel
-like I've hit a stride working with large data sets. I enjoy writing systems that handle large amount of data in
-a reliable way. There's something very satisfying about being able to say, "A few terabytes? No problem,"
-or, "An upstream process failed? Don't worry -- the system will retry and recover eventually." I also enjoy
-exploring and visualizing them.</p>
+<p>I'm a seasoned data/software engineer that specializes in data pipelines and distributed process. My main tools are Python, Scala, Hadoop, and AWS. I have a track record of being effective at working remotely, automating development operations, and building elastic systems. </p>
 <h2>Employment</h2>
+<h3>Principal Engineer, Skyhook</h3>
+<h4>April 2019 - Present</h4>
+<p>I'm the lead engineer for the Geospatial Insights product. We develop and operate a data pipeline that ingests location pings from cell phone users and provides data about where people are spending time, where they're moving to and from, and basic demographics. This aggregate data is used for a wide variety of things such as determining what types of people visit a specific venue or event, traffic flow analysis, and so on. We accomplish this by normalizing, combining, filtering, and grouping hundreds of millions of location pings every day and further enriching it with additional data set.</p>
+<p>We do this using Scala, Python, Luigi, and Spark as the base of our system. This all runs on AWS using EMR, EC2, S3, and RDS.</p>
 <h3>Software Engineer, Telnyx</h3>
-<h4>April 2018 - current</h4>
+<h4>April 2018 - April 2019</h4>
 <p>I currently work on the Inventory and Revenue Squad, where my primary responsibility is in writing software to control the lifecycle of telephone numbers. We do this by running a several microservices that work together to manage our internal inventory, purchase and release inventory from other telcos, communicate with the billing and other systems to communicate status changes, and carry our user orders to on-board customers onto our platform.</p>
 <p>We operate in a multi-cloud environment where being distributed and durable is key to our success. We achieve this through separation of concerns and making sure that the appropriate concerns lie with the appropriate service. We also leverage a durable FSM model for processing our number orders in a distributed fashion using shared locks. We can have an order in-flight that will continue even after server/service failure thanks event streaming.</p>
 <p>I'm doing this using Python 3 (specifically, AIO), Docker, and PostgreSQL</p>
