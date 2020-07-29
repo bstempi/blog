@@ -1,5 +1,5 @@
 Title: Resume
-Modified: 2017-08-16 08:00
+Modified: 2020-07-29 18:00
 Slug: resume
 Url: resume/
 Save_as: resume/index.html
@@ -11,21 +11,19 @@ Software Engineer that specializes in big data and web services
 
 Summary
 --------
-I'm a Temple University alumnus with BS in Information Science and Technology. Throughout my career,
-I've felt under-challenged. I find that a lot of developers don't see themselves as engineers or problem solvers,
-but rather text editors. I'm an engineer, problem solver, learner, teacher, leader, and follower. I want to find
-a job that both appreciates and rewards me for my ability to think analytically, work hard, and communicate
-honestly. To me, each one is important. If I am missing any of them, then I'm not achieving enough. I feel
-like I've hit a stride working with large data sets. I enjoy writing systems that handle large amount of data in
-a reliable way. There's something very satisfying about being able to say, "A few terabytes? No problem,"
-or, "An upstream process failed? Don't worry -- the system will retry and recover eventually." I also enjoy
-exploring and visualizing them.
+I'm a seasoned data/software engineer that specializes in data pipelines and distributed process. My main tools are Python, Scala, Hadoop, and AWS. I have a track record of being effective at working remotely, automating development operations, and building elastic systems. 
 
 Employment
 -----------
 
+### Principal Engineer, Skyhook ###
+#### April 2019 - Present ####
+I'm the lead engineer for the Geospatial Insights product. We develop and operate a data pipeline that ingests location pings from cell phone users and provides data about where people are spending time, where they're moving to and from, and basic demographics. This aggregate data is used for a wide variety of things such as determining what types of people visit a specific venue or event, traffic flow analysis, and so on. We accomplish this by normalizing, combining, filtering, and grouping hundreds of millions of location pings every day and further enriching it with additional data set.
+
+We do this using Scala, Python, Luigi, and Spark as the base of our system. This all runs on AWS using EMR, EC2, S3, and RDS.
+
 ### Software Engineer, Telnyx ###
-#### April 2018 - current ####
+#### April 2018 - April 2019 ####
 
 I currently work on the Inventory and Revenue Squad, where my primary responsibility is in writing software to control the lifecycle of telephone numbers. We do this by running a several microservices that work together to manage our internal inventory, purchase and release inventory from other telcos, communicate with the billing and other systems to communicate status changes, and carry our user orders to on-board customers onto our platform.
 
