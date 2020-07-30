@@ -35,12 +35,10 @@ When I'm not working, I can often be found in the sky. I'm a licensed private pi
 
 I'm also on-line at the following places:
 
--  `Facebook <http://facebook.com/staredad>`__
 -  `GitHub <https://github.com/bstempi/>`__
--  `Khan Academy <http://www.khanacademy.org/profile/bstempi/>`__
 -  `LinkedIn <http://www.linkedin.com/in/brianstempin>`__
+-  `Khan Academy <http://www.khanacademy.org/profile/bstempi/>`__
 -  `OpenStreetMap <http://www.openstreetmap.org/user/bstempi>`__
--  `Project Euler <http://projecteuler.net>`__
 -  `Twitter (defunct) <http://twitter.com/bstempi>`__
 -  `BitBucket (defunct) <http://bitbucket.org/bstempi>`__
 
