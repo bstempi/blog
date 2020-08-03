@@ -6,8 +6,6 @@ Projects
 :url: projects/
 :save_as: projects/index.html
 
-[[Work in Progress]]
-
 I figured that it would be nice to list a bunch of my former projects as
 a sort of portfolio.  The mix contains both professional and personal
 projects.  I'm listing them chronologically, starting with the most
