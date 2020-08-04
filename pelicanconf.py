@@ -21,9 +21,7 @@ LINKS = ()
 # Social widget
 SOCIAL = (('GitHub', 'https://github.com/bstempi'),
           ('LinkedIn', 'https://www.linkedin.com/in/brianstempin'),
-          ('Facebook', 'https://www.facebook.com/brian.stempin'),
-          ('Twitter', 'https://twitter.com/bstempi'),
-         )
+          )
 
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
 FEED_ALL_RSS = 'feeds/all.rss.xml'

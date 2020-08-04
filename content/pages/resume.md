@@ -25,11 +25,11 @@ We do this using Scala, Python, Luigi, and Spark as the base of our system. This
 ### Software Engineer, Telnyx ###
 #### April 2018 - April 2019 ####
 
-I currently work on the Inventory and Revenue Squad, where my primary responsibility is in writing software to control the lifecycle of telephone numbers. We do this by running a several microservices that work together to manage our internal inventory, purchase and release inventory from other telcos, communicate with the billing and other systems to communicate status changes, and carry our user orders to on-board customers onto our platform.
+I previously worked on the Inventory and Revenue Squad, where my primary responsibility was in writing software to control the lifecycle of telephone numbers. We did this by running a several microservices that work together to manage our internal inventory, purchase and release inventory from other telcos, communicate with the billing and other systems to communicate status changes, and carry our user orders to on-board customers onto our platform.
 
-We operate in a multi-cloud environment where being distributed and durable is key to our success. We achieve this through separation of concerns and making sure that the appropriate concerns lie with the appropriate service. We also leverage a durable FSM model for processing our number orders in a distributed fashion using shared locks. We can have an order in-flight that will continue even after server/service failure thanks event streaming.
+Telnyx operates in a multi-cloud environment where being distributed and durable is key to their success. We achieved this through separation of concerns and making sure that the appropriate concerns lie with the appropriate service. We also leveraged a durable FSM model for processing our number orders in a distributed fashion using shared locks. We can have an order in-flight that will continue even after server/service failure thanks event streaming.
 
-I'm doing this using Python 3 (specifically, AIO), Docker, and PostgreSQL
+I did this using Python 3 (specifically, AIO), Docker, and PostgreSQL
 
 ### Senior Data Engineer (Contract), Flexion ###
 #### February 2018 - April 2018  ####
