@@ -20,7 +20,7 @@ You Know, Buzz Words
 There were places that I worked that used, loved, and worshipped certain
 tools for no good reason.  Many of these tools had qualities worth
 loving; but that's not why they were loved.  They were loved for
-being \ *enterprise.  *"WTF does that even mean?" some might ask.  Dare
+being *enterprise*. "WTF does that even mean?" some might ask.  Dare
 not ask this out-loud unless you want a hurricane of buzzwords to come
 your way.  Most people can't give you much of an answer, myself
 included.  I will try to define it nonetheless with a story.
@@ -30,7 +30,7 @@ its caching framework, which is a wrapper on EHCache.  This person
 loved, loved, loved it.  They claimed that it made coding much easier
 and made the app run faster.  It was like fairy dust for Java.  After
 rooting around their code, I discovered that fairy dust didn't fix
-stupidity.\ *  *\ This individual's code would periodically query the
+stupidity. This individual's code would periodically query the
 database, build maps from the response, and cache them to prevent
 further database hits.  The problem was that these maps were never
 addressed by key -- they were traversed linearly.  It was the worst of
@@ -48,10 +48,10 @@ Mocking That Mindset
 --------------------
 
 That's what this project is all about.  It mocks people who want
-enterprise-y things just because its \ *enterprise*.  It mocks PHBs who
+enterprise-y things just because its *enterprise*. It mocks PHBs who
 throw buzzwords around until someone gets hit in the eye.  It mocks
 people who abstract for no reason.  It mocks people who think that
-caches, and in turn, hash maps, are \ *fucking* *magic.*
+caches, and in turn, hash maps, are *fucking* *magic.*
 
 Contribute
 ----------
@@ -59,7 +59,7 @@ Contribute
 I did, and so should you!  I had my `first pull
 request <https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition/pull/124>`__
 accepted some time ago.  In this particular PR, I conquered the Java
-vendor-lock-in that is \ **System.out.println**!  Battling vendor and
+vendor-lock-in that is **System.out.println**! Battling vendor and
 API lock-in is my favorite hobby.  There are plenty of other great
 tickets, such as getting FBEE to run on a map/reduce framework,
 WebSphere, and Java 1.4.

@@ -42,7 +42,7 @@ I'm also on-line at the following places:
 -  `Twitter (defunct) <http://twitter.com/bstempi>`__
 -  `BitBucket (defunct) <http://bitbucket.org/bstempi>`__
 
-.. |Profile pic| image:: {filename}/images/profile-pic.jpg
-   :target: {filename}/images/profile-pic.jpg
+.. |Profile pic| image:: {static}/images/profile-pic.jpg
+   :target: {static}/images/profile-pic.jpg
    :class: profile-pic
    :alt: AAAAAAHHHHHHH
