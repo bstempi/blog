@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/general-work-stuff.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2017-10-05T13:30:00-04:00</updated><entry><title>Dealing With Excel Data in PySpark</title><link href="http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/" rel="alternate"></link><updated>2017-10-05T13:30:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2017-10-05:2017/10/05/dealing-with-excel-data-in-pyspark/</id><summary type="html">&lt;p&gt;Have you ever asked yourself, "how do I read in 10,000 Excel files and process them using Spark?"  I hope not...it sounds like a terrible task...but in case you have, it just so happens I might have an approach your interested in.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog - General Work Stuff</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/general-work-stuff.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2017-10-05T13:30:00-04:00</updated><subtitle>Because my crap has to live somewhere</subtitle><entry><title>Dealing With Excel Data in PySpark</title><link href="http://brianstempin.com/2017/10/05/dealing-with-excel-data-in-pyspark/" rel="alternate"></link><published>2017-10-05T13:30:00-04:00</published><updated>2017-10-05T13:30:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2017-10-05:/2017/10/05/dealing-with-excel-data-in-pyspark/</id><summary type="html">&lt;p&gt;Have you ever asked yourself, "how do I read in 10,000 Excel files and process them using Spark?"  I hope not...it sounds like a terrible task...but in case you have, it just so happens I might have an approach your interested in.&lt;/p&gt;
+&lt;h2&gt;General Approach&lt;/h2&gt;
+&lt;p&gt;PySpark does not …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Have you ever asked yourself, "how do I read in 10,000 Excel files and process them using Spark?"  I hope not...it sounds like a terrible task...but in case you have, it just so happens I might have an approach your interested in.&lt;/p&gt;
 &lt;h2&gt;General Approach&lt;/h2&gt;
 &lt;p&gt;PySpark does not support Excel directly, but it does support reading in binary data.  So, here's the thought pattern:&lt;/p&gt;
 &lt;ol&gt;
@@ -11,7 +13,7 @@
 &lt;p&gt;This one is pretty easy:  &lt;a href="http://spark.apache.org/docs/2.1.1/api/python/pyspark.html#pyspark.SparkContext.binaryFiles"&gt;SparkContext.binaryFiles()&lt;/a&gt; is your friend here.  If you give it a directory, it'll read each file in the directory as a binary blob and place it into an RDD.  If you have 10 files, you'll get back an RDD with 10 entries, each one containing the file name and it's contents.&lt;/p&gt;
 &lt;h2&gt;Making Sense of the Binary Content&lt;/h2&gt;
 &lt;p&gt;The is the part where we need to take that binary data and turn it into something sensible.  My thought was that Pandas has built-in support for Excel files, so perhaps that'd be a good tool to do a transformation.  Because we're using Spark, we can use a &lt;code&gt;map&lt;/code&gt; function to work on several of these files in parallel.  Here's a simple example:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;functools&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;functools&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;io&lt;/span&gt;
 
 
@@ -31,19 +33,18 @@
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;dfs&lt;/span&gt;
 
 
-&lt;span class="n"&gt;spark_context&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt; &lt;span class="c1"&gt;# Start your context here&lt;/span&gt;
+&lt;span class="n"&gt;spark_context&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt; &lt;span class="c1"&gt;# Start your context here&lt;/span&gt;
 &lt;span class="n"&gt;excel_files_rdd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;spark_context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;binaryFiles&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;some_path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;pandas_opts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="s1"&gt;&amp;#39;sheetname&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;sheetname&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
         &lt;span class="s1"&gt;&amp;#39;header&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="n"&gt;parsing_func&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;functools&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;partial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pd_dfs_from_excel_rdd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pandas_opts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;pandas_opts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;parsed_excel_sheets&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;excel_files_rdd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flatMap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parsing_func&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Presto!  If we give Pandas Excel files, we get back an RDD that contains (file path, sheet name, sheet df) tuples.  The other magic that happens here is with the &lt;code&gt;partial&lt;/code&gt;.  Our map function takes an RDD record and some Pandas options, but Spark will only pass in the former.  So, we create some Pandas options, create a partial that only takes RDD entries, and we're off.  You can change the &lt;code&gt;pandas_opts&lt;/code&gt; to your liking and things will still work.&lt;/p&gt;
 &lt;h2&gt;Going From Pandas DFs to Spark DFs&lt;/h2&gt;
@@ -52,7 +53,7 @@
 &lt;p&gt;When schema is None, it will try to infer the schema (column names and types) from data, which should be an RDD of Row, or namedtuple, or dict.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Ok, that's simple enough.  We can take our Pandas DFs, convert them to Spark &lt;code&gt;Row&lt;/code&gt; objects, and as long as they're homogenous, Spark will recognize it as a data frame.  Here's how I accomplished that in a project:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;flatten_pd_df&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pd_df&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;flatten_pd_df&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pd_df&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 &lt;span class="sd"&gt;    Given a Pandas DF that has appropriately named columns, this function will iterate the rows and generate Spark Row&lt;/span&gt;
 &lt;span class="sd"&gt;    objects.  It&amp;#39;s recommended that this method be invoked via Spark&amp;#39;s `flatMap`.&lt;/span&gt;
@@ -68,16 +69,15 @@
 
 &lt;span class="n"&gt;rdd_of_rows&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rdd_of_pandas_dfs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flatMap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flatten_pd_df&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;spark_df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;some_sql_context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;createDataFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rdd_of_rows&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This function will get each Pandas data frame, iterate through it's rows as a dictionary, and use this dictionary to instantiate a Spark &lt;code&gt;Row&lt;/code&gt; object.  At the end of this, we have an RDD of &lt;code&gt;Row&lt;/code&gt;s.  Happy days!&lt;/p&gt;
 &lt;h2&gt;Closing&lt;/h2&gt;
-&lt;p&gt;Not that I hope that anyone has to deal with tons and tons of Excel data, but if you do, hopefully this is of use.  If it was, drop me a line!  I'd love to hear from you&lt;/p&gt;</summary><category term="Python"></category><category term="Spark"></category><category term="tools"></category></entry><entry><title>PySpark Timestamp Performance</title><link href="http://brianstempin.com/2017/09/29/pyspark-timestamp-performance/" rel="alternate"></link><updated>2017-09-29T13:30:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2017-09-29:2017/09/29/pyspark-timestamp-performance/</id><summary type="html">&lt;p&gt;In my &lt;a href="http://www.enterrasolutions.com/"&gt;most recent role&lt;/a&gt;, we're using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model.   During this process, we were using PySpark's &lt;code&gt;pyspark.sql.types.DateType&lt;/code&gt; to store date information.  At some point, we decided that we wanted more precision, so we opted to use &lt;code&gt;pyspark.sql.types.TimestampType&lt;/code&gt; instead.  When switching, we noticed a considerable slow-down.  What once was a processor-intensive task was now failing to occupy all cores of our cluster, causing an obvious slow-down.  What gives, Spark?  The goal of this post is to explore why this happens in Spark 2.1.1.&lt;/p&gt;
+&lt;p&gt;Not that I hope that anyone has to deal with tons and tons of Excel data, but if you do, hopefully this is of use.  If it was, drop me a line!  I'd love to hear from you&lt;/p&gt;</content><category term="General Work Stuff"></category><category term="Python"></category><category term="Spark"></category><category term="tools"></category></entry><entry><title>PySpark Timestamp Performance</title><link href="http://brianstempin.com/2017/09/29/pyspark-timestamp-performance/" rel="alternate"></link><published>2017-09-29T13:30:00-04:00</published><updated>2017-09-29T13:30:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2017-09-29:/2017/09/29/pyspark-timestamp-performance/</id><summary type="html">&lt;p&gt;In my &lt;a href="http://www.enterrasolutions.com/"&gt;most recent role&lt;/a&gt;, we're using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model.   During this process, we were using PySpark's &lt;code&gt;pyspark.sql.types.DateType&lt;/code&gt; to store date information.  At some point, we decided that …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In my &lt;a href="http://www.enterrasolutions.com/"&gt;most recent role&lt;/a&gt;, we're using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model.   During this process, we were using PySpark's &lt;code&gt;pyspark.sql.types.DateType&lt;/code&gt; to store date information.  At some point, we decided that we wanted more precision, so we opted to use &lt;code&gt;pyspark.sql.types.TimestampType&lt;/code&gt; instead.  When switching, we noticed a considerable slow-down.  What once was a processor-intensive task was now failing to occupy all cores of our cluster, causing an obvious slow-down.  What gives, Spark?  The goal of this post is to explore why this happens in Spark 2.1.1.&lt;/p&gt;
 &lt;h1&gt;Demonstrating the Performance Impact&lt;/h1&gt;
 &lt;p&gt;Before going any further, I suppose that I should give a concrete example of this issue.  To make it easy to follow this demonstration, I'm going to use a &lt;a href="https://github.com/jupyter/docker-stacks/tree/master/all-spark-notebook"&gt;Docker container provided by Project Jupyter&lt;/a&gt; that includes Spark and Jupyter notebook.  I'll leave it to the reader to get a container running and a notebook open if they want to follow.&lt;/p&gt;
 &lt;p&gt;You can see the &lt;a href="http://brianstempin.com/notebooks/Timestamp+demonstration.html"&gt;full notebook here&lt;/a&gt;, but for the sake of the article I'm going to be brief.  Imagine that you have a dataframe with one million dates and a second one with one million timestamps.  Let's call them &lt;code&gt;date_df&lt;/code&gt; and &lt;code&gt;timestamp_df&lt;/code&gt;, respectively.  In order to demonstrate this issue, we need to perform some actions on them.  Let's pretend we have the following code:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;date_identity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;some_date&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;date_identity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;some_date&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;some_date&lt;/span&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;timestamp_identity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;some_dt&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -85,41 +85,38 @@
 
 &lt;span class="n"&gt;date_identity_udf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;udf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date_identity&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;DateType&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;span class="n"&gt;timestamp_identity_udf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;udf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;timestamp_identity&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;TimestampType&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;These identity functions don't do anything; they simply return what they're given.  Let's try to apply these transformations to their respective data frames.  YMMV - the important thing here is not the absolute numbers, but the numbers relative to each other.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;transformed_date_df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;date_df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;withColumn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;date_identity_udf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;col&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;some_date&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;transformed_date_df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;date_df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;withColumn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;date_identity_udf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;col&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;some_date&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;span class="n"&gt;timeit&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timeit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;transformed_date_df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;transformed_timestamp_df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;timestamp_df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;withColumn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;timestamp_identity_udf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;col&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;some_timestamp&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;span class="n"&gt;timeit&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timeit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;transformed_timestamp_df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The numbers I got for those calculations, operating on a million items each on a rather large VM was 0.68 and 18.27 seconds, respectively.  That means the identity function for the &lt;code&gt;TimestampType&lt;/code&gt; took over 26 times longer to run!  Where was all of this time going?&lt;/p&gt;
 &lt;h1&gt;Data Serialization and Interlanguage Communication&lt;/h1&gt;
 &lt;p&gt;Spark is not written in Python, so what happens when we write Spark code in Python?  In the case that we're doing operations on dataframes and columns, we're simply using Python to build a plan, allowing Spark do all of the work.  In this case, little or no actual Python code is run on any of the worker nodes.  &lt;/p&gt;
 &lt;p&gt;What happens when we introduce something like a Python UDF?  Well, now we are forcing Spark to run Python code on each of the workers.  Spark is not written in Python, so some work has to be done to take data out of the JVM memory model and marshal it into something that Python can interpret and work with.  This is in part where some of the &lt;code&gt;pyspark.sql.types&lt;/code&gt; module comes in.  Let's take a look at the &lt;a href="http://spark.apache.org/docs/2.1.1/api/python/_modules/pyspark/sql/types.html#TimestampType"&gt;source for one of the dta types&lt;/a&gt;:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TimestampType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AtomicType&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TimestampType&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AtomicType&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
 
     &lt;span class="n"&gt;__metaclass__&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;DataTypeSingleton&lt;/span&gt;
 
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;needConversion&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;
 
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;toInternal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
             &lt;span class="n"&gt;seconds&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;calendar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timegm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;utctimetuple&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tzinfo&lt;/span&gt;
                        &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mktime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timetuple&lt;/span&gt;&lt;span class="p"&gt;()))&lt;/span&gt;
             &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;seconds&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;1000000&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;microsecond&lt;/span&gt;
 
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;fromInternal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ts&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;ts&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;ts&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
             &lt;span class="c1"&gt;# using int to avoid precision loss in float&lt;/span&gt;
             &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromtimestamp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ts&lt;/span&gt; &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="mi"&gt;1000000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;microsecond&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;ts&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;1000000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;(Sorry for the code being hard to read -- I need to fix my theme)&lt;/p&gt;
 &lt;p&gt;We can see that this class appears to be responsible for marshalling/unmarshalling between Python and Spark data types.  The &lt;code&gt;toInternal()&lt;/code&gt; method takes timestamps and turns them into Python &lt;code&gt;int&lt;/code&gt;s (if you're using Python 3, that is...) and &lt;code&gt;fromInternal()&lt;/code&gt; takes an &lt;code&gt;int&lt;/code&gt; and returns a &lt;code&gt;datetime&lt;/code&gt;.  Since our UDF isn't doing any real work, it would lead us to believe that the only task benig carried out is this data conversion.  Let's test it to see if we can prove this.&lt;/p&gt;
@@ -138,20 +135,20 @@
 &lt;li&gt;Going from a numeric type to a Python &lt;code&gt;datetime.date&lt;/code&gt; or &lt;code&gt;datetime.datetime&lt;/code&gt; is more expensive than the opposite operation&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;The last thing that I'd like to present is a screenshot of &lt;code&gt;htop&lt;/code&gt;.  During the date operations, all cores are busy.  Here's what it looks like during the timestamp operations:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="y u no use all coares, Spark?!" src="http://brianstempin.com/images/pyspark-underutilization.png" title="Underutilized cores" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="y u no use all coares, Spark?!" src="http://brianstempin.com/images/pyspark-underutilization.png" title="Underutilized cores"&gt;&lt;/p&gt;
 &lt;p&gt;This is a clear sign of contention.&lt;/p&gt;
 &lt;h1&gt;An Attempt to Circumvent the Contention&lt;/h1&gt;
 &lt;p&gt;At this point, we've identified, on a shallow level, the operations that are causing a slow-down and some contention.  I'm not entirely sure why.  In order to answer that, I'd really have to dig through the Spark source code.  Instead of doing that, I'd like to share an approach that a colleague and I came up with to significantly speed things up.&lt;/p&gt;
 &lt;p&gt;Instead of doing calculations that return &lt;code&gt;timestamps&lt;/code&gt;, we do calculations that ultimately return &lt;code&gt;long&lt;/code&gt;s and have Spark cast them to &lt;code&gt;timestamps&lt;/code&gt;.  Here's an example:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;timestamp_to_long&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;timestamp_to_long&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 &lt;span class="sd"&gt;    This function takes a timestamp and returns it as microseconds from epoc, respecting timezone.  If no tzinfo is specified,&lt;/span&gt;
 &lt;span class="sd"&gt;    UTC is assumed.&lt;/span&gt;
 &lt;span class="sd"&gt;    :param dt:&lt;/span&gt;
 &lt;span class="sd"&gt;    :return:&lt;/span&gt;
 &lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;
 
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tzinfo&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="n"&gt;dt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tzinfo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timezone&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;utc&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -167,13 +164,12 @@
 
 &lt;span class="n"&gt;ts_udf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;udf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;some_timestamp_function&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;LongType&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;span class="n"&gt;df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;withColumn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;manipulated_ts&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ts_udf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;col&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;some_ts_col&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cast&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;timestamp&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;How do we know it works?  In short, it worked in our case.  We had an ETL job that was manipulating about seven billion dates with a UDF which ran sluggisly and had very poor processor utilization.  The only change we made was to return &lt;code&gt;longs&lt;/code&gt; and cast them...that's it!  All of the date math/manipulation/etc happens with the &lt;code&gt;datetime.datetime&lt;/code&gt; class withing a pure Python UDF.  &lt;/p&gt;
 &lt;p&gt;So, where's my proof?  &lt;/p&gt;
 &lt;p&gt;I don't really have any...if I were to repeat the tests above where we swap out the identity UDFs for UDFs that return &lt;code&gt;longs&lt;/code&gt;, we get similar times.  The only explanation that comes to mind is that Spark is able to do additional operations when using our fix that it can't do otherwise, so the increase we see in CPU utilization is not caused by our method of &lt;code&gt;timestamp&lt;/code&gt; handling, but rather Spark's ability to do other operations at the same time.&lt;/p&gt;
-&lt;p&gt;Why this slowdown happens and why my proposed fix works (in my case...YMMV) is a bit of a mystery to me, but I intend to keep trying to find a way to demonstrate it!  I'd also be interested to hear if you've had significant slowdowns due to &lt;code&gt;timestamp&lt;/code&gt; manipulation or if this fix helps you.  Drop me a line, and happy hacking!&lt;/p&gt;</summary><category term="Python"></category><category term="Spark"></category><category term="tools"></category></entry><entry><title>Replacing the Cron in AWS</title><link href="http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/" rel="alternate"></link><updated>2016-02-29T18:34:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2016-02-29:2016/02/29/replacing-the-cron-in-aws/</id><summary type="html">&lt;p&gt;Like most apps on the internet, the stuff that I write at &lt;a href="http://showroomlogic.com"&gt;Showroom Logic&lt;/a&gt; has scheduled tasks that must happen in a predictable fashion.  In our case, we have some reports to run and deliver.  Our app, like lots of internet apps, is distributed and runs in a Docker container on Amazon's Elastic Beanstalk.  So, what are our options?&lt;/p&gt;
+&lt;p&gt;Why this slowdown happens and why my proposed fix works (in my case...YMMV) is a bit of a mystery to me, but I intend to keep trying to find a way to demonstrate it!  I'd also be interested to hear if you've had significant slowdowns due to &lt;code&gt;timestamp&lt;/code&gt; manipulation or if this fix helps you.  Drop me a line, and happy hacking!&lt;/p&gt;</content><category term="General Work Stuff"></category><category term="Python"></category><category term="Spark"></category><category term="tools"></category></entry><entry><title>Replacing the Cron in AWS</title><link href="http://brianstempin.com/2016/02/29/replacing-the-cron-in-aws/" rel="alternate"></link><published>2016-02-29T18:34:00-05:00</published><updated>2016-02-29T18:34:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2016-02-29:/2016/02/29/replacing-the-cron-in-aws/</id><summary type="html">&lt;p&gt;Like most apps on the internet, the stuff that I write at &lt;a href="http://showroomlogic.com"&gt;Showroom Logic&lt;/a&gt; has scheduled tasks that must happen in a predictable fashion.  In our case, we have some reports to run and deliver.  Our app, like lots of internet apps, is distributed and runs in a Docker container …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Like most apps on the internet, the stuff that I write at &lt;a href="http://showroomlogic.com"&gt;Showroom Logic&lt;/a&gt; has scheduled tasks that must happen in a predictable fashion.  In our case, we have some reports to run and deliver.  Our app, like lots of internet apps, is distributed and runs in a Docker container on Amazon's Elastic Beanstalk.  So, what are our options?&lt;/p&gt;
 &lt;h1&gt;How About Cron?&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;cron&lt;/code&gt;'s been the go-to solution for this type of problem for some years.  It's simple:  you edit a file to give it the schedule, tell it what program to execute, and BAM!  Instant scheduled tasks!  Unfortunately, it wasn't this simple for us.&lt;/p&gt;
 &lt;h2&gt;Distributed Apps&lt;/h2&gt;
@@ -195,9 +191,9 @@
 &lt;li&gt;Click on "Add event source" and select the "CloudWatch Evnets - Schedule" option.  This will prompt you to create a CloudWatch rule with a &lt;code&gt;cron&lt;/code&gt;-like syntax that triggers your Lambda function on a regular schedule.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Here's the dialog to schedule the event:
-&lt;img alt="CloudWatch Events - Schedule dialog" src="http://brianstempin.com/images/lambda-add-event-source-screenshot.png" /&gt;&lt;/p&gt;
+&lt;img alt="CloudWatch Events - Schedule dialog" src="http://brianstempin.com/images/lambda-add-event-source-screenshot.png"&gt;&lt;/p&gt;
 &lt;p&gt;Here's a screenshot of the rule in CloudWatch:
-&lt;img alt="CouldWatch rule" src="http://brianstempin.com/images/lambda-screenshot.png" /&gt;&lt;/p&gt;
+&lt;img alt="CouldWatch rule" src="http://brianstempin.com/images/lambda-screenshot.png"&gt;&lt;/p&gt;
 &lt;p&gt;Fortunately for the user, Lambda will have links to the CloudWatch rule and vice versa.  This makes management pretty easy.  By this point, I had some Lambda that could tell my app to start processes that needed to run on a regular basis.&lt;/p&gt;
 &lt;h1&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;I had the following problems:&lt;/p&gt;
@@ -224,7 +220,12 @@
 &lt;li&gt;Additional tooling:  I wrote my Lambda function without putting it in source control and without having some sort of build/deploy process.  This requires additional tooling and/or setup.&lt;/li&gt;
 &lt;li&gt;Depending on your usage, it might add cost:  If you have a ton of things to schedule, then you might end up paying for Lambda and/or CloudWatch usage.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;We're new to this approach, so while I wish that I could write about it being rock-solid even after the end of Earth as we know it, I simply can't.  What I can say is that this feels much more natural than &lt;code&gt;cron&lt;/code&gt; and has served us well so far.&lt;/p&gt;</summary><category term="AWS"></category><category term="tools"></category></entry><entry><title>Introducing PySwfAws</title><link href="http://brianstempin.com/2015/12/23/introducing-pyswfaws/" rel="alternate"></link><updated>2015-12-23T16:18:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2015-12-23:2015/12/23/introducing-pyswfaws/</id><summary type="html">&lt;p&gt;Bottom line up front:&lt;/p&gt;
+&lt;p&gt;We're new to this approach, so while I wish that I could write about it being rock-solid even after the end of Earth as we know it, I simply can't.  What I can say is that this feels much more natural than &lt;code&gt;cron&lt;/code&gt; and has served us well so far.&lt;/p&gt;</content><category term="General Work Stuff"></category><category term="AWS"></category><category term="tools"></category></entry><entry><title>Introducing PySwfAws</title><link href="http://brianstempin.com/2015/12/23/introducing-pyswfaws/" rel="alternate"></link><published>2015-12-23T16:18:00-05:00</published><updated>2015-12-23T16:18:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2015-12-23:/2015/12/23/introducing-pyswfaws/</id><summary type="html">&lt;p&gt;Bottom line up front:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Project link:  &lt;a href="https://github.com/bstempi/pyswf"&gt;Github&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Read the docs link:  &lt;a href="http://pyswf.readthedocs.org/en/stable/"&gt;RTD&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;At my &lt;a href="http://showroomlogic.com"&gt;place of work&lt;/a&gt;, I'm in charge of the Data Pipeline team.  Part of this team's job is to make data retrieval and processing reliable and flexible.  After doing some thinking, we realized that solutions such as …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Bottom line up front:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Project link:  &lt;a href="https://github.com/bstempi/pyswf"&gt;Github&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Read the docs link:  &lt;a href="http://pyswf.readthedocs.org/en/stable/"&gt;RTD&lt;/a&gt;&lt;/li&gt;
@@ -247,37 +248,33 @@
 &lt;p&gt;Running things in distributed mode is a bit more difficult.  What do I need to intercept and how do I do it?  When running a decider program, we want to intercept calls to activity workers.  What do we return?  In my case:  a &lt;code&gt;Promise&lt;/code&gt;.  The idea here is that the user may always expect activities inside of a decider to return a &lt;code&gt;Promise&lt;/code&gt;.  They may check to see if that promise is complete (&lt;code&gt;Promise.is_ready&lt;/code&gt;) or they may attempt to get it's result (&lt;code&gt;Promise.result&lt;/code&gt;).  When running in distributed mode, we will populate this promise using the workflow history.  If the user attempts to get the result of a promise before it is ready, we stop the execution of the decider program.  Any new decisions that were made during the program's run will be returned to SWF.  If the decider program successfully returns, then we consider the workflow to be complete.  If it throws an exception, then we consider it failed.&lt;/p&gt;
 &lt;h1&gt;Examples&lt;/h1&gt;
 &lt;p&gt;Here's a simple exaple of an activity worker.  We'll pretend that all of the imports are taken care of:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@activity_task(swf_domain=&amp;#39;example&amp;#39;,
-swf_task_type=&amp;#39;TestActivityA&amp;#39;,
-swf_task_version=&amp;#39;1.0&amp;#39;,
-swf_task_list=&amp;#39;activity_a_unit_test&amp;#39;)
-def activity_task_a(b):
-    return b + b
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;@activity_task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;swf_domain&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;example&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;swf_task_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;TestActivityA&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;swf_task_version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;1.0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;swf_task_list&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;activity_a_unit_test&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;activity_task_a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Here, the decorator tells the framework how to communicate with SWF by giving it the domain, task type, task version, and task list to use when communicating.  Let's look an example decider:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@decision_task(swf_domain=&amp;#39;example&amp;#39;,
-swf_workflow_type=&amp;#39;TestWorkflow&amp;#39;,
-swf_workflow_version=&amp;#39;1.0&amp;#39;,
-swf_task_list=&amp;#39;unit_test_a&amp;#39;)
-def decider_a():
-    a1 = activity_task_a(5)
-    a2 = activity_task_a(10)
-    return a1.result + a2.result
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;@decision_task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;swf_domain&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;example&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;swf_workflow_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;TestWorkflow&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;swf_workflow_version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;1.0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;swf_task_list&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;unit_test_a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;decider_a&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;a1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;activity_task_a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;a2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;activity_task_a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;a1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;a2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;result&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Just like with our worker, we have some context in the decorator that allows the framework to figure out how to communicate with AWS.  Here is an example to run the activity worker and decider:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;activity_task_a_runner = DistributedActivityWorker(activity_task_a)
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;activity_task_a_runner = DistributedActivityWorker(activity_task_a)
 activity_task_a_runner.start()
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;decision_task_a_runner = DistributedDecisionWorker(decider_a)
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;decision_task_a_runner = DistributedDecisionWorker(decider_a)
 decision_task_a_runner.start()
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The &lt;code&gt;DistributedActivityWorker&lt;/code&gt; is reponsible for connecting to SWF, asking for tasks, parsing the results, and passing them to the user's activity task function.  Pretty simple.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;DistributedDecisionWorker&lt;/code&gt; does a similar job.  It will contact SWF and ask for a decison task.  It will then parse the results and use the history to stub out any promises that the user asks for.  In our example, &lt;code&gt;a1&lt;/code&gt; and &lt;code&gt;a2&lt;/code&gt; will be stubbed out by promises.  By the last line of &lt;code&gt;decider_a()&lt;/code&gt;, the user is requesting the results of those calculations.  If they don't exist, execution of that method will cease and control will be returned to the &lt;code&gt;DistributedDecisionWorker&lt;/code&gt;, which will handle how to return results to SWF.  Much simpler than having to parse your own histories, right?!&lt;/p&gt;
@@ -288,61 +285,57 @@ decision_task_a_runner.start()
 &lt;p&gt;PySwfAws has some features to mitigate the gotchas.&lt;/p&gt;
 &lt;h2&gt;@cached&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;@cached&lt;/code&gt; decorator allows you to cache the call of a method.  Let's say that we have the followning method:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def accessDb():
-    results = doSomeQuery()
-    return results[0]
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;def&lt;/span&gt; &lt;span class="nv"&gt;accessDb&lt;/span&gt;&lt;span class="ss"&gt;()&lt;/span&gt;:
+    &lt;span class="nv"&gt;results&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;doSomeQuery&lt;/span&gt;&lt;span class="ss"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nv"&gt;results&lt;/span&gt;[&lt;span class="mi"&gt;0&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This method may not be deterministic.  If the underlying data changes or the results are not reliably ordered, then this function is probably not deterministic.  By putting the &lt;code&gt;@cached&lt;/code&gt; decorator to it, you cache each function invocation.  For example:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@decision_task(swf_domain=&amp;#39;example&amp;#39;,
-swf_workflow_type=&amp;#39;TestWorkflow&amp;#39;,
-swf_workflow_version=&amp;#39;1.0&amp;#39;,
-swf_task_list=&amp;#39;unit_test_a&amp;#39;)
-def decider_a():
-    call1 = accessDb()
-    call2 = accessDb()
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;@decision_task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;swf_domain&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;example&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;swf_workflow_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;TestWorkflow&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;swf_workflow_version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;1.0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;swf_task_list&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;unit_test_a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;decider_a&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;call1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;accessDb&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;call2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;accessDb&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
 
-    return call1 + call2
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;call1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;call2&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
 
-@cached
-def accessDb():
-    results = doSomeQuery()
-    return results[0]  
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class="nv"&gt;@cached&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;accessDb&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;doSomeQuery&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;0&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;In this case, &lt;code&gt;accessDb()&lt;/code&gt; is invoked twice in the decider function.  No matter how many times that decider function is called, the &lt;code&gt;accessDb()&lt;/code&gt; function will only be invoked twice.  Each time, the results will be cached.  That means that even if this program runs 1,000 times during a workflow, exactly two invocations will happen.&lt;/p&gt;
 &lt;h2&gt;Out of Band Storage&lt;/h2&gt;
 &lt;p&gt;What happens when the thing that you want to cache is too large to store in SWF?  What if the arguments to a task or the return value of a task are too large?  SWF has no answer.&lt;/p&gt;
 &lt;p&gt;PySwfAws will allow you to store data outside of SWF.  For example:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@cached(result_data_serializer=JsonSerializer(), result_data_store=S3DataStore(bucket=&amp;#39;swf-data&amp;#39;))
-def accessDb():
-    results = doSomeQuery()
-    return results[0]  
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;@cached&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;result_data_serializer&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;JsonSerializer&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;result_data_store&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;S3DataStore&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bucket&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;swf-data&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;accessDb&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;doSomeQuery&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;0&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;By passing options to the &lt;code&gt;@cached&lt;/code&gt; decorator, we can tell it to store the cached result as JSON into some bucket named &lt;code&gt;swf-data&lt;/code&gt; on S3.  Similar options exist on the activity and decision task decorators to control how input &lt;em&gt;and&lt;/em&gt; output are serialized and stored.  For instance, you can take your input as JSON from SWF and then save the results as Protobuf in S3.  You are now free to throw as much data as you want around SWF.&lt;/p&gt;
 &lt;h2&gt;Timers&lt;/h2&gt;
 &lt;p&gt;SWF has the notion of timers.  Using this feature, you could implement reliable CRON tasks.  The way that a user can invoke a timer in a decier program is by using a promise like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;promise&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Timer&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;PTimer&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;promise&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Timer&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;PTimer&lt;/span&gt;
 
 &lt;span class="n"&gt;timer&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;PTimer&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;seconds&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The &lt;code&gt;timer&lt;/code&gt; variable will be a promise.  When the promise is ready, then the timer has "fired."  If you call &lt;code&gt;timer.result&lt;/code&gt;, it'll return &lt;code&gt;None&lt;/code&gt;.  The idea here is that you can call &lt;code&gt;timer.result&lt;/code&gt; in order to force your program to wait for that timer to fire.  It will either return or cause execution to cease until the timer is ready.&lt;/p&gt;
 &lt;h1&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;Currently, this project is in Alpha.  I activley use it at work, but it is quite unstable at the moment.  Please use at your own risk and feel free to submit pull requests.&lt;/p&gt;
 &lt;p&gt;I plan to keep activley working on this and we intend to rely on it quite heavily at Showroom Logic.  I'm not quite sure what 1.0 looks like because I have yet to make a roadmap.  Eventually, I'll create one.  For right now, the numbering is a bit arbitrary.&lt;/p&gt;
 &lt;h1&gt;Unrelated Note:  Naming&lt;/h1&gt;
-&lt;p&gt;I understand that the project's name is awful.  I orginally wanted to name it PySwf, but that name was already taken by a project that deals with Flash projects.  I'll rename it in the future.&lt;/p&gt;</summary><category term="Python"></category><category term="AWS"></category><category term="tools"></category></entry><entry><title>JetBrians DataGrip Review</title><link href="http://brianstempin.com/2015/12/21/jetbrains-datagrip-review/" rel="alternate"></link><updated>2015-12-21T20:27:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2015-12-21:2015/12/21/jetbrains-datagrip-review/</id><summary type="html">&lt;p&gt;Recently, &lt;a href="https://www.jetbrains.com/"&gt;JetBrains&lt;/a&gt; released a new product called &lt;a href="https://www.jetbrains.com/datagrip/"&gt;DataGrip&lt;/a&gt;.  It's basically IntelliJ for databases, and so far, I love it!  Granted:  I'm biased.  I do all of my Java and Python development using IntelliJ and PyCharm, respectively.  That being said, I think that even if I were still using some other IDE on a day-to-day basis, DataGrip would still be at the top of my list as a general database access and manipulation tool.&lt;/p&gt;
+&lt;p&gt;I understand that the project's name is awful.  I orginally wanted to name it PySwf, but that name was already taken by a project that deals with Flash projects.  I'll rename it in the future.&lt;/p&gt;</content><category term="General Work Stuff"></category><category term="Python"></category><category term="AWS"></category><category term="tools"></category></entry><entry><title>JetBrians DataGrip Review</title><link href="http://brianstempin.com/2015/12/21/jetbrains-datagrip-review/" rel="alternate"></link><published>2015-12-21T20:27:00-05:00</published><updated>2015-12-21T20:27:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2015-12-21:/2015/12/21/jetbrains-datagrip-review/</id><summary type="html">&lt;p&gt;Recently, &lt;a href="https://www.jetbrains.com/"&gt;JetBrains&lt;/a&gt; released a new product called &lt;a href="https://www.jetbrains.com/datagrip/"&gt;DataGrip&lt;/a&gt;.  It's basically IntelliJ for databases, and so far, I love it!  Granted:  I'm biased.  I do all of my Java and Python development using IntelliJ and PyCharm, respectively.  That being said, I think that even if I were still using some other …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently, &lt;a href="https://www.jetbrains.com/"&gt;JetBrains&lt;/a&gt; released a new product called &lt;a href="https://www.jetbrains.com/datagrip/"&gt;DataGrip&lt;/a&gt;.  It's basically IntelliJ for databases, and so far, I love it!  Granted:  I'm biased.  I do all of my Java and Python development using IntelliJ and PyCharm, respectively.  That being said, I think that even if I were still using some other IDE on a day-to-day basis, DataGrip would still be at the top of my list as a general database access and manipulation tool.&lt;/p&gt;
 &lt;h1&gt;Making Quick Data Analysis Quicker&lt;/h1&gt;
 &lt;p&gt;I don't know about you, but I really hate the &lt;code&gt;sqlite&lt;/code&gt; command line tool.  It lacks autocomplete and is really picky.  &lt;code&gt;sqlite&lt;/code&gt;, however, is a really handy tool for doing some quick analysis of CSVs or TSVs, so I end up using it quite a bit.  In my few uses of DataGrip, I used it instead of the &lt;code&gt;sqlite&lt;/code&gt; command line client to query databases that I had already built.&lt;/p&gt;
 &lt;h1&gt;Observation One: Adding a New Data Source Was Kind of Confusing&lt;/h1&gt;
 &lt;p&gt;By default, DG doesn't come with any (many?  I'm not sure) of the drivers installed!  This was really confusing the first time I tried to add a data source.  To DG's credit:  if you go to the driver screen, you can click a download link that will get and install the driver for you.  I understand that licensing issues sometimes prevent vendors from including libraries such as these in their products.  What I don't get, however, is why they didn't take this ease-of-installation feature a step further.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Screenshot showing the drivers screen" src="http://brianstempin.com/images/download-driver-screenshot.png" title="Screenshot showing the drivers screen. WTF, JetBrains?!" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Screenshot showing the drivers screen" src="http://brianstempin.com/images/download-driver-screenshot.png" title="Screenshot showing the drivers screen.  WTF, JetBrains?!"&gt;&lt;/p&gt;
 &lt;p&gt;If they detect that this is the firs time that I've run this product, why not offer to download them all for me?  If JetBrains is ok giving me a download and installation facility, then they should present it to me up-front so that I can download all of the drivers I need and never think of it again.&lt;/p&gt;
 &lt;h1&gt;Observation Two:  The Autocomplete is Really Nice&lt;/h1&gt;
 &lt;p&gt;I know that autocomplete has been around forever, but there's something especially nice about this one.  It's snappy.  Very snappy.  Exceptionally snappy.  Perhaps this might change once I throw larger schemas at it, but it's snappy enough to remind me of why I left &lt;a href="http://www.eclipse.org/"&gt;Eclipse&lt;/a&gt;-land in the first place and to be glad to see JetBrains releasing new tools.&lt;/p&gt;
@@ -350,7 +343,13 @@ def accessDb():
 &lt;p&gt;If I'm doing a quick or one-off analysis, I usually want to export the results so that I can chart it or sent it to a colleague.  The export tools are wonderful.  There aren't a ton of formats that you can export into, but the ones that I would expect were present.  You can also "export to clipboard," allowing you to copy-paste results easily.  For someone that's running exploratory queries that have relatively small result sets, this is pretty awesome.  It allows me to easily put my output into a web page (as JSON or CSV) for charting (in my case, I use &lt;a href="http://nvd3.org/"&gt;NVD3&lt;/a&gt;).&lt;/p&gt;
 &lt;h1&gt;Overall&lt;/h1&gt;
 &lt;p&gt;DataGrip is a pretty cool tool.  Lately I haven't had a go-to tool for connecting to and running SQL queries.  This just became "it" for me.  I'm curious to see what it does on larger queries with larger result sets.  I'm sure the tool has it's limits, but from what I've seen, I'm confident they're pretty sane and reasonable.&lt;/p&gt;
-&lt;p&gt;I'm looking forward to find ways to leverage DG to chart and graph data as quickly as I can query it.  Good job, JetBrains!&lt;/p&gt;</summary><category term="tools"></category><category term="database"></category></entry><entry><title>ZOMG, Apache Camel is Awesome!</title><link href="http://brianstempin.com/2013/07/07/zomg-apache-camel-is-awesome/" rel="alternate"></link><updated>2013-07-07T22:12:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-07-07:2013/07/07/zomg-apache-camel-is-awesome/</id><summary type="html">&lt;p&gt;At the &lt;a class="reference external" href="http://www.coldlight.com/"&gt;work place&lt;/a&gt;, I've had to do a lot
+&lt;p&gt;I'm looking forward to find ways to leverage DG to chart and graph data as quickly as I can query it.  Good job, JetBrains!&lt;/p&gt;</content><category term="General Work Stuff"></category><category term="tools"></category><category term="database"></category></entry><entry><title>ZOMG, Apache Camel is Awesome!</title><link href="http://brianstempin.com/2013/07/07/zomg-apache-camel-is-awesome/" rel="alternate"></link><published>2013-07-07T22:12:00-04:00</published><updated>2013-07-07T22:12:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-07-07:/2013/07/07/zomg-apache-camel-is-awesome/</id><summary type="html">&lt;p&gt;At the &lt;a class="reference external" href="http://www.coldlight.com/"&gt;work place&lt;/a&gt;, I've had to do a lot
+of integration work on my current project. &amp;nbsp;Instead of trying to tie
+everything together on my own, someone recommended taking a look at
+&lt;a class="reference external" href="http://camel.apache.org/"&gt;Apache Camel&lt;/a&gt;. &amp;nbsp;Man, did that have a
+drastically good effect on my project!&lt;/p&gt;
+&lt;div class="section" id="well-what-is-it"&gt;
+&lt;h2&gt;Well, What is it …&lt;/h2&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;At the &lt;a class="reference external" href="http://www.coldlight.com/"&gt;work place&lt;/a&gt;, I've had to do a lot
 of integration work on my current project. &amp;nbsp;Instead of trying to tie
 everything together on my own, someone recommended taking a look at
 &lt;a class="reference external" href="http://camel.apache.org/"&gt;Apache Camel&lt;/a&gt;. &amp;nbsp;Man, did that have a
@@ -451,7 +450,13 @@ tremendous find, and it's had a tremendous impact on my work.&lt;/p&gt;
 project&lt;/a&gt;, and it's leader, &lt;a class="reference external" href="http://www.davsclaus.com/"&gt;Claus
 Ibsen&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="Apache"></category><category term="Camel"></category><category term="Java"></category></entry><entry><title>Making the (Career) Move</title><link href="http://brianstempin.com/2013/01/12/making-the-career-move/" rel="alternate"></link><updated>2013-01-12T16:06:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-01-12:2013/01/12/making-the-career-move/</id><summary type="html">&lt;p&gt;I've just recently updated &lt;a class="reference external" href="http://www.linkedin.com/in/brianstempin"&gt;my
+</content><category term="General Work Stuff"></category><category term="Apache"></category><category term="Camel"></category><category term="Java"></category></entry><entry><title>Making the (Career) Move</title><link href="http://brianstempin.com/2013/01/12/making-the-career-move/" rel="alternate"></link><published>2013-01-12T16:06:00-05:00</published><updated>2013-01-12T16:06:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-01-12:/2013/01/12/making-the-career-move/</id><summary type="html">&lt;p&gt;I've just recently updated &lt;a class="reference external" href="http://www.linkedin.com/in/brianstempin"&gt;my
+LinkedIn&lt;/a&gt; to reflect it, but
+I left &lt;a class="reference external" href="http://www.vanguard.com"&gt;Vanguard&lt;/a&gt; back in September to join
+&lt;a class="reference external" href="http://www.coldlight.com"&gt;Coldlight Solutions&lt;/a&gt;, a start-up in Wayne,
+PA.&lt;/p&gt;
+&lt;p&gt;I've not written it here, but those who know me off-line know that I
+would like to pursue a PhD at some point in my …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've just recently updated &lt;a class="reference external" href="http://www.linkedin.com/in/brianstempin"&gt;my
 LinkedIn&lt;/a&gt; to reflect it, but
 I left &lt;a class="reference external" href="http://www.vanguard.com"&gt;Vanguard&lt;/a&gt; back in September to join
 &lt;a class="reference external" href="http://www.coldlight.com"&gt;Coldlight Solutions&lt;/a&gt;, a start-up in Wayne,
@@ -486,7 +491,12 @@ directly responsible for some of our process improvement initiatives and
 for automating some of our development headaches.&lt;/p&gt;
 &lt;p&gt;Feels good, man.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="image0" src="http://brianstempin.com/images/feels-good-man-thumb.jpg" /&gt;&lt;/p&gt;
-</summary><category term="career"></category></entry><entry><title>How to Move a Wordpress-MU Site to a New Domain</title><link href="http://brianstempin.com/2010/06/07/how-to-move-a-wordpress-mu-site-to-a-new-domai/" rel="alternate"></link><updated>2010-06-07T16:31:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-06-07:2010/06/07/how-to-move-a-wordpress-mu-site-to-a-new-domai/</id><summary type="html">&lt;p&gt;So, as part of my &lt;a class="reference external" href="http://www.temple.edu/provost/gened"&gt;GenEd&lt;/a&gt; work,
+</content><category term="General Work Stuff"></category><category term="career"></category></entry><entry><title>How to Move a Wordpress-MU Site to a New Domain</title><link href="http://brianstempin.com/2010/06/07/how-to-move-a-wordpress-mu-site-to-a-new-domai/" rel="alternate"></link><published>2010-06-07T16:31:00-04:00</published><updated>2010-06-07T16:31:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-06-07:/2010/06/07/how-to-move-a-wordpress-mu-site-to-a-new-domai/</id><summary type="html">&lt;p&gt;So, as part of my &lt;a class="reference external" href="http://www.temple.edu/provost/gened"&gt;GenEd&lt;/a&gt; work,
+I was asked to move a &lt;a class="reference external" href="http://mu.wordpress.org/"&gt;WordPress MU&lt;/a&gt;
+installation to a new server. &amp;nbsp;I found several articles about moving
+around standard WordPress installations, but nothing for the MU
+(MultiUser) version. &amp;nbsp;In particular, I had a hard time with changing the
+domain name. &amp;nbsp;In …&lt;/p&gt;</summary><content type="html">&lt;p&gt;So, as part of my &lt;a class="reference external" href="http://www.temple.edu/provost/gened"&gt;GenEd&lt;/a&gt; work,
 I was asked to move a &lt;a class="reference external" href="http://mu.wordpress.org/"&gt;WordPress MU&lt;/a&gt;
 installation to a new server. &amp;nbsp;I found several articles about moving
 around standard WordPress installations, but nothing for the MU
@@ -495,42 +505,42 @@ domain name. &amp;nbsp;In this article, I'll assume that you already know the
 general procedure (backing up your files and database, moving, and
 restoring). &amp;nbsp;All I plan on covering is how to change your installation's
 domain name.&lt;/p&gt;
-&lt;ol class="arabic"&gt;
-&lt;li&gt;&lt;p class="first"&gt;Make a text backup of your database. &amp;nbsp;You can do this by using
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Make a text backup of your database. &amp;nbsp;You can do this by using
 something like
 &lt;a class="reference external" href="http://dev.mysql.com/doc/refman/5.1/en/mysqldump.html"&gt;mysqldump&lt;/a&gt;,
 &lt;a class="reference external" href="http://wiki.phpmyadmin.net/pma/export"&gt;phpMyAdmin&lt;/a&gt;, or the &lt;a class="reference external" href="http://downloads.mysql.com/archives.php?p=MySQLGUITools"&gt;MySQL
 GUI
-Tools&lt;/a&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p class="first"&gt;Using your favorite tool, like notepad,
+Tools&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Using your favorite tool, like notepad,
 &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Sed"&gt;sed&lt;/a&gt;, or any other text editor
 that can handle large files, replace all instances of your old domain
-name with your new one.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p class="first"&gt;Save this file and then import it into your database.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p class="first"&gt;In the root of your WordPress MU install, there should be a
+name with your new one.&lt;/li&gt;
+&lt;li&gt;Save this file and then import it into your database.&lt;/li&gt;
+&lt;li&gt;In the root of your WordPress MU install, there should be a
 wp-config.php file. &amp;nbsp;The majority of this file is a series of DEFINE
-statements that define some settings.&lt;/p&gt;
-&lt;/li&gt;
+statements that define some settings.&lt;/li&gt;
 &lt;li&gt;&lt;dl class="first docutils"&gt;
 &lt;dt&gt;You should see a like like this:&lt;/dt&gt;
-&lt;dd&gt;&lt;p class="first last"&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;define('DOMAIN_CURRENT_SITE',&lt;/span&gt; &lt;span class="pre"&gt;'olddomain.com');&lt;/span&gt;&lt;/tt&gt;
+&lt;dd&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;﻿﻿define('DOMAIN_CURRENT_SITE',&lt;/span&gt; &lt;span class="pre"&gt;'olddomain.com');&lt;/span&gt;&lt;/tt&gt;
 Replace it with:
-&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;define('DOMAIN_CURRENT_SITE',&lt;/span&gt; &lt;span class="pre"&gt;'newdomain.com');&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
-&lt;/dd&gt;
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;﻿﻿define('DOMAIN_CURRENT_SITE',&lt;/span&gt; &lt;span class="pre"&gt;'newdomain.com');&lt;/span&gt;&lt;/tt&gt;
+﻿﻿&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p class="first"&gt;For whatever reason, you'll get a register page if you attempt to
-visit your site. &amp;nbsp;To fix this, log in as admin and then log out.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p class="first"&gt;Done!&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;For whatever reason, you'll get a register page if you attempt to
+visit your site. &amp;nbsp;To fix this, log in as admin and then log out.&lt;/li&gt;
+&lt;li&gt;Done!&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;I hope this helps somebody. &amp;nbsp;Feel free to comment if you have questions,
 concerns, or corrections.&lt;/p&gt;
-</summary><category term="GenEd"></category><category term="Guide"></category><category term="WordPress"></category></entry><entry><title>Temple University's General Education Department To Get New Website</title><link href="http://brianstempin.com/2010/05/28/temple-universitys-general-education-department-to-get-new-website/" rel="alternate"></link><updated>2010-05-28T16:18:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-05-28:2010/05/28/temple-universitys-general-education-department-to-get-new-website/</id><summary type="html">&lt;p&gt;I've never mentioned it here before, but for the last 2-ish years, I've
+</content><category term="General Work Stuff"></category><category term="GenEd"></category><category term="Guide"></category><category term="WordPress"></category></entry><entry><title>Temple University's General Education Department To Get New Website</title><link href="http://brianstempin.com/2010/05/28/temple-universitys-general-education-department-to-get-new-website/" rel="alternate"></link><published>2010-05-28T16:18:00-04:00</published><updated>2010-05-28T16:18:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-05-28:/2010/05/28/temple-universitys-general-education-department-to-get-new-website/</id><summary type="html">&lt;p&gt;I've never mentioned it here before, but for the last 2-ish years, I've
+been the webmaster of Temple University's &lt;a class="reference external" href="http://www.temple.edu/gened"&gt;GenEd
+website&lt;/a&gt;. &amp;nbsp;The site was originally
+developed by Temple University's &lt;a class="reference external" href="http://www.temple.edu/cs"&gt;Computer
+Services&lt;/a&gt; group. &amp;nbsp;I took over the
+maintenance and have only done small things with it -- add new videos,
+replace some …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've never mentioned it here before, but for the last 2-ish years, I've
 been the webmaster of Temple University's &lt;a class="reference external" href="http://www.temple.edu/gened"&gt;GenEd
 website&lt;/a&gt;. &amp;nbsp;The site was originally
 developed by Temple University's &lt;a class="reference external" href="http://www.temple.edu/cs"&gt;Computer
@@ -579,4 +589,4 @@ Temple and is used to take students outside of the classroom and right
 into the environment.&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="CMS"></category><category term="GenEd"></category><category term="Temple"></category><category term="web development"></category><category term="WordPress"></category></entry></feed>
+</content><category term="General Work Stuff"></category><category term="CMS"></category><category term="GenEd"></category><category term="Temple"></category><category term="web development"></category><category term="WordPress"></category></entry></feed>

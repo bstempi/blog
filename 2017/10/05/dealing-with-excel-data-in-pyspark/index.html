@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="bstempi" />
         <meta name="keywords" content="Python,Spark,tools" />
-        <meta name="description" content="Have you ever asked yourself, &#34;how do I read in 10,000 Excel files and process them using Spark?&#34; I hope not...it sounds like a terrible task...but in case you have, it just so happens I might have an approach your interested in. General Approach PySpark does not ..." />
+        <meta name="description" content="Have you ever asked yourself, &#34;how do I read in 10,000 Excel files and process them using Spark?&#34; I hope not...it sounds like a terrible task...but in case you have, it just so happens I might have an approach your interested in. General Approach PySpark does not …" />
 
     <title>Dealing With Excel Data in PySpark - BMS's Blog</title>
 
@@ -207,7 +207,7 @@
                         <a href="http://brianstempin.com/category/free-time.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Free Time
-                            <span class="badge pull-right categorybadge">26</span>
+                            <span class="badge pull-right categorybadge">27</span>
                         </a>
                     </li>
                     <li class="active">
@@ -292,7 +292,7 @@
 <p>This one is pretty easy:  <a href="http://spark.apache.org/docs/2.1.1/api/python/pyspark.html#pyspark.SparkContext.binaryFiles">SparkContext.binaryFiles()</a> is your friend here.  If you give it a directory, it'll read each file in the directory as a binary blob and place it into an RDD.  If you have 10 files, you'll get back an RDD with 10 entries, each one containing the file name and it's contents.</p>
 <h2>Making Sense of the Binary Content</h2>
 <p>The is the part where we need to take that binary data and turn it into something sensible.  My thought was that Pandas has built-in support for Excel files, so perhaps that'd be a good tool to do a transformation.  Because we're using Spark, we can use a <code>map</code> function to work on several of these files in parallel.  Here's a simple example:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">io</span>
 
 
@@ -312,19 +312,18 @@
     <span class="k">return</span> <span class="n">dfs</span>
 
 
-<span class="n">spark_context</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># Start your context here</span>
+<span class="n">spark_context</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Start your context here</span>
 <span class="n">excel_files_rdd</span> <span class="o">=</span> <span class="n">spark_context</span><span class="o">.</span><span class="n">binaryFiles</span><span class="p">(</span><span class="n">some_path</span><span class="p">)</span>
 
 <span class="n">pandas_opts</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;sheetname&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s1">&#39;sheetname&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">}</span>
 
 <span class="n">parsing_func</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">pd_dfs_from_excel_rdd</span><span class="p">,</span> <span class="n">pandas_opts</span><span class="o">=</span><span class="n">pandas_opts</span><span class="p">)</span>
 
 <span class="n">parsed_excel_sheets</span> <span class="o">=</span> <span class="n">excel_files_rdd</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="n">parsing_func</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Presto!  If we give Pandas Excel files, we get back an RDD that contains (file path, sheet name, sheet df) tuples.  The other magic that happens here is with the <code>partial</code>.  Our map function takes an RDD record and some Pandas options, but Spark will only pass in the former.  So, we create some Pandas options, create a partial that only takes RDD entries, and we're off.  You can change the <code>pandas_opts</code> to your liking and things will still work.</p>
 <h2>Going From Pandas DFs to Spark DFs</h2>
@@ -333,7 +332,7 @@
 <p>When schema is None, it will try to infer the schema (column names and types) from data, which should be an RDD of Row, or namedtuple, or dict.</p>
 </blockquote>
 <p>Ok, that's simple enough.  We can take our Pandas DFs, convert them to Spark <code>Row</code> objects, and as long as they're homogenous, Spark will recognize it as a data frame.  Here's how I accomplished that in a project:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">flatten_pd_df</span><span class="p">(</span><span class="n">pd_df</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">flatten_pd_df</span><span class="p">(</span><span class="n">pd_df</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given a Pandas DF that has appropriately named columns, this function will iterate the rows and generate Spark Row</span>
 <span class="sd">    objects.  It&#39;s recommended that this method be invoked via Spark&#39;s `flatMap`.</span>
@@ -349,8 +348,7 @@
 
 <span class="n">rdd_of_rows</span> <span class="o">=</span> <span class="n">rdd_of_pandas_dfs</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="n">flatten_pd_df</span><span class="p">)</span>
 <span class="n">spark_df</span> <span class="o">=</span> <span class="n">some_sql_context</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">rdd_of_rows</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>This function will get each Pandas data frame, iterate through it's rows as a dictionary, and use this dictionary to instantiate a Spark <code>Row</code> object.  At the end of this, we have an RDD of <code>Row</code>s.  Happy days!</p>
 <h2>Closing</h2>
@@ -387,7 +385,7 @@
             </div>
         </div>
         <div class="row" id="footer_license">
-            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2017 Brian Stempin</p></small></p>
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2021 Brian Stempin</p></small></p>
             </div>
         </div>
     </div>

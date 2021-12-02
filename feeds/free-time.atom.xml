@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/free-time.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2015-04-06T19:15:00-04:00</updated><entry><title>Perhaps You've Noticed: I Have a New Blog</title><link href="http://brianstempin.com/2015/04/06/new-blog/" rel="alternate"></link><updated>2015-04-06T19:15:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2015-04-06:2015/04/06/new-blog/</id><summary type="html">&lt;p&gt;Yep, that's right...I kicked WordPress to the curb and decided to do the whole staticly-generated-pages-thing.  When I
+<feed xmlns="http://www.w3.org/2005/Atom"><title>BMS's Blog - Free Time</title><link href="http://brianstempin.com/" rel="alternate"></link><link href="http://brianstempin.com/feeds/free-time.atom.xml" rel="self"></link><id>http://brianstempin.com/</id><updated>2021-12-01T20:45:00-05:00</updated><subtitle>Because my crap has to live somewhere</subtitle><entry><title>A Library For Creating LED Animations</title><link href="http://brianstempin.com/2021/12/01/pixelbuf-pi-animation/" rel="alternate"></link><published>2021-12-01T20:45:00-05:00</published><updated>2021-12-01T20:45:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2021-12-01:/2021/12/01/pixelbuf-pi-animation/</id><summary type="html">&lt;p&gt;Holy moly, it's been a while since I've written! Well, it's time to fix that. I've done a lot of out-of-band development and side projects since I've last written, but nothing that I've published until now.&lt;/p&gt;
+&lt;h1&gt;The Problem&lt;/h1&gt;
+&lt;p&gt;For one of my side projects I'm using a &lt;a href="https://en.wikipedia.org/wiki/Raspberry_Pi#Raspberry_Pi"&gt;Raspberry Pi 3B …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Holy moly, it's been a while since I've written! Well, it's time to fix that. I've done a lot of out-of-band development and side projects since I've last written, but nothing that I've published until now.&lt;/p&gt;
+&lt;h1&gt;The Problem&lt;/h1&gt;
+&lt;p&gt;For one of my side projects I'm using a &lt;a href="https://en.wikipedia.org/wiki/Raspberry_Pi#Raspberry_Pi"&gt;Raspberry Pi 3B+&lt;/a&gt; to drive some LEDs. For this particular project, I'm using the &lt;a href="https://learn.adafruit.com/adafruit-dotstar-leds"&gt;DotStar&lt;/a&gt; LEDs. They're connected to my Pi via SPI. I soldered some wires to a test strip and have those connected to the &lt;a href="https://de.pinout.xyz/pinout/spi"&gt;SPI0 pins&lt;/a&gt; via a JST connector that I've plugged in the Pi's header pins. Adafruit produces some pretty &lt;a href="https://github.com/adafruit/Adafruit_CircuitPython_DotStar"&gt;easy to use Python drivers&lt;/a&gt;, so programming these LEDs is easy enough. But I want to do more than just set individual LED values. I want to be able to produce and play animations.&lt;/p&gt;
+&lt;p&gt;I felt like I needed to develop a new library.&lt;/p&gt;
+&lt;h1&gt;Requirements&lt;/h1&gt;
+&lt;p&gt;I specifically wanted to be able to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Programmatically create animation sequences&lt;/li&gt;
+&lt;li&gt;Serialize animation sequences&lt;/li&gt;
+&lt;li&gt;Play animations, preferably on multiple boards, but primarily on the Pi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Easy-peasy. I need some data structures, an interface and/or classes for serialization, and an interface and/or classes for rendering.&lt;/p&gt;
+&lt;h1&gt;Implementation&lt;/h1&gt;
+&lt;p&gt;You can find my &lt;a href="https://github.com/Sectional-Art/pixelbuf-pi-animation"&gt;implementation on GitHub&lt;/a&gt; and find my &lt;a href="https://pixelbuf-pi-animation.readthedocs.io/en/latest/"&gt;documentation on Read The Docs&lt;/a&gt;. As of right now, it's built on top of &lt;a href="https://github.com/adafruit/Adafruit_CircuitPython_Pixelbuf"&gt;Adafruit's Pixelbuf library&lt;/a&gt;. Presumably, this library should work with any of their drivers that are built on it. As of this writing, it has only been tested with the &lt;a href="https://github.com/adafruit/Adafruit_CircuitPython_DotStar"&gt;DotStar driver&lt;/a&gt;.&lt;/p&gt;
+&lt;h1&gt;Examples&lt;/h1&gt;
+&lt;p&gt;The project documentation already covers the specifics, so I figured I'd leave the rest of this blog post for fun examples and some examples of things I've done with this library so far. Here is a link to the &lt;a href="https://github.com/Sectional-Art/pixelbuf-pi-animation/tree/c37f4905bfef5228321503e9ede083887d83b931/notebooks/examples"&gt;Jupyter Notebooks used as of the time of this writing&lt;/a&gt;. While the contents of that link will never change, please keep in mind that the library may have evolved by time you see this article.&lt;/p&gt;
+&lt;p&gt;To run the example notebooks, make sure you have all the stuff you need for your particular LED setup, this library, and &lt;code&gt;jupyter&lt;/code&gt;. If you checkout or download the notebooks, you can &lt;code&gt;cd&lt;/code&gt; to the directory containing the notebooks and run &lt;code&gt;jupyter notebook&lt;/code&gt; in order to start a notebook server. From there, you can run, modify, or create new notebooks and experiments. I find this particularly convenient since my Pi is headless. It gives me an easy way to test and execute code on it.&lt;/p&gt;
+&lt;p&gt;To test all of this stuff, I've constructed the world's most sophisticated testing rig. It includes some 3d printed feet, a spare DIN rail, a piece of corrugated plastic, and some hot glue. As I'm sure you can tell from the photo, absolutely no mistakes were made and everything is perfectly square and level.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Absolutely awful test rig" src="http://brianstempin.com/images/led-testing-rig-300x225.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://brianstempin.com/images/led-testing-rig-original.jpg"&gt;Full resolution&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Runway Guard Lights&lt;/h2&gt;
+&lt;p&gt;The full writeup of this one can be found in &lt;code&gt;Programatic Generation of Animations.ipynb&lt;/code&gt;. It mimics the lights that are found at the entrance of runways at larger airports. This isn't exactly what the one that I'm thinking of looks like, but it's close. All it's missing is a fade-in-and-out before wig-wagging.&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/h7PRBVD9DkU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;The color is a bit washed out in the video, but here's my take on that:&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/GuwZl3LMZfo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;h2&gt;Christmas Themed Lights&lt;/h2&gt;
+&lt;p&gt;When putting some of these examples together, it was Thanksgiving weekend. With &lt;a href="https://www.youtube.com/watch?v=YekZoouZn9E"&gt;Chrimbus&lt;/a&gt; right around the corner, I thought I'd add my own Christmas animation. The way this works is that to start, it:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Selects a random color from red, green, or white&lt;/li&gt;
+&lt;li&gt;Selects a random brightness for that color&lt;/li&gt;
+&lt;li&gt;Selects a random direction for that brightness (brighter or dimmer)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For each pixel, it will make it brighter or dimmer until it "dies" (is as bright or as dim as it can go). For that pixel, the random process repeats. This generates a random-looking animation that can be looped easily without an obvious-looking loop point. It also has an interesting "twinkle" effect.&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/IfF_HK_ofZo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;h2&gt;Too Lazy to Write Something for the Rest&lt;/h2&gt;
+&lt;p&gt;Without further commentary, I'll post the rest of the videos I produced. Each video contains a link back to the exact Jupyter Notebook that produced it, allowing you to do the same thing for &lt;code&gt;fork()&lt;/code&gt; it and do something else interesting. If you wanna talk about it, &lt;a href="https://github.com/Sectional-Art/pixelbuf-pi-animation/discussions"&gt;contact me here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Happy hacking!&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/sKv6eXRT8vk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/QlwmVgA46_M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/fm0eB_1CM6Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/dM9BuvwJOmc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;</content><category term="Free Time"></category><category term="Python"></category><category term="DotStar"></category><category term="Adafruit"></category><category term="Raspberry Pi"></category></entry><entry><title>Perhaps You've Noticed: I Have a New Blog</title><link href="http://brianstempin.com/2015/04/06/new-blog/" rel="alternate"></link><published>2015-04-06T19:15:00-04:00</published><updated>2015-04-06T19:15:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2015-04-06:/2015/04/06/new-blog/</id><summary type="html">&lt;p&gt;Yep, that's right...I kicked WordPress to the curb and decided to do the whole staticly-generated-pages-thing.  When I
+originally started this blog, WordPress just made the most sense.  It was easy to install, easy to maintain, had plenty
+of skins and plugins available, and just worked.&lt;/p&gt;
+&lt;p&gt;So, why the departure …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Yep, that's right...I kicked WordPress to the curb and decided to do the whole staticly-generated-pages-thing.  When I
 originally started this blog, WordPress just made the most sense.  It was easy to install, easy to maintain, had plenty
 of skins and plugins available, and just worked.&lt;/p&gt;
 &lt;p&gt;So, why the departure?  The reason is two-fold:  &lt;a href="http://www.bluehost.com/"&gt;bluehost&lt;/a&gt; is slow, and I don't write often
@@ -31,7 +82,18 @@ it's a bit of a pain to have to find a way to share credentials with a build ser
 to run the one extra command after a commit and push to publish.&lt;/p&gt;
 &lt;h1&gt;Final Thoughts&lt;/h1&gt;
 &lt;p&gt;I love how much faster and easier it is to maintain my blog.  Getting Pelican &amp;amp; co set up might sound intimidating, but
-it's not.  It's very much worth it.  I should have done this a long time ago.&lt;/p&gt;</summary><category term="Python"></category></entry><entry><title>Update to my Vindinium Client</title><link href="http://brianstempin.com/2014/10/20/update-to-my-vindinium-client/" rel="alternate"></link><updated>2014-10-20T22:27:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2014-10-20:2014/10/20/update-to-my-vindinium-client/</id><summary type="html">&lt;p&gt;I &lt;a class="reference external" href="http://brianstempin.com/2014/09/28/vindinium/"&gt;previously
+it's not.  It's very much worth it.  I should have done this a long time ago.&lt;/p&gt;</content><category term="Free Time"></category><category term="Python"></category></entry><entry><title>Update to my Vindinium Client</title><link href="http://brianstempin.com/2014/10/20/update-to-my-vindinium-client/" rel="alternate"></link><published>2014-10-20T22:27:00-04:00</published><updated>2014-10-20T22:27:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2014-10-20:/2014/10/20/update-to-my-vindinium-client/</id><summary type="html">&lt;p&gt;I &lt;a class="reference external" href="http://brianstempin.com/2014/09/28/vindinium/"&gt;previously
+wrote&lt;/a&gt; about a
+game called Vindinium and how I was writing a client in Java.&lt;/p&gt;
+&lt;p&gt;Well, I have something that I think is useful: &amp;nbsp;a &lt;a class="reference external" href="https://github.com/bstempi/vindinium-client/releases/tag/1.0.0"&gt;1.0.0
+realease&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="section" id="features"&gt;
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;p&gt;There are two different interfaces for writing a bot:
+&amp;nbsp;&lt;a class="reference external" href="https://github.com/bstempi/vindinium-client/blob/1.0.0/src/main/java/com/brianstempin/vindiniumclient/bot/simple/SimpleBot.java"&gt;SimpleBot&lt;/a&gt;
+and
+&lt;a class="reference external" href="https://github.com/bstempi/vindinium-client/blob/1.0.0/src/main/java/com/brianstempin/vindiniumclient/bot/advanced/AdvancedBot.java"&gt;AdvancedBot&lt;/a&gt;.
+&amp;nbsp;The SimpleBot interface is just a …&lt;/p&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;I &lt;a class="reference external" href="http://brianstempin.com/2014/09/28/vindinium/"&gt;previously
 wrote&lt;/a&gt; about a
 game called Vindinium and how I was writing a client in Java.&lt;/p&gt;
 &lt;p&gt;Well, I have something that I think is useful: &amp;nbsp;a &lt;a class="reference external" href="https://github.com/bstempi/vindinium-client/releases/tag/1.0.0"&gt;1.0.0
@@ -97,7 +159,14 @@ so I'll be working on those things for my next release. &amp;nbsp;If you spot a
 flaw, something that you think just sucks, or an improvement, feel free
 to send me a pull request. &amp;nbsp;I'd be happy to have your improvements.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="AI"></category><category term="Java"></category><category term="Vindinium"></category></entry><entry><title>Vindinium</title><link href="http://brianstempin.com/2014/09/28/vindinium/" rel="alternate"></link><updated>2014-09-28T10:40:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2014-09-28:2014/09/28/vindinium/</id><summary type="html">&lt;p&gt;I was recently lurking through the &lt;a class="reference external" href="http://reddit.com/r/programming"&gt;Programming
+</content><category term="Free Time"></category><category term="AI"></category><category term="Java"></category><category term="Vindinium"></category></entry><entry><title>Vindinium</title><link href="http://brianstempin.com/2014/09/28/vindinium/" rel="alternate"></link><published>2014-09-28T10:40:00-04:00</published><updated>2014-09-28T10:40:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2014-09-28:/2014/09/28/vindinium/</id><summary type="html">&lt;p&gt;I was recently lurking through the &lt;a class="reference external" href="http://reddit.com/r/programming"&gt;Programming
+Subreddit&lt;/a&gt;, and I came across a post
+about a game called, &amp;quot;&lt;a class="reference external" href="http://vindinium.org"&gt;Vindinium&lt;/a&gt;.&amp;quot;&lt;/p&gt;
+&lt;div class="section" id="what-is-vindinium"&gt;
+&lt;h2&gt;What Is Vindinium?&lt;/h2&gt;
+&lt;p&gt;Vindinium is an AI competition. &amp;nbsp;Its a game that is played exclusively
+by bots. &amp;nbsp;You could create a bot that takes input from a human player,
+but the …&lt;/p&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;I was recently lurking through the &lt;a class="reference external" href="http://reddit.com/r/programming"&gt;Programming
 Subreddit&lt;/a&gt;, and I came across a post
 about a game called, &amp;quot;&lt;a class="reference external" href="http://vindinium.org"&gt;Vindinium&lt;/a&gt;.&amp;quot;&lt;/p&gt;
 &lt;div class="section" id="what-is-vindinium"&gt;
@@ -154,7 +223,13 @@ SimpleMurderBot is pretty fun to work on.&lt;/p&gt;
 and writing a client is fairly simple. &amp;nbsp;I'd really like to see this game
 catch on.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="Algorithms"></category><category term="Java"></category><category term="Vindinium"></category></entry><entry><title>Getting Reacquainted with PHP</title><link href="http://brianstempin.com/2014/02/28/getting-reacquainted-with-php/" rel="alternate"></link><updated>2014-02-28T14:59:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2014-02-28:2014/02/28/getting-reacquainted-with-php/</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="http://www.linkedin.com/in/brianstempin"&gt;By day&lt;/a&gt;, I'm a Java
+</content><category term="Free Time"></category><category term="Algorithms"></category><category term="Java"></category><category term="Vindinium"></category></entry><entry><title>Getting Reacquainted with PHP</title><link href="http://brianstempin.com/2014/02/28/getting-reacquainted-with-php/" rel="alternate"></link><published>2014-02-28T14:59:00-05:00</published><updated>2014-02-28T14:59:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2014-02-28:/2014/02/28/getting-reacquainted-with-php/</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="http://www.linkedin.com/in/brianstempin"&gt;By day&lt;/a&gt;, I'm a Java
+developer. &amp;nbsp;Back when I was a systems administrator and a college
+student, I used PHP quite a bit. &amp;nbsp;It was my scripting language; my glue;
+my web platform. &amp;nbsp;I even have some PHP source published
+(&lt;a class="reference external" href="https://github.com/bstempi/cloudmarketwatch.com"&gt;Github&lt;/a&gt;,
+&lt;a class="reference external" href="https://bitbucket.org/bstempi/projecteuler"&gt;BitBucket&lt;/a&gt;). &amp;nbsp;When I
+started with PHP, I wasn't using …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a class="reference external" href="http://www.linkedin.com/in/brianstempin"&gt;By day&lt;/a&gt;, I'm a Java
 developer. &amp;nbsp;Back when I was a systems administrator and a college
 student, I used PHP quite a bit. &amp;nbsp;It was my scripting language; my glue;
 my web platform. &amp;nbsp;I even have some PHP source published
@@ -259,7 +334,10 @@ actually any more productive, but I certainly feel like it. &amp;nbsp;Anywho,
 here's to doing more of my side projects in PHP and to seeing its
 ecosystem continue to evolve and grow!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="PHP"></category><category term="Symfony"></category></entry><entry><title>Trying out Chololatey</title><link href="http://brianstempin.com/2013/09/17/trying-out-chololatey/" rel="alternate"></link><updated>2013-09-17T18:35:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-09-17:2013/09/17/trying-out-chololatey/</id><summary type="html">&lt;p&gt;I recently started working on a project that has me working with Windows
+</content><category term="Free Time"></category><category term="PHP"></category><category term="Symfony"></category></entry><entry><title>Trying out Chololatey</title><link href="http://brianstempin.com/2013/09/17/trying-out-chololatey/" rel="alternate"></link><published>2013-09-17T18:35:00-04:00</published><updated>2013-09-17T18:35:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2013-09-17:/2013/09/17/trying-out-chololatey/</id><summary type="html">&lt;p&gt;I recently started working on a project that has me working with Windows
+(eww, I know, forgive me). &amp;nbsp;I opted to run this environment in a VM so
+that I don't have to pollute my gaming rig with all kinds of tools,
+patches, bit-rot, etc. &amp;nbsp;So, after firing up VirtualBox …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I recently started working on a project that has me working with Windows
 (eww, I know, forgive me). &amp;nbsp;I opted to run this environment in a VM so
 that I don't have to pollute my gaming rig with all kinds of tools,
 patches, bit-rot, etc. &amp;nbsp;So, after firing up VirtualBox and getting
@@ -291,7 +369,11 @@ cinst package1; cinst package2; cinst package3
 &lt;p&gt;Which is close enough. &amp;nbsp;It allows me to type in one line, hit enter, and
 walk away. &amp;nbsp;Very nice.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="Chocolatey"></category></entry><entry><title>Loading the English Wikipedia Dump is a Huge Pain</title><link href="http://brianstempin.com/2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/" rel="alternate"></link><updated>2012-06-29T18:22:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-06-29:2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/</id><summary type="html">&lt;p&gt;...but I did it!&lt;/p&gt;
+</content><category term="Free Time"></category><category term="Chocolatey"></category></entry><entry><title>Loading the English Wikipedia Dump is a Huge Pain</title><link href="http://brianstempin.com/2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/" rel="alternate"></link><published>2012-06-29T18:22:00-04:00</published><updated>2012-06-29T18:22:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-06-29:/2012/06/29/loading-the-english-wikipedia-dump-is-a-huge-pain/</id><summary type="html">&lt;p&gt;...but I did it!&lt;/p&gt;
+&lt;p&gt;I decided a while back that it'd be cool to do some graph analysis on
+the English Wikipedia database. &amp;nbsp;I want to study how &amp;quot;connected&amp;quot; the
+articles are. &amp;nbsp;I also want to collect some statistics about the text of
+the articles themselves, their references, and some …&lt;/p&gt;</summary><content type="html">&lt;p&gt;...but I did it!&lt;/p&gt;
 &lt;p&gt;I decided a while back that it'd be cool to do some graph analysis on
 the English Wikipedia database. &amp;nbsp;I want to study how &amp;quot;connected&amp;quot; the
 articles are. &amp;nbsp;I also want to collect some statistics about the text of
@@ -449,7 +531,14 @@ really don't know if the file was correctly encoded or not. At some
 point, I'd like to automate this process so that imports aren't such a
 hassle.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="Linux"></category><category term="MySQL"></category><category term="Wikipedia"></category><category term="Xen"></category></entry><entry><title>Book Review: Effective Java, Second Edition</title><link href="http://brianstempin.com/2012/04/25/book-review-effective-java-second-edition/" rel="alternate"></link><updated>2012-04-25T21:23:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-04-25:2012/04/25/book-review-effective-java-second-edition/</id><summary type="html">&lt;p&gt;A few hours ago I finished reading &lt;a class="reference external" href="http://java.sun.com/docs/books/effective/"&gt;Effective Java, Second
+</content><category term="Free Time"></category><category term="Linux"></category><category term="MySQL"></category><category term="Wikipedia"></category><category term="Xen"></category></entry><entry><title>Book Review: Effective Java, Second Edition</title><link href="http://brianstempin.com/2012/04/25/book-review-effective-java-second-edition/" rel="alternate"></link><published>2012-04-25T21:23:00-04:00</published><updated>2012-04-25T21:23:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-04-25:/2012/04/25/book-review-effective-java-second-edition/</id><summary type="html">&lt;p&gt;A few hours ago I finished reading &lt;a class="reference external" href="http://java.sun.com/docs/books/effective/"&gt;Effective Java, Second
+Edition&lt;/a&gt; by &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Joshua_Bloch"&gt;Joshua
+Bloch&lt;/a&gt;. &amp;nbsp;Bottom line up
+front: &amp;nbsp;totally worth the read!&lt;/p&gt;
+&lt;div class="section" id="format"&gt;
+&lt;h2&gt;Format&lt;/h2&gt;
+&lt;p&gt;The book's format is interesting. &amp;nbsp;At first, I wasn't sure if I liked
+it, but it grew on me. &amp;nbsp;The book is divided into 78 items, each …&lt;/p&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;A few hours ago I finished reading &lt;a class="reference external" href="http://java.sun.com/docs/books/effective/"&gt;Effective Java, Second
 Edition&lt;/a&gt; by &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Joshua_Bloch"&gt;Joshua
 Bloch&lt;/a&gt;. &amp;nbsp;Bottom line up
 front: &amp;nbsp;totally worth the read!&lt;/p&gt;
@@ -533,7 +622,13 @@ structuring my code so that more errors are caught at compile-time.
 assurance. &amp;nbsp;I will be reading this book again -- it was full of gems,
 and I'm eager to go back a second time and to see what else dawns on me.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="book review"></category><category term="Effective Java"></category></entry><entry><title>Boxee Box Review</title><link href="http://brianstempin.com/2012/03/25/boxee-box-review/" rel="alternate"></link><updated>2012-03-25T14:58:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-03-25:2012/03/25/boxee-box-review/</id><summary type="html">&lt;p&gt;For the last few years, I had been using a &lt;a class="reference external" href="http://www.instructables.com/id/How-to-softmod-your-xbox...for-FREE/"&gt;modified
+</content><category term="Free Time"></category><category term="book review"></category><category term="Effective Java"></category></entry><entry><title>Boxee Box Review</title><link href="http://brianstempin.com/2012/03/25/boxee-box-review/" rel="alternate"></link><published>2012-03-25T14:58:00-04:00</published><updated>2012-03-25T14:58:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-03-25:/2012/03/25/boxee-box-review/</id><summary type="html">&lt;p&gt;For the last few years, I had been using a &lt;a class="reference external" href="http://www.instructables.com/id/How-to-softmod-your-xbox...for-FREE/"&gt;modified
+XBox&lt;/a&gt;
+running &lt;a class="reference external" href="http://xbmc.org/"&gt;XBMC&lt;/a&gt;. &amp;nbsp;This was great for streaming stuff
+(movies, music, etc) from my Ubuntu &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Samba_(software)"&gt;SMB
+server&lt;/a&gt; to my TV. &amp;nbsp;Now
+that I own a TV capable of high-def, I wanted more. &amp;nbsp;I also wanted to
+lower my cable …&lt;/p&gt;</summary><content type="html">&lt;p&gt;For the last few years, I had been using a &lt;a class="reference external" href="http://www.instructables.com/id/How-to-softmod-your-xbox...for-FREE/"&gt;modified
 XBox&lt;/a&gt;
 running &lt;a class="reference external" href="http://xbmc.org/"&gt;XBMC&lt;/a&gt;. &amp;nbsp;This was great for streaming stuff
 (movies, music, etc) from my Ubuntu &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Samba_(software)"&gt;SMB
@@ -633,7 +728,11 @@ and complete. &amp;nbsp;I would recommend this unit for those who are more tech
 savvy, have more advanced needs, or are simply patient and are willing
 to wait for these things to be fixed via updates.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="Boxee"></category></entry><entry><title>Welcome, 2012!</title><link href="http://brianstempin.com/2012/01/02/welcome-2012/" rel="alternate"></link><updated>2012-01-02T00:31:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-01-02:2012/01/02/welcome-2012/</id><summary type="html">&lt;p&gt;Twenty-eleven has had it's shares of ups and downs for me. &amp;nbsp;All in all,
+</content><category term="Free Time"></category><category term="Boxee"></category></entry><entry><title>Welcome, 2012!</title><link href="http://brianstempin.com/2012/01/02/welcome-2012/" rel="alternate"></link><published>2012-01-02T00:31:00-05:00</published><updated>2012-01-02T00:31:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2012-01-02:/2012/01/02/welcome-2012/</id><summary type="html">&lt;p&gt;Twenty-eleven has had it's shares of ups and downs for me. &amp;nbsp;All in all,
+it's been an amazing year.&lt;/p&gt;
+&lt;p&gt;Just this past week, I've managed to really live up my last bits of
+2011. &amp;nbsp;During the last week of December, I went to &lt;a class="reference external" href="http://longwoodgardens.org"&gt;Longwood
+Gardens&lt;/a&gt; to check out their night …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Twenty-eleven has had it's shares of ups and downs for me. &amp;nbsp;All in all,
 it's been an amazing year.&lt;/p&gt;
 &lt;p&gt;Just this past week, I've managed to really live up my last bits of
 2011. &amp;nbsp;During the last week of December, I went to &lt;a class="reference external" href="http://longwoodgardens.org"&gt;Longwood
@@ -671,7 +770,14 @@ also started work on finding a way to use 0 A.D. in computer science
 education for high schoolers (more on that later). &amp;nbsp;The big change this
 year is the new job, but I'll leave that for another post.&lt;/p&gt;
 &lt;p&gt;Happy 2012!&lt;/p&gt;
-</summary><category term="Mummers"></category><category term="Wildfire Games"></category></entry><entry><title>GRUB2: Do Not Want</title><link href="http://brianstempin.com/2011/11/11/grub2-do-not-want/" rel="alternate"></link><updated>2011-11-11T18:07:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-11-11:2011/11/11/grub2-do-not-want/</id><summary type="html">&lt;p&gt;I'm writing this partially because I hope to save a few people the
+</content><category term="Free Time"></category><category term="Mummers"></category><category term="Wildfire Games"></category></entry><entry><title>GRUB2: Do Not Want</title><link href="http://brianstempin.com/2011/11/11/grub2-do-not-want/" rel="alternate"></link><published>2011-11-11T18:07:00-05:00</published><updated>2011-11-11T18:07:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-11-11:/2011/11/11/grub2-do-not-want/</id><summary type="html">&lt;p&gt;I'm writing this partially because I hope to save a few people the
+headache I just had and partially because there are no babies around to
+eat.&lt;/p&gt;
+&lt;div class="section" id="bg"&gt;
+&lt;h2&gt;Bg&lt;/h2&gt;
+&lt;p&gt;So, I recently sold a bunch of stuff on eBay (as I &lt;a class="reference external" href="/2011/09/26/selling-stuff-on-ebay/"&gt;previously
+mentioned&lt;/a&gt;). &amp;nbsp;I then used that
+money to buy a …&lt;/p&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;I'm writing this partially because I hope to save a few people the
 headache I just had and partially because there are no babies around to
 eat.&lt;/p&gt;
 &lt;div class="section" id="bg"&gt;
@@ -732,7 +838,12 @@ with sudo):&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Magic! &amp;nbsp;It booted! &amp;nbsp;Hopefully this saves someone a headache.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="GRUB2"></category><category term="Rackable Systems"></category><category term="Ubuntu"></category></entry><entry><title>Haunting at Eastern State Penitentiary</title><link href="http://brianstempin.com/2011/10/21/haunting-at-eastern-state-penitentiary/" rel="alternate"></link><updated>2011-10-21T15:04:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-10-21:2011/10/21/haunting-at-eastern-state-penitentiary/</id><summary type="html">&lt;p&gt;So, where have I been?&lt;/p&gt;
+</content><category term="Free Time"></category><category term="GRUB2"></category><category term="Rackable Systems"></category><category term="Ubuntu"></category></entry><entry><title>Haunting at Eastern State Penitentiary</title><link href="http://brianstempin.com/2011/10/21/haunting-at-eastern-state-penitentiary/" rel="alternate"></link><published>2011-10-21T15:04:00-04:00</published><updated>2011-10-21T15:04:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-10-21:/2011/10/21/haunting-at-eastern-state-penitentiary/</id><summary type="html">&lt;p&gt;So, where have I been?&lt;/p&gt;
+&lt;p&gt;I've been working as an actor at &lt;a class="reference external" href="http://www.easternstate.org/"&gt;Eastern State
+Penitentiary&lt;/a&gt;'s &amp;quot;&lt;a class="reference external" href="http://www.easternstate.org/halloween"&gt;Terror Behind the
+Walls&lt;/a&gt;&amp;quot; attraction. It's a
+lot of work going from a full-time job during the day then down to ESP
+at night, but it's been worth it. Acting has been a ton …&lt;/p&gt;</summary><content type="html">&lt;p&gt;So, where have I been?&lt;/p&gt;
 &lt;p&gt;I've been working as an actor at &lt;a class="reference external" href="http://www.easternstate.org/"&gt;Eastern State
 Penitentiary&lt;/a&gt;'s &amp;quot;&lt;a class="reference external" href="http://www.easternstate.org/halloween"&gt;Terror Behind the
 Walls&lt;/a&gt;&amp;quot; attraction. It's a
@@ -750,7 +861,10 @@ me some new ideas or motivation. &amp;nbsp;I've lacked quite a bit of coding
 motivation for the last several months (probably because I code all day
 at work), so I'm hoping this little break will kick-start things for me
 and help me get excited to get back to work.&lt;/p&gt;
-</summary><category term="TBTW"></category></entry><entry><title>Selling Stuff on eBay</title><link href="http://brianstempin.com/2011/09/26/selling-stuff-on-ebay/" rel="alternate"></link><updated>2011-09-26T19:31:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-09-26:2011/09/26/selling-stuff-on-ebay/</id><summary type="html">&lt;p&gt;I decided a bit ago that it was time to clean house. &amp;nbsp;I have a lot of
+</content><category term="Free Time"></category><category term="TBTW"></category></entry><entry><title>Selling Stuff on eBay</title><link href="http://brianstempin.com/2011/09/26/selling-stuff-on-ebay/" rel="alternate"></link><published>2011-09-26T19:31:00-04:00</published><updated>2011-09-26T19:31:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-09-26:/2011/09/26/selling-stuff-on-ebay/</id><summary type="html">&lt;p&gt;I decided a bit ago that it was time to clean house. &amp;nbsp;I have a lot of
+old tech stuff that I have been holding onto for quite some time. &amp;nbsp;The
+majority of it was still in good working order, which is why I was so
+hesitant to let it …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I decided a bit ago that it was time to clean house. &amp;nbsp;I have a lot of
 old tech stuff that I have been holding onto for quite some time. &amp;nbsp;The
 majority of it was still in good working order, which is why I was so
 hesitant to let it go. &amp;nbsp;Instead of throwing it all away or keeping it in
@@ -772,8 +886,11 @@ away, drop it off, and use my eBay app to mark the items as shipped.&lt;/p&gt;
 &lt;p&gt;Once I got the hang of the process, it became pretty fun. &amp;nbsp;There are
 some other things I'm trying to get rid of, so I'll be selling for a
 while. &amp;nbsp;eBay even gave me a gold star!&lt;/p&gt;
-&lt;p&gt;&lt;a class="reference external" href="http://brianstempin.com/images/StarAwardYellow.jpg"&gt;&lt;img alt="eBay Yellow Star Award" src="http://brianstempin.com/images/StarAwardYellow-300x231.jpg" /&gt;&lt;/a&gt;&lt;/p&gt;
-</summary><category term="eBay"></category><category term="USPS"></category></entry><entry><title>Minecraft Server</title><link href="http://brianstempin.com/2011/08/21/minecraft-server/" rel="alternate"></link><updated>2011-08-21T11:01:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-08-21:2011/08/21/minecraft-server/</id><summary type="html">&lt;p&gt;Back in the winter, &lt;a class="reference external" href="http://timjhenry.com"&gt;Tim Henry&lt;/a&gt; got me hooked
+&lt;p&gt;&lt;a class="reference external image-reference" href="http://brianstempin.com/images/StarAwardYellow.jpg"&gt;&lt;img alt="eBay Yellow Star Award" src="http://brianstempin.com/images/StarAwardYellow-300x231.jpg" /&gt;&lt;/a&gt;&lt;/p&gt;
+</content><category term="Free Time"></category><category term="eBay"></category><category term="USPS"></category></entry><entry><title>Minecraft Server</title><link href="http://brianstempin.com/2011/08/21/minecraft-server/" rel="alternate"></link><published>2011-08-21T11:01:00-04:00</published><updated>2011-08-21T11:01:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-08-21:/2011/08/21/minecraft-server/</id><summary type="html">&lt;p&gt;Back in the winter, &lt;a class="reference external" href="http://timjhenry.com"&gt;Tim Henry&lt;/a&gt; got me hooked
+on Minecraft. Due to having a life, I probably only played the game for
+around 20 hours and then put it down for several months. Now that I'm
+not teaching, Tim and I decided to pick it back up again. Instead …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Back in the winter, &lt;a class="reference external" href="http://timjhenry.com"&gt;Tim Henry&lt;/a&gt; got me hooked
 on Minecraft. Due to having a life, I probably only played the game for
 around 20 hours and then put it down for several months. Now that I'm
 not teaching, Tim and I decided to pick it back up again. Instead of
@@ -787,7 +904,11 @@ managed to very quickly get a Minecraft server running on my mapping
 server, which runs Ubtuntu 10.04 LTS. I don't expect many people to hop
 on, but in case you're interested, the server is running on
 bstempi.servebeer.com&lt;/p&gt;
-</summary><category term="games"></category><category term="Minecraft"></category></entry><entry><title>Experimenting with the YouTube API in PHP</title><link href="http://brianstempin.com/2011/07/11/experimenting-with-the-youtube-api-in-php/" rel="alternate"></link><updated>2011-07-11T21:38:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-07-11:2011/07/11/experimenting-with-the-youtube-api-in-php/</id><summary type="html">&lt;p&gt;As a video game website, &lt;a class="reference external" href="http://wildfiregames.com"&gt;Wildfire Games&lt;/a&gt;
+</content><category term="Free Time"></category><category term="games"></category><category term="Minecraft"></category></entry><entry><title>Experimenting with the YouTube API in PHP</title><link href="http://brianstempin.com/2011/07/11/experimenting-with-the-youtube-api-in-php/" rel="alternate"></link><published>2011-07-11T21:38:00-04:00</published><updated>2011-07-11T21:38:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2011-07-11:/2011/07/11/experimenting-with-the-youtube-api-in-php/</id><summary type="html">&lt;p&gt;As a video game website, &lt;a class="reference external" href="http://wildfiregames.com"&gt;Wildfire Games&lt;/a&gt;
+wants to be able to do some cool things with videos, images, music, and
+more. Games are all about media, and any good game website has to do a
+good job at showcasing their media. After all, what good is the website
+if …&lt;/p&gt;</summary><content type="html">&lt;p&gt;As a video game website, &lt;a class="reference external" href="http://wildfiregames.com"&gt;Wildfire Games&lt;/a&gt;
 wants to be able to do some cool things with videos, images, music, and
 more. Games are all about media, and any good game website has to do a
 good job at showcasing their media. After all, what good is the website
@@ -904,7 +1025,10 @@ development&lt;/a&gt;.
 get to add code once per week or every other week, which is slower than
 I'd like, but at least I'm moving along.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="games"></category><category term="web development"></category><category term="Wildfire Games"></category><category term="WordPress"></category><category term="YouTube"></category></entry><entry><title>Ford Fiesta</title><link href="http://brianstempin.com/2010/11/19/ford-fiesta/" rel="alternate"></link><updated>2010-11-19T20:27:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-11-19:2010/11/19/ford-fiesta/</id><summary type="html">&lt;p&gt;I had the unfortunate experience of finding out what happens when
+</content><category term="Free Time"></category><category term="games"></category><category term="web development"></category><category term="Wildfire Games"></category><category term="WordPress"></category><category term="YouTube"></category></entry><entry><title>Ford Fiesta</title><link href="http://brianstempin.com/2010/11/19/ford-fiesta/" rel="alternate"></link><published>2010-11-19T20:27:00-05:00</published><updated>2010-11-19T20:27:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-11-19:/2010/11/19/ford-fiesta/</id><summary type="html">&lt;p&gt;I had the unfortunate experience of finding out what happens when
+minivans and Ford Foci collide in August of this year. &amp;nbsp;My car got
+nailed (read: totaled), so I got thrown into the market for a new car.
+&amp;nbsp;The Focus had always served me well (I've owned two of them …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I had the unfortunate experience of finding out what happens when
 minivans and Ford Foci collide in August of this year. &amp;nbsp;My car got
 nailed (read: totaled), so I got thrown into the market for a new car.
 &amp;nbsp;The Focus had always served me well (I've owned two of them), so I
@@ -1026,7 +1150,11 @@ time to get it fixed.&lt;/p&gt;
 I'd buy the same car (though from someone else -- I blame the dealership
 for some of my issues).&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="Fiesta"></category><category term="Ford"></category></entry><entry><title>My First Machine in the Cloud: Linode</title><link href="http://brianstempin.com/2010/10/26/my-first-machine-in-the-cloud-linode/" rel="alternate"></link><updated>2010-10-26T18:32:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-10-26:2010/10/26/my-first-machine-in-the-cloud-linode/</id><summary type="html">&lt;p&gt;A few weeks ago, I went to &lt;a class="reference external" href="http://cposc.org"&gt;CPOSC&lt;/a&gt; and won a door
+</content><category term="Free Time"></category><category term="Fiesta"></category><category term="Ford"></category></entry><entry><title>My First Machine in the Cloud: Linode</title><link href="http://brianstempin.com/2010/10/26/my-first-machine-in-the-cloud-linode/" rel="alternate"></link><published>2010-10-26T18:32:00-04:00</published><updated>2010-10-26T18:32:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-10-26:/2010/10/26/my-first-machine-in-the-cloud-linode/</id><summary type="html">&lt;p&gt;A few weeks ago, I went to &lt;a class="reference external" href="http://cposc.org"&gt;CPOSC&lt;/a&gt; and won a door
+prize: &amp;nbsp;a free &lt;a class="reference external" href="http://www.linode.com/"&gt;Linode&lt;/a&gt; 512 for 3 months! &amp;nbsp;I
+recently received an email that furnished me with my account credentials
+and details. &amp;nbsp;I couldn't wait to play around, so I immediately dropped
+what I was doing and hopped …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A few weeks ago, I went to &lt;a class="reference external" href="http://cposc.org"&gt;CPOSC&lt;/a&gt; and won a door
 prize: &amp;nbsp;a free &lt;a class="reference external" href="http://www.linode.com/"&gt;Linode&lt;/a&gt; 512 for 3 months! &amp;nbsp;I
 recently received an email that furnished me with my account credentials
 and details. &amp;nbsp;I couldn't wait to play around, so I immediately dropped
@@ -1051,7 +1179,10 @@ instance should you be locked out for some reason!&lt;/p&gt;
 my &lt;a class="reference external" href="http://bdpaphilly.org/"&gt;BDPA students&lt;/a&gt;, so I might be interested
 in keeping this instance once my free trial expires. &amp;nbsp;We'll see how it
 handles once I start placing a regular load on it.&lt;/p&gt;
-</summary><category term="CPOSC"></category><category term="Linode"></category><category term="Ubuntu"></category><category term="VPS"></category></entry><entry><title>Public Code Samples</title><link href="http://brianstempin.com/2010/10/26/public-code-samples/" rel="alternate"></link><updated>2010-10-26T00:45:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-10-26:2010/10/26/public-code-samples/</id><summary type="html">&lt;p&gt;I recently had a recruiter ask me for some PHP code samples. &amp;nbsp;After
+</content><category term="Free Time"></category><category term="CPOSC"></category><category term="Linode"></category><category term="Ubuntu"></category><category term="VPS"></category></entry><entry><title>Public Code Samples</title><link href="http://brianstempin.com/2010/10/26/public-code-samples/" rel="alternate"></link><published>2010-10-26T00:45:00-04:00</published><updated>2010-10-26T00:45:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-10-26:/2010/10/26/public-code-samples/</id><summary type="html">&lt;p&gt;I recently had a recruiter ask me for some PHP code samples. &amp;nbsp;After
+doing some digging, I realized that I didn't have much to show. &amp;nbsp;Most of
+the cool stuff that I wrote was proprietary, so I couldn't just expose
+it. &amp;nbsp;The stuff that I've written for myself has been …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I recently had a recruiter ask me for some PHP code samples. &amp;nbsp;After
 doing some digging, I realized that I didn't have much to show. &amp;nbsp;Most of
 the cool stuff that I wrote was proprietary, so I couldn't just expose
 it. &amp;nbsp;The stuff that I've written for myself has been very hackish and
@@ -1082,7 +1213,12 @@ additional problem and to reduce my code base.&lt;/p&gt;
 &lt;p&gt;I must admit that this is a little nerve racking; I'm not used to others
 reviewing my code. &amp;nbsp;As always, feedback is welcome (probably a little
 more than usual). &amp;nbsp;Happy hacking!&lt;/p&gt;
-</summary><category term="BitBucket"></category><category term="PHP"></category><category term="Project Euler"></category></entry><entry><title>Firebug Intro</title><link href="http://brianstempin.com/2010/10/20/firebug-intro/" rel="alternate"></link><updated>2010-10-20T13:48:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-10-20:2010/10/20/firebug-intro/</id><summary type="html">&lt;p&gt;A few weeks back, &lt;a class="reference external" href="http://www.cis.temple.edu/~lefkovit/"&gt;Professor
+</content><category term="Free Time"></category><category term="BitBucket"></category><category term="PHP"></category><category term="Project Euler"></category></entry><entry><title>Firebug Intro</title><link href="http://brianstempin.com/2010/10/20/firebug-intro/" rel="alternate"></link><published>2010-10-20T13:48:00-04:00</published><updated>2010-10-20T13:48:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-10-20:/2010/10/20/firebug-intro/</id><summary type="html">&lt;p&gt;A few weeks back, &lt;a class="reference external" href="http://www.cis.temple.edu/~lefkovit/"&gt;Professor
+Lefkovitz&lt;/a&gt; asked me to help him
+diagnose a problem with a web app.&amp;nbsp; The issue involved the communication
+between a browser and an AJAX web service used for authentication.&amp;nbsp; The
+initial struggle was trying to find an easy and elegant way of viewing
+the AJAX …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A few weeks back, &lt;a class="reference external" href="http://www.cis.temple.edu/~lefkovit/"&gt;Professor
 Lefkovitz&lt;/a&gt; asked me to help him
 diagnose a problem with a web app.&amp;nbsp; The issue involved the communication
 between a browser and an AJAX web service used for authentication.&amp;nbsp; The
@@ -1210,7 +1346,12 @@ much sense unless you're in class to see the demo.&lt;/p&gt;
 &lt;h2&gt;Ze End&lt;/h2&gt;
 &lt;p&gt;Feel free to leave comments or to ask questions!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="Firebug"></category><category term="Temple"></category><category term="web development"></category></entry><entry><title>Bass and Amp for Sale</title><link href="http://brianstempin.com/2010/08/10/bass-and-amp-for-sale/" rel="alternate"></link><updated>2010-08-10T20:12:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-08-10:2010/08/10/bass-and-amp-for-sale/</id><summary type="html">&lt;p&gt;Unfortunately, I'm putting my bass and amp up for sale. &amp;nbsp;Instead of
+</content><category term="Free Time"></category><category term="Firebug"></category><category term="Temple"></category><category term="web development"></category></entry><entry><title>Bass and Amp for Sale</title><link href="http://brianstempin.com/2010/08/10/bass-and-amp-for-sale/" rel="alternate"></link><published>2010-08-10T20:12:00-04:00</published><updated>2010-08-10T20:12:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-08-10:/2010/08/10/bass-and-amp-for-sale/</id><summary type="html">&lt;p&gt;Unfortunately, I'm putting my bass and amp up for sale. &amp;nbsp;Instead of
+trying to Ebay them, I decided to do
+a&amp;nbsp;&lt;a class="reference external" href="http://en.wikipedia.org/wiki/Consignment"&gt;consignment&lt;/a&gt; deal with
+&lt;a class="reference external" href="http://www.springfieldmusicstore.com/"&gt;Springfield Music&lt;/a&gt;. &amp;nbsp;I'm
+selling a 5 string Peavey Foundation bass and a 100w Carvin ProBass 100
+amp. &amp;nbsp;They're currently listed for $219.95 and $189.95 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Unfortunately, I'm putting my bass and amp up for sale. &amp;nbsp;Instead of
 trying to Ebay them, I decided to do
 a&amp;nbsp;&lt;a class="reference external" href="http://en.wikipedia.org/wiki/Consignment"&gt;consignment&lt;/a&gt; deal with
 &lt;a class="reference external" href="http://www.springfieldmusicstore.com/"&gt;Springfield Music&lt;/a&gt;. &amp;nbsp;I'm
@@ -1219,7 +1360,12 @@ amp. &amp;nbsp;They're currently listed for $219.95 and $189.95, respectively.&l
 &lt;p&gt;If you know anyone that's interested, feel free to send them to this
 post. &amp;nbsp;Any help unloading them would be greatly appreciated :).&lt;/p&gt;
 &lt;p&gt;UPDATE:  These guys sold, so I removed the images.  Thanks!&lt;/p&gt;
-</summary><category term="for sale"></category><category term="music"></category></entry><entry><title>WordPress Legal Mess</title><link href="http://brianstempin.com/2010/07/23/wordpress-legal-mess/" rel="alternate"></link><updated>2010-07-23T01:03:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-23:2010/07/23/wordpress-legal-mess/</id><summary type="html">&lt;p&gt;Yeah, you like that rhyming! &amp;nbsp;Don't lie, it's catchy. &amp;nbsp;Onto something
+</content><category term="Free Time"></category><category term="for sale"></category><category term="music"></category></entry><entry><title>WordPress Legal Mess</title><link href="http://brianstempin.com/2010/07/23/wordpress-legal-mess/" rel="alternate"></link><published>2010-07-23T01:03:00-04:00</published><updated>2010-07-23T01:03:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-23:/2010/07/23/wordpress-legal-mess/</id><summary type="html">&lt;p&gt;Yeah, you like that rhyming! &amp;nbsp;Don't lie, it's catchy. &amp;nbsp;Onto something
+meaningful:&lt;/p&gt;
+&lt;p&gt;I've spent a lot of time doing &lt;a class="reference external" href="http://www.wordpress.org"&gt;WordPress&lt;/a&gt;
+work. &amp;nbsp;I've spent some time in the community and a lot of time using,
+hacking, and theming WordPress. &amp;nbsp;As I've stated before in other posts,
+this site is powered by …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Yeah, you like that rhyming! &amp;nbsp;Don't lie, it's catchy. &amp;nbsp;Onto something
 meaningful:&lt;/p&gt;
 &lt;p&gt;I've spent a lot of time doing &lt;a class="reference external" href="http://www.wordpress.org"&gt;WordPress&lt;/a&gt;
 work. &amp;nbsp;I've spent some time in the community and a lot of time using,
@@ -1331,7 +1477,14 @@ think that forcing me to open-source any themes that I create is taking
 it too far. &amp;nbsp;I work on an open source project (GPL v2), and I can't say
 that I'd get upset at someone developing a closed-source add-on and
 making money off of it.&lt;/p&gt;
-</summary><category term="crap"></category><category term="gpl"></category><category term="web development"></category><category term="WordPress"></category></entry><entry><title>Losing Bet</title><link href="http://brianstempin.com/2010/07/21/losing-bet/" rel="alternate"></link><updated>2010-07-21T13:52:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-21:2010/07/21/losing-bet/</id><summary type="html">&lt;p&gt;Back when I started my &lt;a class="reference external" href="http://www.brianstempin.com/projects/traffic-research-project/"&gt;GIS research
+</content><category term="Free Time"></category><category term="crap"></category><category term="gpl"></category><category term="web development"></category><category term="WordPress"></category></entry><entry><title>Losing Bet</title><link href="http://brianstempin.com/2010/07/21/losing-bet/" rel="alternate"></link><published>2010-07-21T13:52:00-04:00</published><updated>2010-07-21T13:52:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-21:/2010/07/21/losing-bet/</id><summary type="html">&lt;p&gt;Back when I started my &lt;a class="reference external" href="http://www.brianstempin.com/projects/traffic-research-project/"&gt;GIS research
+project&lt;/a&gt;,
+I purchased a used computer from Temple University's &lt;a class="reference external" href="http://www.temple.edu/cs/crc/"&gt;Computer
+Recycling Center&lt;/a&gt;. &amp;nbsp;To be more
+specific, I purchased a &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Dell_OptiPlex#Models.2C_in_relative_chronological_order"&gt;Dell Optiplex GX270
+SFF&lt;/a&gt;.
+&amp;nbsp;It runs a 2.x GHz Pentium 4 and came with 512 MB of RAM (later upgraded
+to 1 GB …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Back when I started my &lt;a class="reference external" href="http://www.brianstempin.com/projects/traffic-research-project/"&gt;GIS research
 project&lt;/a&gt;,
 I purchased a used computer from Temple University's &lt;a class="reference external" href="http://www.temple.edu/cs/crc/"&gt;Computer
 Recycling Center&lt;/a&gt;. &amp;nbsp;To be more
@@ -1367,12 +1520,15 @@ run for multiple days in a row. &amp;nbsp;Go figure that it dies with 5 or 6
 weeks of winning the bet.&lt;/p&gt;
 &lt;p&gt;And with that, I must admit defeat. &amp;nbsp;I'll get you Mr. Henry!
 &amp;lt;/&lt;a class="reference external" href="http://en.wikipedia.org/wiki/Doctor_Claw"&gt;inspectorGadgetBadGuy&lt;/a&gt;&amp;gt;&lt;/p&gt;
-</summary><category term="go figure"></category><category term="lol"></category><category term="metal"></category><category term="Tim Henry"></category></entry><entry><title>New Favorite Song</title><link href="http://brianstempin.com/2010/07/08/new-favorite-song/" rel="alternate"></link><updated>2010-07-08T12:07:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-08:2010/07/08/new-favorite-song/</id><summary type="html">&lt;p&gt;This song played while I was listening to one of my
+</content><category term="Free Time"></category><category term="go figure"></category><category term="lol"></category><category term="metal"></category><category term="Tim Henry"></category></entry><entry><title>New Favorite Song</title><link href="http://brianstempin.com/2010/07/08/new-favorite-song/" rel="alternate"></link><published>2010-07-08T12:07:00-04:00</published><updated>2010-07-08T12:07:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-08:/2010/07/08/new-favorite-song/</id><content type="html">&lt;p&gt;This song played while I was listening to one of my
 &lt;a class="reference external" href="http://pandora.com"&gt;Pandora&lt;/a&gt; stations. &amp;nbsp;The song is &amp;quot;The Cyborg
 Slayers&amp;quot; by Dethklok.&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="http://www.youtube.com/watch?v=9YogCId14CA"&gt;httpv://www.youtube.com/watch?v=9YogCId14CA&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Brutal.&lt;/p&gt;
-</summary><category term="metal"></category></entry><entry><title>Moodle</title><link href="http://brianstempin.com/2010/07/01/moodle/" rel="alternate"></link><updated>2010-07-01T11:16:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-01:2010/07/01/moodle/</id><summary type="html">&lt;p&gt;I recently wrote about the HSCC class that I teach and posted a link to
+</content><category term="Free Time"></category><category term="metal"></category></entry><entry><title>Moodle</title><link href="http://brianstempin.com/2010/07/01/moodle/" rel="alternate"></link><published>2010-07-01T11:16:00-04:00</published><updated>2010-07-01T11:16:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-07-01:/2010/07/01/moodle/</id><summary type="html">&lt;p&gt;I recently wrote about the HSCC class that I teach and posted a link to
+the course's website. &amp;nbsp;While thinking the other day, it occurred to me
+that I have yet to write about my experience using Moodle, which powers
+that website. &amp;nbsp;Since its such an awesome piece of OSS …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I recently wrote about the HSCC class that I teach and posted a link to
 the course's website. &amp;nbsp;While thinking the other day, it occurred to me
 that I have yet to write about my experience using Moodle, which powers
 that website. &amp;nbsp;Since its such an awesome piece of OSS, I figured that it
@@ -1469,7 +1625,11 @@ try to use WordPress, Drupal, or Joomla with plugins to provide the
 additional functionality -- I want it all in one place and
 out-of-the-box. &amp;nbsp;Moodle did that for me. &amp;nbsp;Great job, Moodle devs!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="CMS"></category><category term="Moodle"></category></entry><entry><title>Car to Car Wifi</title><link href="http://brianstempin.com/2010/05/27/car-to-car-wifi/" rel="alternate"></link><updated>2010-05-27T11:27:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-05-27:2010/05/27/car-to-car-wifi/</id><summary type="html">&lt;p&gt;Sorry that I haven't written in a bit -- I've been out-and-about instead
+</content><category term="Free Time"></category><category term="CMS"></category><category term="Moodle"></category></entry><entry><title>Car to Car Wifi</title><link href="http://brianstempin.com/2010/05/27/car-to-car-wifi/" rel="alternate"></link><published>2010-05-27T11:27:00-04:00</published><updated>2010-05-27T11:27:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-05-27:/2010/05/27/car-to-car-wifi/</id><summary type="html">&lt;p&gt;Sorry that I haven't written in a bit -- I've been out-and-about instead
+of living in front of my computer for a chance.&lt;/p&gt;
+&lt;p&gt;So, here's a pretty cool thing that I recently saw (did?). &amp;nbsp;Last week, I
+traveled down to &lt;a class="reference external" href="http://www.cityofmyrtlebeach.com/"&gt;Myrtle Beach&lt;/a&gt;,
+South Carolina with a few friends to celebrate their …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Sorry that I haven't written in a bit -- I've been out-and-about instead
 of living in front of my computer for a chance.&lt;/p&gt;
 &lt;p&gt;So, here's a pretty cool thing that I recently saw (did?). &amp;nbsp;Last week, I
 traveled down to &lt;a class="reference external" href="http://www.cityofmyrtlebeach.com/"&gt;Myrtle Beach&lt;/a&gt;,
@@ -1502,7 +1662,12 @@ ourselves pretty occupied. &amp;nbsp;Tim brought a couple of movies on his
 &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Netbook"&gt;netbook&lt;/a&gt;, so we sat it on the
 dashboard and routed the audio though his car stereo.&lt;/p&gt;
 &lt;p&gt;I guess we can find a way to make anything geeky :-P.&lt;/p&gt;
-</summary><category term="g1"></category><category term="geek"></category><category term="lol"></category><category term="wifi"></category></entry><entry><title>Symfony Framework</title><link href="http://brianstempin.com/2010/05/10/symfony-framework/" rel="alternate"></link><updated>2010-05-10T16:46:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-05-10:2010/05/10/symfony-framework/</id><summary type="html">&lt;p&gt;I've been coding in PHP for a few years, but I've never been exposed to
+</content><category term="Free Time"></category><category term="g1"></category><category term="geek"></category><category term="lol"></category><category term="wifi"></category></entry><entry><title>Symfony Framework</title><link href="http://brianstempin.com/2010/05/10/symfony-framework/" rel="alternate"></link><published>2010-05-10T16:46:00-04:00</published><updated>2010-05-10T16:46:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-05-10:/2010/05/10/symfony-framework/</id><summary type="html">&lt;p&gt;I've been coding in PHP for a few years, but I've never been exposed to
+any of the PHP frameworks. &amp;nbsp;I've been curious about &lt;a class="reference external" href="http://codeigniter.com/"&gt;Code
+Igniter&lt;/a&gt; and
+&lt;a class="reference external" href="http://www.symfony-project.org/"&gt;Symfony&lt;/a&gt; for a while, but I haven't
+had time to play with either of them. &amp;nbsp;Until now.&lt;/p&gt;
+&lt;p&gt;I decided to pick up Symfony …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've been coding in PHP for a few years, but I've never been exposed to
 any of the PHP frameworks. &amp;nbsp;I've been curious about &lt;a class="reference external" href="http://codeigniter.com/"&gt;Code
 Igniter&lt;/a&gt; and
 &lt;a class="reference external" href="http://www.symfony-project.org/"&gt;Symfony&lt;/a&gt; for a while, but I haven't
@@ -1526,7 +1691,12 @@ while. &amp;nbsp;I'm not too far into the Symfony documentation, but I'm startin
 to think that developing some of these apps would be a good exercise.
 &amp;nbsp;I'd talk more about my ideas, but I want to be able to flesh them out
 before they get stolen :p.&lt;/p&gt;
-</summary><category term="PHP"></category><category term="Symfony"></category></entry><entry><title>FIRST Robotics Philadelphia Regional</title><link href="http://brianstempin.com/2010/03/25/first-robotics-philadelphia-regional/" rel="alternate"></link><updated>2010-03-25T22:06:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-03-25:2010/03/25/first-robotics-philadelphia-regional/</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="http://www.brianstempin.com/wp-content/uploads/2010/03/USFIrstlogo.gif"&gt;&lt;img alt="US FIRST logo" src="http://www.brianstempin.com/wp-content/uploads/2010/03/USFIrstlogo.gif" /&gt;&lt;/a&gt;&lt;/p&gt;
+</content><category term="Free Time"></category><category term="PHP"></category><category term="Symfony"></category></entry><entry><title>FIRST Robotics Philadelphia Regional</title><link href="http://brianstempin.com/2010/03/25/first-robotics-philadelphia-regional/" rel="alternate"></link><published>2010-03-25T22:06:00-04:00</published><updated>2010-03-25T22:06:00-04:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-03-25:/2010/03/25/first-robotics-philadelphia-regional/</id><summary type="html">&lt;p&gt;&lt;a class="reference external image-reference" href="http://www.brianstempin.com/wp-content/uploads/2010/03/USFIrstlogo.gif"&gt;&lt;img alt="US FIRST logo" src="http://www.brianstempin.com/wp-content/uploads/2010/03/USFIrstlogo.gif" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Sorry for the late post, but Thursday, Friday, and
+Saturday of this week is the Philadelphia Regional FIRST Robotics
+Competition!&amp;nbsp; Unfortunately, I will not be working at the event this
+year, but I'll be going anyway.&amp;nbsp; This year's goal is to try to get as
+many people as possible to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a class="reference external image-reference" href="http://www.brianstempin.com/wp-content/uploads/2010/03/USFIrstlogo.gif"&gt;&lt;img alt="US FIRST logo" src="http://www.brianstempin.com/wp-content/uploads/2010/03/USFIrstlogo.gif" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Sorry for the late post, but Thursday, Friday, and
 Saturday of this week is the Philadelphia Regional FIRST Robotics
 Competition!&amp;nbsp; Unfortunately, I will not be working at the event this
@@ -1536,4 +1706,4 @@ Saturday.&amp;nbsp; It's being hosted by Drexel University and is open to the
 public.&amp;nbsp; Check out &lt;a class="reference external" href="http://www.philadelphiafirst.org/regional/regional-schedule"&gt;the
 schedule&lt;/a&gt;
 to see when the matches are happening.&amp;nbsp; Hope to see you there!&lt;/p&gt;
-</summary><category term="frc"></category><category term="robotics"></category><category term="usfirst"></category></entry></feed>
+</content><category term="Free Time"></category><category term="frc"></category><category term="robotics"></category><category term="usfirst"></category></entry></feed>

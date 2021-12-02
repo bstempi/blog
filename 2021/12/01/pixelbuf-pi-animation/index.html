@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="bstempi" />
+        <meta name="keywords" content="Python,DotStar,Adafruit,Raspberry Pi" />
+        <meta name="description" content="Holy moly, it&#39;s been a while since I&#39;ve written! Well, it&#39;s time to fix that. I&#39;ve done a lot of out-of-band development and side projects since I&#39;ve last written, but nothing that I&#39;ve published until now. The Problem For one of my side projects I&#39;m using a Raspberry Pi 3B …" />
+
+    <title>A Library For Creating LED Animations - BMS's Blog</title>
+
+    <link rel="stylesheet" href="http://brianstempin.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://brianstempin.com/theme/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="http://brianstempin.com/theme/css/pygments/native.css" rel="stylesheet">
+    
+    <link href="http://brianstempin.com/theme/css/pelican-twitchy.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+        <link href="http://brianstempin.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="BMS's Blog ATOM Feed"/>
+        <link href="http://brianstempin.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="BMS's Blog RSS Feed"/>
+        <link href="http://brianstempin.com/static/custom.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href="http://brianstempin.com" title="BMS's Blog" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="http://brianstempin.com/archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2021/12/01/pixelbuf-pi-animation/" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2021/12/01/pixelbuf-pi-animation/" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub"><i class="fa fa-github-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn"><i class="fa fa-linkedin-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="http://brianstempin.com/">
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://brianstempin.com/archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://brianstempin.com/2021/12/01/pixelbuf-pi-animation/" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=http://brianstempin.com/2021/12/01/pixelbuf-pi-animation/" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="https://github.com/bstempi" title="GitHub">
+                            <i class="fa fa-github-square fa-lg padding-small"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/brianstempin" title="LinkedIn">
+                            <i class="fa fa-linkedin-square fa-lg padding-small"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="http://brianstempin.com/about/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            About Me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://brianstempin.com/projects/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://brianstempin.com/resume/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Resume
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://brianstempin.com/talks/">
+                            <i class="fa fa-file-text padding-small"></i>
+                            Talks
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="http://brianstempin.com/category/community.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Community
+                            <span class="badge pull-right categorybadge">12</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="http://brianstempin.com/category/free-time.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Free Time
+                            <span class="badge pull-right categorybadge">27</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/general-work-stuff.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            General Work Stuff
+                            <span class="badge pull-right categorybadge">9</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/traffic-research-project.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Traffic Research Project
+                            <span class="badge pull-right categorybadge">10</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="http://brianstempin.com/category/uncategorized.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            Uncategorized
+                            <span class="badge pull-right categorybadge">3</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="page-header">
+                    <h1>
+                        <a href="http://brianstempin.com/2021/12/01/pixelbuf-pi-animation/"
+                           rel="bookmark"
+                           title="Permalink to A Library For Creating LED Animations">
+                            A Library For Creating LED Animations
+                        </a>
+                        <small>
+<div class="post-info">
+    <div class="publish-info-block">
+        <small>
+            <span class="published">
+                <i class="fa fa-calendar padding-small"></i><time datetime="2021-12-01T20:45:00-05:00"> Wed 01 December 2021</time>
+            </span>
+            <span class="category">
+                <i class="fa fa-folder-open padding-small"></i><a href="http://brianstempin.com/category/free-time.html">Free Time</a>
+            </span>
+            <span class="tags">
+                <i class="fa fa-tags padding-small"></i>
+                <a href="http://brianstempin.com/tag/python.html">Python</a> /                 <a href="http://brianstempin.com/tag/dotstar.html">DotStar</a> /                 <a href="http://brianstempin.com/tag/adafruit.html">Adafruit</a> /                 <a href="http://brianstempin.com/tag/raspberry-pi.html">Raspberry Pi</a>            </span>
+        </small>
+    </div>
+</div><!-- /.post-info -->                        </small>
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="entry-content">
+                    <p>Holy moly, it's been a while since I've written! Well, it's time to fix that. I've done a lot of out-of-band development and side projects since I've last written, but nothing that I've published until now.</p>
+<h1>The Problem</h1>
+<p>For one of my side projects I'm using a <a href="https://en.wikipedia.org/wiki/Raspberry_Pi#Raspberry_Pi">Raspberry Pi 3B+</a> to drive some LEDs. For this particular project, I'm using the <a href="https://learn.adafruit.com/adafruit-dotstar-leds">DotStar</a> LEDs. They're connected to my Pi via SPI. I soldered some wires to a test strip and have those connected to the <a href="https://de.pinout.xyz/pinout/spi">SPI0 pins</a> via a JST connector that I've plugged in the Pi's header pins. Adafruit produces some pretty <a href="https://github.com/adafruit/Adafruit_CircuitPython_DotStar">easy to use Python drivers</a>, so programming these LEDs is easy enough. But I want to do more than just set individual LED values. I want to be able to produce and play animations.</p>
+<p>I felt like I needed to develop a new library.</p>
+<h1>Requirements</h1>
+<p>I specifically wanted to be able to:</p>
+<ul>
+<li>Programmatically create animation sequences</li>
+<li>Serialize animation sequences</li>
+<li>Play animations, preferably on multiple boards, but primarily on the Pi</li>
+</ul>
+<p>Easy-peasy. I need some data structures, an interface and/or classes for serialization, and an interface and/or classes for rendering.</p>
+<h1>Implementation</h1>
+<p>You can find my <a href="https://github.com/Sectional-Art/pixelbuf-pi-animation">implementation on GitHub</a> and find my <a href="https://pixelbuf-pi-animation.readthedocs.io/en/latest/">documentation on Read The Docs</a>. As of right now, it's built on top of <a href="https://github.com/adafruit/Adafruit_CircuitPython_Pixelbuf">Adafruit's Pixelbuf library</a>. Presumably, this library should work with any of their drivers that are built on it. As of this writing, it has only been tested with the <a href="https://github.com/adafruit/Adafruit_CircuitPython_DotStar">DotStar driver</a>.</p>
+<h1>Examples</h1>
+<p>The project documentation already covers the specifics, so I figured I'd leave the rest of this blog post for fun examples and some examples of things I've done with this library so far. Here is a link to the <a href="https://github.com/Sectional-Art/pixelbuf-pi-animation/tree/c37f4905bfef5228321503e9ede083887d83b931/notebooks/examples">Jupyter Notebooks used as of the time of this writing</a>. While the contents of that link will never change, please keep in mind that the library may have evolved by time you see this article.</p>
+<p>To run the example notebooks, make sure you have all the stuff you need for your particular LED setup, this library, and <code>jupyter</code>. If you checkout or download the notebooks, you can <code>cd</code> to the directory containing the notebooks and run <code>jupyter notebook</code> in order to start a notebook server. From there, you can run, modify, or create new notebooks and experiments. I find this particularly convenient since my Pi is headless. It gives me an easy way to test and execute code on it.</p>
+<p>To test all of this stuff, I've constructed the world's most sophisticated testing rig. It includes some 3d printed feet, a spare DIN rail, a piece of corrugated plastic, and some hot glue. As I'm sure you can tell from the photo, absolutely no mistakes were made and everything is perfectly square and level.</p>
+<p><img alt="Absolutely awful test rig" src="http://brianstempin.com/images/led-testing-rig-300x225.jpg"></p>
+<p><a href="http://brianstempin.com/images/led-testing-rig-original.jpg">Full resolution</a></p>
+<h2>Runway Guard Lights</h2>
+<p>The full writeup of this one can be found in <code>Programatic Generation of Animations.ipynb</code>. It mimics the lights that are found at the entrance of runways at larger airports. This isn't exactly what the one that I'm thinking of looks like, but it's close. All it's missing is a fade-in-and-out before wig-wagging.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/h7PRBVD9DkU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>The color is a bit washed out in the video, but here's my take on that:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GuwZl3LMZfo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2>Christmas Themed Lights</h2>
+<p>When putting some of these examples together, it was Thanksgiving weekend. With <a href="https://www.youtube.com/watch?v=YekZoouZn9E">Chrimbus</a> right around the corner, I thought I'd add my own Christmas animation. The way this works is that to start, it:</p>
+<ul>
+<li>Selects a random color from red, green, or white</li>
+<li>Selects a random brightness for that color</li>
+<li>Selects a random direction for that brightness (brighter or dimmer)</li>
+</ul>
+<p>For each pixel, it will make it brighter or dimmer until it "dies" (is as bright or as dim as it can go). For that pixel, the random process repeats. This generates a random-looking animation that can be looped easily without an obvious-looking loop point. It also has an interesting "twinkle" effect.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IfF_HK_ofZo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2>Too Lazy to Write Something for the Rest</h2>
+<p>Without further commentary, I'll post the rest of the videos I produced. Each video contains a link back to the exact Jupyter Notebook that produced it, allowing you to do the same thing for <code>fork()</code> it and do something else interesting. If you wanna talk about it, <a href="https://github.com/Sectional-Art/pixelbuf-pi-animation/discussions">contact me here</a>.</p>
+<p>Happy hacking!</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sKv6eXRT8vk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QlwmVgA46_M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fm0eB_1CM6Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dM9BuvwJOmc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <footer class="text-right">
+                    <p>- bstempi</p>
+                </footer>
+    <div id="show-comments" class="span7 text-center">
+        <a href="http://brianstempin.com/2021/12/01/pixelbuf-pi-animation/#disqus_thread" data-disqus-identifier="pixelbuf-pi-animation" class="btn btn-default">Show Comments</a>
+    </div>
+    <section id="comments" class="comments hidden">
+        <hr/>
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+            </div>
+        </div>
+    </article>
+</section>
+            </div>
+<footer>
+    <div class="container-fluid">
+        <hr>
+        <div class="row">
+            <div class="col-xs-4 text-left">
+                <small>Because my crap has to live somewhere</small>
+            </div>
+            <div class="col-xs-8 text-right">
+                <p><small>Built using <a href="http://docs.getpelican.com/en/latest">Pelican</a>, <a href="http://getbootstrap.com">Bootstrap3</a> and the <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a> theme.</small></p>
+            </div>
+        </div>
+        <div class="row" id="footer_license">
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2021 Brian Stempin</p></small></p>
+            </div>
+        </div>
+    </div>
+</footer>        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="http://brianstempin.com/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://brianstempin.com/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="http://brianstempin.com/theme/js/pelican_twitchy.min.js"></script>
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-7381557-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+<!-- disqus -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'bstempiblog'; // required: replace example with your forum shortname
+
+            var disqus_identifier = 'pixelbuf-pi-animation';
+        var disqus_url = 'http://brianstempin.com/2021/12/01/pixelbuf-pi-animation/';
+
+    var disqus_config = function () {
+        this.language = "en";
+    };
+        /*load script for comment count*/
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    
+        $('#show-comments').click(function () {
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+            $('#show-comments').fadeOut();
+            /*$('#comments').toggleClass('hidden');*/
+            $('#comments').fadeIn().removeClass('hidden');
+        });
+</script>
+
+<!-- /disqus --></body>
+</html>

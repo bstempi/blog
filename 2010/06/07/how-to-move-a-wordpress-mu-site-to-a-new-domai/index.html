@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="bstempi" />
         <meta name="keywords" content="GenEd,Guide,WordPress" />
-        <meta name="description" content="So, as part of my GenEd work, I was asked to move a WordPress MU installation to a new server.  I found several articles about moving around standard WordPress installations, but nothing for the MU (MultiUser) version.  In particular, I had a hard time with changing the domain name.  In ..." />
+        <meta name="description" content="So, as part of my GenEd work, I was asked to move a WordPress MU installation to a new server.  I found several articles about moving around standard WordPress installations, but nothing for the MU (MultiUser) version.  In particular, I had a hard time with changing the domain name.  In …" />
 
     <title>How to Move a Wordpress-MU Site to a New Domain - BMS's Blog</title>
 
@@ -207,7 +207,7 @@
                         <a href="http://brianstempin.com/category/free-time.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Free Time
-                            <span class="badge pull-right categorybadge">26</span>
+                            <span class="badge pull-right categorybadge">27</span>
                         </a>
                     </li>
                     <li class="active">
@@ -289,38 +289,32 @@ domain name. &nbsp;In this article, I'll assume that you already know the
 general procedure (backing up your files and database, moving, and
 restoring). &nbsp;All I plan on covering is how to change your installation's
 domain name.</p>
-<ol class="arabic">
-<li><p class="first">Make a text backup of your database. &nbsp;You can do this by using
+<ol class="arabic simple">
+<li>Make a text backup of your database. &nbsp;You can do this by using
 something like
 <a class="reference external" href="http://dev.mysql.com/doc/refman/5.1/en/mysqldump.html">mysqldump</a>,
 <a class="reference external" href="http://wiki.phpmyadmin.net/pma/export">phpMyAdmin</a>, or the <a class="reference external" href="http://downloads.mysql.com/archives.php?p=MySQLGUITools">MySQL
 GUI
-Tools</a>.</p>
-</li>
-<li><p class="first">Using your favorite tool, like notepad,
+Tools</a>.</li>
+<li>Using your favorite tool, like notepad,
 <a class="reference external" href="http://en.wikipedia.org/wiki/Sed">sed</a>, or any other text editor
 that can handle large files, replace all instances of your old domain
-name with your new one.</p>
-</li>
-<li><p class="first">Save this file and then import it into your database.</p>
-</li>
-<li><p class="first">In the root of your WordPress MU install, there should be a
+name with your new one.</li>
+<li>Save this file and then import it into your database.</li>
+<li>In the root of your WordPress MU install, there should be a
 wp-config.php file. &nbsp;The majority of this file is a series of DEFINE
-statements that define some settings.</p>
-</li>
+statements that define some settings.</li>
 <li><dl class="first docutils">
 <dt>You should see a like like this:</dt>
-<dd><p class="first last"><tt class="docutils literal"><span class="pre">define('DOMAIN_CURRENT_SITE',</span> <span class="pre">'olddomain.com');</span></tt>
+<dd><tt class="docutils literal"><span class="pre">﻿﻿define('DOMAIN_CURRENT_SITE',</span> <span class="pre">'olddomain.com');</span></tt>
 Replace it with:
-<tt class="docutils literal"><span class="pre">define('DOMAIN_CURRENT_SITE',</span> <span class="pre">'newdomain.com');</span></tt></p>
-</dd>
+<tt class="docutils literal"><span class="pre">﻿﻿define('DOMAIN_CURRENT_SITE',</span> <span class="pre">'newdomain.com');</span></tt>
+﻿﻿</dd>
 </dl>
 </li>
-<li><p class="first">For whatever reason, you'll get a register page if you attempt to
-visit your site. &nbsp;To fix this, log in as admin and then log out.</p>
-</li>
-<li><p class="first">Done!</p>
-</li>
+<li>For whatever reason, you'll get a register page if you attempt to
+visit your site. &nbsp;To fix this, log in as admin and then log out.</li>
+<li>Done!</li>
 </ol>
 <p>I hope this helps somebody. &nbsp;Feel free to comment if you have questions,
 concerns, or corrections.</p>
@@ -357,7 +351,7 @@ concerns, or corrections.</p>
             </div>
         </div>
         <div class="row" id="footer_license">
-            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2017 Brian Stempin</p></small></p>
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2021 Brian Stempin</p></small></p>
             </div>
         </div>
     </div>

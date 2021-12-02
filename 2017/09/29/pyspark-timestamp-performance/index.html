@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="bstempi" />
         <meta name="keywords" content="Python,Spark,tools" />
-        <meta name="description" content="In my most recent role, we&#39;re using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model. During this process, we were using PySpark&#39;s pyspark.sql.types.DateType to store date information. At some point, we ..." />
+        <meta name="description" content="In my most recent role, we&#39;re using Python and Spark to perform a complex ETL process and to produce data that will ultimately be used to produce some model. During this process, we were using PySpark&#39;s pyspark.sql.types.DateType to store date information. At some point, we decided that …" />
 
     <title>PySpark Timestamp Performance - BMS's Blog</title>
 
@@ -207,7 +207,7 @@
                         <a href="http://brianstempin.com/category/free-time.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             Free Time
-                            <span class="badge pull-right categorybadge">26</span>
+                            <span class="badge pull-right categorybadge">27</span>
                         </a>
                     </li>
                     <li class="active">
@@ -284,7 +284,7 @@
 <h1>Demonstrating the Performance Impact</h1>
 <p>Before going any further, I suppose that I should give a concrete example of this issue.  To make it easy to follow this demonstration, I'm going to use a <a href="https://github.com/jupyter/docker-stacks/tree/master/all-spark-notebook">Docker container provided by Project Jupyter</a> that includes Spark and Jupyter notebook.  I'll leave it to the reader to get a container running and a notebook open if they want to follow.</p>
 <p>You can see the <a href="http://brianstempin.com/notebooks/Timestamp+demonstration.html">full notebook here</a>, but for the sake of the article I'm going to be brief.  Imagine that you have a dataframe with one million dates and a second one with one million timestamps.  Let's call them <code>date_df</code> and <code>timestamp_df</code>, respectively.  In order to demonstrate this issue, we need to perform some actions on them.  Let's pretend we have the following code:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">date_identity</span><span class="p">(</span><span class="n">some_date</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">date_identity</span><span class="p">(</span><span class="n">some_date</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">some_date</span>
 
 <span class="k">def</span> <span class="nf">timestamp_identity</span><span class="p">(</span><span class="n">some_dt</span><span class="p">):</span>
@@ -292,41 +292,38 @@
 
 <span class="n">date_identity_udf</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">udf</span><span class="p">(</span><span class="n">date_identity</span><span class="p">,</span> <span class="n">DateType</span><span class="p">())</span>
 <span class="n">timestamp_identity_udf</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">udf</span><span class="p">(</span><span class="n">timestamp_identity</span><span class="p">,</span> <span class="n">TimestampType</span><span class="p">())</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>These identity functions don't do anything; they simply return what they're given.  Let's try to apply these transformations to their respective data frames.  YMMV - the important thing here is not the absolute numbers, but the numbers relative to each other.</p>
-<div class="highlight"><pre><span></span><span class="n">transformed_date_df</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">date_identity_udf</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;some_date&#39;</span><span class="p">)))</span>
+<div class="highlight"><pre><span></span><code><span class="n">transformed_date_df</span> <span class="o">=</span> <span class="n">date_df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">date_identity_udf</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;some_date&#39;</span><span class="p">)))</span>
 <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">transformed_date_df</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">transformed_timestamp_df</span> <span class="o">=</span> <span class="n">timestamp_df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">timestamp_identity_udf</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;some_timestamp&#39;</span><span class="p">)))</span>
 <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">transformed_timestamp_df</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>The numbers I got for those calculations, operating on a million items each on a rather large VM was 0.68 and 18.27 seconds, respectively.  That means the identity function for the <code>TimestampType</code> took over 26 times longer to run!  Where was all of this time going?</p>
 <h1>Data Serialization and Interlanguage Communication</h1>
 <p>Spark is not written in Python, so what happens when we write Spark code in Python?  In the case that we're doing operations on dataframes and columns, we're simply using Python to build a plan, allowing Spark do all of the work.  In this case, little or no actual Python code is run on any of the worker nodes.  </p>
 <p>What happens when we introduce something like a Python UDF?  Well, now we are forcing Spark to run Python code on each of the workers.  Spark is not written in Python, so some work has to be done to take data out of the JVM memory model and marshal it into something that Python can interpret and work with.  This is in part where some of the <code>pyspark.sql.types</code> module comes in.  Let's take a look at the <a href="http://spark.apache.org/docs/2.1.1/api/python/_modules/pyspark/sql/types.html#TimestampType">source for one of the dta types</a>:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TimestampType</span><span class="p">(</span><span class="n">AtomicType</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TimestampType</span><span class="p">(</span><span class="n">AtomicType</span><span class="p">):</span>
 
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">DataTypeSingleton</span>
 
     <span class="k">def</span> <span class="nf">needConversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">toInternal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">seconds</span> <span class="o">=</span> <span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">utctimetuple</span><span class="p">())</span> <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span>
                        <span class="k">else</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()))</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">seconds</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">microsecond</span>
 
     <span class="k">def</span> <span class="nf">fromInternal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ts</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">ts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># using int to avoid precision loss in float</span>
             <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ts</span> <span class="o">//</span> <span class="mi">1000000</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">microsecond</span><span class="o">=</span><span class="n">ts</span> <span class="o">%</span> <span class="mi">1000000</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>(Sorry for the code being hard to read -- I need to fix my theme)</p>
 <p>We can see that this class appears to be responsible for marshalling/unmarshalling between Python and Spark data types.  The <code>toInternal()</code> method takes timestamps and turns them into Python <code>int</code>s (if you're using Python 3, that is...) and <code>fromInternal()</code> takes an <code>int</code> and returns a <code>datetime</code>.  Since our UDF isn't doing any real work, it would lead us to believe that the only task benig carried out is this data conversion.  Let's test it to see if we can prove this.</p>
@@ -345,20 +342,20 @@
 <li>Going from a numeric type to a Python <code>datetime.date</code> or <code>datetime.datetime</code> is more expensive than the opposite operation</li>
 </ol>
 <p>The last thing that I'd like to present is a screenshot of <code>htop</code>.  During the date operations, all cores are busy.  Here's what it looks like during the timestamp operations:</p>
-<p><img alt="y u no use all coares, Spark?!" src="http://brianstempin.com/images/pyspark-underutilization.png" title="Underutilized cores" /></p>
+<p><img alt="y u no use all coares, Spark?!" src="http://brianstempin.com/images/pyspark-underutilization.png" title="Underutilized cores"></p>
 <p>This is a clear sign of contention.</p>
 <h1>An Attempt to Circumvent the Contention</h1>
 <p>At this point, we've identified, on a shallow level, the operations that are causing a slow-down and some contention.  I'm not entirely sure why.  In order to answer that, I'd really have to dig through the Spark source code.  Instead of doing that, I'd like to share an approach that a colleague and I came up with to significantly speed things up.</p>
 <p>Instead of doing calculations that return <code>timestamps</code>, we do calculations that ultimately return <code>long</code>s and have Spark cast them to <code>timestamps</code>.  Here's an example:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">timestamp_to_long</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">timestamp_to_long</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function takes a timestamp and returns it as microseconds from epoc, respecting timezone.  If no tzinfo is specified,</span>
 <span class="sd">    UTC is assumed.</span>
 <span class="sd">    :param dt:</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">:</span>
         <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
@@ -374,8 +371,7 @@
 
 <span class="n">ts_udf</span> <span class="o">=</span> <span class="n">udf</span><span class="p">(</span><span class="n">some_timestamp_function</span><span class="p">,</span> <span class="n">LongType</span><span class="p">())</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;manipulated_ts&#39;</span><span class="p">,</span> <span class="n">ts_udf</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;some_ts_col&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">))</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>How do we know it works?  In short, it worked in our case.  We had an ETL job that was manipulating about seven billion dates with a UDF which ran sluggisly and had very poor processor utilization.  The only change we made was to return <code>longs</code> and cast them...that's it!  All of the date math/manipulation/etc happens with the <code>datetime.datetime</code> class withing a pure Python UDF.  </p>
 <p>So, where's my proof?  </p>
@@ -413,7 +409,7 @@
             </div>
         </div>
         <div class="row" id="footer_license">
-            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2017 Brian Stempin</p></small></p>
+            <div class="col-xs-12 text-center">                <p><small><p>&copy; 2021 Brian Stempin</p></small></p>
             </div>
         </div>
     </div>
