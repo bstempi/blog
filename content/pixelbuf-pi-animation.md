@@ -1,5 +1,5 @@
 Title:  A Library For Creating LED Animations
-Date: 2021-11-30 22:00
+Date: 2021-12-01 20:45
 Author: bstempi
 Category: Free Time
 Tags: Python, DotStar, Adafruit, Raspberry Pi
