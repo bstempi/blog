@@ -7,6 +7,8 @@ Save_as: resume/index.html
 Brian M. Stempin, Software Engineer
 ====================================
 
+Pending update: This resume is a few positions behind. [LinkedIn](https://www.linkedin.com/in/brianstempin/) is your best bet for something up to date. As of this writing, that's not up to date, either.
+
 Software Engineer that specializes in big data and web services
 
 Summary
