@@ -7,22 +7,39 @@ Save_as: resume/index.html
 Brian M. Stempin, Software Engineer
 ====================================
 
-Pending update: This resume is a few positions behind. [LinkedIn](https://www.linkedin.com/in/brianstempin/) is your best bet for something up to date. As of this writing, that's not up to date, either.
+- [LinkedIn](https://www.linkedin.com/in/brianstempin/)
+- [GitHub](https://github.com/bstempi)
 
-Software Engineer that specializes in big data and web services
+Software Engineer that specializes in big data, backend web services, and distributed processing
 
 Summary
 --------
-I'm a seasoned data/software engineer that specializes in data pipelines and distributed process. My main tools are Python, Scala, Hadoop, and AWS. I have a track record of being effective at working remotely, automating development operations, and building elastic systems. 
+I'm a seasoned data/software engineer that specializes in data pipelines and distributed processing. My main tools, in no particular order, are Python, Scala, and AWS. I have a track record of being effective at working remotely, automating development operations, and building elastic systems. 
 
 Employment
 -----------
 
-### Principal Engineer, Skyhook ###
-#### April 2019 - Present ####
-I'm the lead engineer for the Geospatial Insights product. We develop and operate a data pipeline that ingests location pings from cell phone users and provides data about where people are spending time, where they're moving to and from, and basic demographics. This aggregate data is used for a wide variety of things such as determining what types of people visit a specific venue or event, traffic flow analysis, and so on. We accomplish this by normalizing, combining, filtering, and grouping hundreds of millions of location pings every day and further enriching it with additional data set.
+### Senior Software Engineer, Rasgo ###
+#### October 2021 - March 2022 ####
+Most of my time at Rasgo was spent on a backend REST API that powered a SPA and Python framework (PyRasgo). This API was at the heart of everything that Rasgo's product did, including:
 
-We do this using Scala, Python, Luigi, and Spark as the base of our system. This all runs on AWS using EMR, EC2, S3, and RDS.
+- Running queries against Snowflake to gather metadata
+- Creating and profiling new data structures in Snowflake
+- Handling background/long-running tasks
+
+This was done using Python 3, FastAPI, Heroku, AWS, Postgres, and Snowflake.
+
+### Senior Software Engineer, Senior Software Engineer ###
+#### January 2021 - October 2021 ####
+I was a senior engineer that operated on a team of 5-7 engineers to create and operate a data pipeline that delivered data directly to our customers. This data consisted of web browsing behaviors that users opted into sending us. For each customer, we maintained a configuration of which fields and subsets of data they were interested in. These configurations were read every day in order to read through our corpus of data, filter the correct rows, filter the correct fields, and ultimately deliver these "reports" or "slices" to a customer to feed their internal data pipelines.
+
+This was done using Scala, Sark, and several Amazon service(S3, EMR, Step Functions, Lambdas).
+
+### Principal Engineer, Skyhook ###
+#### April 2019 - September 2020 ####
+I was the lead engineer for the Geospatial Insights product. We developed and operated a data pipeline that ingests location pings from cell phone users and provides data about where people are spending time, where they're moving to and from, and basic demographics. This aggregate data is used for a wide variety of things such as determining what types of people visit a specific venue or event, traffic flow analysis, and so on. We accomplish this by normalizing, combining, filtering, and grouping hundreds of millions of location pings every day and further enriching it with additional data set.
+
+I did this using Scala, Python, Luigi, and Spark as the base of our system. This all runs on AWS using EMR, EC2, S3, and RDS.
 
 ### Software Engineer, Telnyx ###
 #### April 2018 - April 2019 ####
