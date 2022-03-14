@@ -29,7 +29,7 @@ Most of my time at Rasgo was spent on a backend REST API that powered a SPA and 
 
 This was done using Python 3, FastAPI, Heroku, AWS, Postgres, and Snowflake.
 
-### Senior Software Engineer, Senior Software Engineer ###
+### Senior Software Engineer, Disqo ###
 #### January 2021 - October 2021 ####
 I was a senior engineer that operated on a team of 5-7 engineers to create and operate a data pipeline that delivered data directly to our customers. This data consisted of web browsing behaviors that users opted into sending us. For each customer, we maintained a configuration of which fields and subsets of data they were interested in. These configurations were read every day in order to read through our corpus of data, filter the correct rows, filter the correct fields, and ultimately deliver these "reports" or "slices" to a customer to feed their internal data pipelines.
 
