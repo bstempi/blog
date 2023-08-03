@@ -10,7 +10,7 @@ Brian M. Stempin, Software Engineer
 - [LinkedIn](https://www.linkedin.com/in/brianstempin/)
 - [GitHub](https://github.com/bstempi)
 
-Software Engineer that specializes in big data, backend web services, and distributed processing
+Senior data engineer, skydiver, and pilot
 
 Summary
 --------
@@ -18,6 +18,12 @@ I'm a seasoned data/software engineer that specializes in data pipelines and dis
 
 Employment
 -----------
+
+### Senior Data Engineer, Even Financial (now Engine by MoneyLion) ###
+#### May 2022 - March 2023 ####
+I was a senior data engineer on Engine's (formerly Even Financial) platform team. One of my primary responsibilities was developing a RESTful API that delivered analytics data for one of our business segments to various dashboards that served our clients, allowing them to track their financials and earnings. I was also a member of our data chapter and shared responsibility for our central Redshift data warehouse and the system that aggregated data into it. This involved working as part of an on-call rotation to ensure that SLAs were met and that issues and outages were dealt with promptly.
+
+I did this using Scala, Python, Play, Postgres, and Redshift as the base of our systems. This all runs on AWS using EMR, EC2, S3, Lambda, and RDS.
 
 ### Senior Software Engineer, Rasgo ###
 #### October 2021 - March 2022 ####
@@ -33,7 +39,7 @@ This was done using Python 3, FastAPI, Heroku, AWS, Postgres, and Snowflake.
 #### January 2021 - October 2021 ####
 I was a senior engineer that operated on a team of 5-7 engineers to create and operate a data pipeline that delivered data directly to our customers. This data consisted of web browsing behaviors that users opted into sending us. For each customer, we maintained a configuration of which fields and subsets of data they were interested in. These configurations were read every day in order to read through our corpus of data, filter the correct rows, filter the correct fields, and ultimately deliver these "reports" or "slices" to a customer to feed their internal data pipelines.
 
-This was done using Scala, Sark, and several Amazon service(S3, EMR, Step Functions, Lambdas).
+This was done using Scala, Spark, and several Amazon service(S3, EMR, Step Functions, Lambdas).
 
 ### Principal Engineer, Skyhook ###
 #### April 2019 - September 2020 ####
@@ -44,11 +50,11 @@ I did this using Scala, Python, Luigi, and Spark as the base of our system. This
 ### Software Engineer, Telnyx ###
 #### April 2018 - April 2019 ####
 
-I previously worked on the Inventory and Revenue Squad, where my primary responsibility was in writing software to control the lifecycle of telephone numbers. We did this by running a several microservices that work together to manage our internal inventory, purchase and release inventory from other telcos, communicate with the billing and other systems to communicate status changes, and carry our user orders to on-board customers onto our platform.
+My most recent position was on the Inventory and Revenue Squad, where my primary responsibility was writing software to control the lifecycle of telephone numbers. We did this by running a several microservices that work together to manage our internal inventory, purchase and release inventory from other telcos, communicate with the billing and other systems to communicate status changes, and carry our user orders to on-board customers onto our platform.
 
-Telnyx operates in a multi-cloud environment where being distributed and durable is key to their success. We achieved this through separation of concerns and making sure that the appropriate concerns lie with the appropriate service. We also leveraged a durable FSM model for processing our number orders in a distributed fashion using shared locks. We can have an order in-flight that will continue even after server/service failure thanks event streaming.
+Telnyx operates in a multi-cloud environment where being distributed and durable is key to our success. We achieved this through separation of concerns and making sure that the appropriate concerns lie with the appropriate service. We also leveraged a durable FSM model for processing our number orders in a distributed fashion using shared locks. We can have an order in-flight that will continue even after server/service failure thanks to event streaming.
 
-I did this using Python 3 (specifically, AIO), Docker, and PostgreSQL
+I did this using Python 3 (specifically, AIO), Docker, and PostgreSQL.
 
 ### Senior Data Engineer (Contract), Flexion ###
 #### February 2018 - April 2018  ####
@@ -239,3 +245,25 @@ Education
 #### 2008 - 2011 ####
 
 Activities and Societies: Vice President, Association of Computing Machinery (TU Chapter)
+
+Licenses and Certifications
+---------------------------
+
+### Private Aircraft Pilot
+#### Issued by the FAA
+Issued April 2018
+ASEL ~250 hours
+
+Ratings/endorsements:
+- Complex
+- High-performance
+
+### Skydiving License
+#### Issued by the United States Parachute Association (USPA)
+A-65505 issued November 2012
+
+B-39030 issued September 2013
+
+D-38393 issued June 2019
+
+Regional Judge (CF) issued August 2019
