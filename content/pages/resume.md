@@ -1,5 +1,5 @@
 Title: Resume
-Modified: 2020-07-29 18:00
+Modified: 2024-02-04 12:30
 Slug: resume
 Url: resume/
 Save_as: resume/index.html
@@ -16,8 +16,16 @@ Summary
 --------
 I'm a seasoned data/software engineer that specializes in data pipelines and distributed processing. My main tools, in no particular order, are Python, Scala, and AWS. I have a track record of being effective at working remotely, automating development operations, and building elastic systems. 
 
+In my free time, I'm a pilot and skydiver. I try to spend as much time in the sky as possible.
+
 Employment
 -----------
+
+### Senior Data Engineer, Disney Streaming (contract via Korn Ferry) ###
+#### October 2023 - Current ####
+I currently operate on a team that is responsible for collecting, sanitizing, aggregating, and reporting on Disney Streaming's messaging efforts. I'm responsible for developing and overseeing part of our message reporting pipeline.
+
+I did this using Python, Spark, and Snowflake as the base of our systems. This all runs on AWS using S3 and Databricks.
 
 ### Senior Data Engineer, Even Financial (now Engine by MoneyLion) ###
 #### May 2022 - March 2023 ####
@@ -126,7 +134,7 @@ IntelliJ, Ansible
 ### Machine Learning Engineer, ColdLight Solutions ####
 #### Sep 2012 - Sep 2013 ####
 
-I worked on all kinds of awesome big data/cloud stuff.
+I have worked on all kinds of awesome big data/cloud stuff.
 
 Part of my job entails writing Map/Reduce jobs to
 do ETL and transformation operations on large data sets. These are usually operations that are difficult or
