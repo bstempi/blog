@@ -340,7 +340,7 @@
 </blockquote>
 <p>Ok, that's simple enough.  We can take our Pandas DFs, convert them to Spark <code>Row</code> objects, and as long as they're homogenous, Spark will recognize it as a data frame.  Here's how I accomplished that in a project:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">flatten_pd_df</span><span class="p">(</span><span class="n">pd_df</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given a Pandas DF that has appropriately named columns, this function will iterate the rows and generate Spark Row</span>
 <span class="sd">    objects.  It&#39;s recommended that this method be invoked via Spark&#39;s `flatMap`.</span>
 <span class="sd">    :param pd_df: </span>

@@ -310,23 +310,23 @@
 <p>Running things in distributed mode is a bit more difficult.  What do I need to intercept and how do I do it?  When running a decider program, we want to intercept calls to activity workers.  What do we return?  In my case:  a <code>Promise</code>.  The idea here is that the user may always expect activities inside of a decider to return a <code>Promise</code>.  They may check to see if that promise is complete (<code>Promise.is_ready</code>) or they may attempt to get it's result (<code>Promise.result</code>).  When running in distributed mode, we will populate this promise using the workflow history.  If the user attempts to get the result of a promise before it is ready, we stop the execution of the decider program.  Any new decisions that were made during the program's run will be returned to SWF.  If the decider program successfully returns, then we consider the workflow to be complete.  If it throws an exception, then we consider it failed.</p>
 <h1>Examples</h1>
 <p>Here's a simple exaple of an activity worker.  We'll pretend that all of the imports are taken care of:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">@activity_task</span><span class="p">(</span><span class="n">swf_domain</span><span class="o">=</span><span class="s1">&#39;example&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="n">swf_task_type</span><span class="o">=</span><span class="s1">&#39;TestActivityA&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="n">swf_task_version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="n">swf_task_list</span><span class="o">=</span><span class="s1">&#39;activity_a_unit_test&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">activity_task_a</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="err">@</span><span class="nx">activity_task</span><span class="p">(</span><span class="nx">swf_domain</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">example</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="nx">swf_task_type</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">TestActivityA</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="nx">swf_task_version</span><span class="p">=</span><span class="err">&#39;</span><span class="m m-Double">1.0</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="nx">swf_task_list</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">activity_a_unit_test</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="nx">def</span><span class="w"> </span><span class="nx">activity_task_a</span><span class="p">(</span><span class="nx">b</span><span class="p">):</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span>
 </code></pre></div>
 
 <p>Here, the decorator tells the framework how to communicate with SWF by giving it the domain, task type, task version, and task list to use when communicating.  Let's look an example decider:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">@decision_task</span><span class="p">(</span><span class="n">swf_domain</span><span class="o">=</span><span class="s1">&#39;example&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="n">swf_workflow_type</span><span class="o">=</span><span class="s1">&#39;TestWorkflow&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="n">swf_workflow_version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="n">swf_task_list</span><span class="o">=</span><span class="s1">&#39;unit_test_a&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">decider_a</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">a1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_task_a</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">a2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_task_a</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a1</span><span class="p">.</span><span class="k">result</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a2</span><span class="p">.</span><span class="k">result</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="err">@</span><span class="nx">decision_task</span><span class="p">(</span><span class="nx">swf_domain</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">example</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="nx">swf_workflow_type</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">TestWorkflow</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="nx">swf_workflow_version</span><span class="p">=</span><span class="err">&#39;</span><span class="m m-Double">1.0</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="nx">swf_task_list</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">unit_test_a</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="nx">def</span><span class="w"> </span><span class="nx">decider_a</span><span class="p">():</span>
+<span class="w">    </span><span class="nx">a1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">activity_task_a</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">a2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">activity_task_a</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">a1</span><span class="p">.</span><span class="nx">result</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">a2</span><span class="p">.</span><span class="nx">result</span>
 </code></pre></div>
 
 <p>Just like with our worker, we have some context in the decorator that allows the framework to figure out how to communicate with AWS.  Here is an example to run the activity worker and decider:</p>
@@ -347,44 +347,44 @@ decision_task_a_runner.start()
 <p>PySwfAws has some features to mitigate the gotchas.</p>
 <h2>@cached</h2>
 <p>The <code>@cached</code> decorator allows you to cache the call of a method.  Let's say that we have the followning method:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">def</span> <span class="nv">accessDb</span><span class="ss">()</span>:
-    <span class="nv">results</span> <span class="o">=</span> <span class="nv">doSomeQuery</span><span class="ss">()</span>
-    <span class="k">return</span> <span class="nv">results</span>[<span class="mi">0</span>]
+<div class="highlight"><pre><span></span><code><span class="nv">def</span><span class="w"> </span><span class="nv">accessDb</span><span class="ss">()</span>:
+<span class="w">    </span><span class="nv">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">doSomeQuery</span><span class="ss">()</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">results</span>[<span class="mi">0</span>]
 </code></pre></div>
 
 <p>This method may not be deterministic.  If the underlying data changes or the results are not reliably ordered, then this function is probably not deterministic.  By putting the <code>@cached</code> decorator to it, you cache each function invocation.  For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">@decision_task</span><span class="p">(</span><span class="n">swf_domain</span><span class="o">=</span><span class="s1">&#39;example&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="n">swf_workflow_type</span><span class="o">=</span><span class="s1">&#39;TestWorkflow&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="n">swf_workflow_version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="n">swf_task_list</span><span class="o">=</span><span class="s1">&#39;unit_test_a&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">decider_a</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">call1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accessDb</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">call2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accessDb</span><span class="p">()</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="err">@</span><span class="nx">decision_task</span><span class="p">(</span><span class="nx">swf_domain</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">example</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="nx">swf_workflow_type</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">TestWorkflow</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="nx">swf_workflow_version</span><span class="p">=</span><span class="err">&#39;</span><span class="m m-Double">1.0</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="nx">swf_task_list</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">unit_test_a</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="nx">def</span><span class="w"> </span><span class="nx">decider_a</span><span class="p">():</span>
+<span class="w">    </span><span class="nx">call1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">accessDb</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">call2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">accessDb</span><span class="p">()</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">call1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">call2</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">call1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">call2</span>
 
-<span class="nv">@cached</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">accessDb</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doSomeQuery</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">results</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w">  </span>
+<span class="err">@</span><span class="nx">cached</span>
+<span class="nx">def</span><span class="w"> </span><span class="nx">accessDb</span><span class="p">():</span>
+<span class="w">    </span><span class="nx">results</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">doSomeQuery</span><span class="p">()</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">  </span>
 </code></pre></div>
 
 <p>In this case, <code>accessDb()</code> is invoked twice in the decider function.  No matter how many times that decider function is called, the <code>accessDb()</code> function will only be invoked twice.  Each time, the results will be cached.  That means that even if this program runs 1,000 times during a workflow, exactly two invocations will happen.</p>
 <h2>Out of Band Storage</h2>
 <p>What happens when the thing that you want to cache is too large to store in SWF?  What if the arguments to a task or the return value of a task are too large?  SWF has no answer.</p>
 <p>PySwfAws will allow you to store data outside of SWF.  For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">@cached</span><span class="p">(</span><span class="n">result_data_serializer</span><span class="o">=</span><span class="n">JsonSerializer</span><span class="p">(),</span><span class="w"> </span><span class="n">result_data_store</span><span class="o">=</span><span class="n">S3DataStore</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="s1">&#39;swf-data&#39;</span><span class="p">))</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">accessDb</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doSomeQuery</span><span class="p">()</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nv">@cached</span><span class="p">(</span><span class="n">result_data_serializer</span><span class="o">=</span><span class="n">JsonSerializer</span><span class="p">(),</span><span class="w"> </span><span class="n">result_data_store</span><span class="o">=</span><span class="n">S3DataStore</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="s1">&#39;swf-data&#39;</span><span class="p">))</span>
+<span class="n">def</span><span class="w"> </span><span class="n">accessDb</span><span class="p">()</span><span class="err">:</span>
+<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doSomeQuery</span><span class="p">()</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">results</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w">  </span>
 </code></pre></div>
 
 <p>By passing options to the <code>@cached</code> decorator, we can tell it to store the cached result as JSON into some bucket named <code>swf-data</code> on S3.  Similar options exist on the activity and decision task decorators to control how input <em>and</em> output are serialized and stored.  For instance, you can take your input as JSON from SWF and then save the results as Protobuf in S3.  You are now free to throw as much data as you want around SWF.</p>
 <h2>Timers</h2>
 <p>SWF has the notion of timers.  Using this feature, you could implement reliable CRON tasks.  The way that a user can invoke a timer in a decier program is by using a promise like this:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">promise</span> <span class="kn">import</span> <span class="n">Timer</span> <span class="k">as</span> <span class="n">PTimer</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">promise</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">Timer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">PTimer</span>
 
-<span class="n">timer</span> <span class="o">=</span> <span class="n">PTimer</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PTimer</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The <code>timer</code> variable will be a promise.  When the promise is ready, then the timer has "fired."  If you call <code>timer.result</code>, it'll return <code>None</code>.  The idea here is that you can call <code>timer.result</code> in order to force your program to wait for that timer to fire.  It will either return or cause execution to cease until the timer is ready.</p>

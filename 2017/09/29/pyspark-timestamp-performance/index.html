@@ -355,7 +355,7 @@
 <p>At this point, we've identified, on a shallow level, the operations that are causing a slow-down and some contention.  I'm not entirely sure why.  In order to answer that, I'd really have to dig through the Spark source code.  Instead of doing that, I'd like to share an approach that a colleague and I came up with to significantly speed things up.</p>
 <p>Instead of doing calculations that return <code>timestamps</code>, we do calculations that ultimately return <code>long</code>s and have Spark cast them to <code>timestamps</code>.  Here's an example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">timestamp_to_long</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function takes a timestamp and returns it as microseconds from epoc, respecting timezone.  If no tzinfo is specified,</span>
 <span class="sd">    UTC is assumed.</span>
 <span class="sd">    :param dt:</span>
