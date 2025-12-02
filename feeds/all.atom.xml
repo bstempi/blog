@@ -2486,11 +2486,11 @@ time to get it fixed.&lt;/p&gt;
 I'd buy the same car (though from someone else -- I blame the dealership
 for some of my issues).&lt;/p&gt;
 &lt;/div&gt;
-</content><category term="Free Time"></category><category term="Fiesta"></category><category term="Ford"></category></entry><entry><title>Moving my GIS Project to my Linode</title><link href="https://brianstempin.com/2010/11/14/moving-my-gis-project-to-my-linode/" rel="alternate"></link><published>2010-11-14T21:06:00-05:00</published><updated>2010-11-14T21:06:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-11-14:/2010/11/14/moving-my-gis-project-to-my-linode/</id><summary type="html">&lt;p&gt;In my &lt;a class="reference external" href="https://brianstempin.com/2010/10/26/my-first-machine-in-the-cloud-linode/"&gt;last post&lt;/a&gt;,
+</content><category term="Free Time"></category><category term="Fiesta"></category><category term="Ford"></category></entry><entry><title>Moving my GIS Project to my Linode</title><link href="https://brianstempin.com/2010/11/14/moving-my-gis-project-to-my-linode/" rel="alternate"></link><published>2010-11-14T21:06:00-05:00</published><updated>2010-11-14T21:06:00-05:00</updated><author><name>bstempi</name></author><id>tag:brianstempin.com,2010-11-14:/2010/11/14/moving-my-gis-project-to-my-linode/</id><summary type="html">&lt;p&gt;In my &lt;a class="reference external" href="{static}my-first-machine-in-the-cloud-linode.rst/"&gt;last post&lt;/a&gt;,
 I wrote about the &lt;a class="reference external" href="http://linode.com"&gt;Linode&lt;/a&gt; that I won as a door
 prize at the &lt;a class="reference external" href="http://cposc.org"&gt;Central PA Open Source Conference&lt;/a&gt;.
 &amp;nbsp;After the initial setup, I wasn't quite sure what to do with it. &amp;nbsp;After
-some thought, it hit me: &amp;nbsp;I'll move my GIS project to the cloud …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In my &lt;a class="reference external" href="https://brianstempin.com/2010/10/26/my-first-machine-in-the-cloud-linode/"&gt;last post&lt;/a&gt;,
+some thought, it hit me: &amp;nbsp;I'll move my GIS project to the cloud …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In my &lt;a class="reference external" href="{static}my-first-machine-in-the-cloud-linode.rst/"&gt;last post&lt;/a&gt;,
 I wrote about the &lt;a class="reference external" href="http://linode.com"&gt;Linode&lt;/a&gt; that I won as a door
 prize at the &lt;a class="reference external" href="http://cposc.org"&gt;Central PA Open Source Conference&lt;/a&gt;.
 &amp;nbsp;After the initial setup, I wasn't quite sure what to do with it. &amp;nbsp;After
