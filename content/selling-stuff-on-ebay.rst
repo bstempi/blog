@@ -34,5 +34,5 @@ while.  eBay even gave me a gold star!
 
 |eBay Yellow Star Award|
 
-.. |eBay Yellow Star Award| image:: {filename}/images/StarAwardYellow-300x231.jpg
-   :target: {filename}/images/StarAwardYellow.jpg
+.. |eBay Yellow Star Award| image:: {static}/images/StarAwardYellow-300x231.jpg
+   :target: {static}/images/StarAwardYellow.jpg

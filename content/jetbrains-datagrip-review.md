@@ -15,7 +15,7 @@ I don't know about you, but I really hate the `sqlite` command line tool.  It la
 
 By default, DG doesn't come with any (many?  I'm not sure) of the drivers installed!  This was really confusing the first time I tried to add a data source.  To DG's credit:  if you go to the driver screen, you can click a download link that will get and install the driver for you.  I understand that licensing issues sometimes prevent vendors from including libraries such as these in their products.  What I don't get, however, is why they didn't take this ease-of-installation feature a step further.
 
-![Screenshot showing the drivers screen]({filename}/images/download-driver-screenshot.png "Screenshot showing the drivers screen.  WTF, JetBrains?!")
+![Screenshot showing the drivers screen]({static}/images/download-driver-screenshot.png "Screenshot showing the drivers screen.  WTF, JetBrains?!")
 
 If they detect that this is the firs time that I've run this product, why not offer to download them all for me?  If JetBrains is ok giving me a download and installation facility, then they should present it to me up-front so that I can download all of the drivers I need and never think of it again.
 

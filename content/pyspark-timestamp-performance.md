@@ -12,7 +12,7 @@ Demonstrating the Performance Impact
 
 Before going any further, I suppose that I should give a concrete example of this issue.  To make it easy to follow this demonstration, I'm going to use a [Docker container provided by Project Jupyter](https://github.com/jupyter/docker-stacks/tree/master/all-spark-notebook) that includes Spark and Jupyter notebook.  I'll leave it to the reader to get a container running and a notebook open if they want to follow.
 
-You can see the [full notebook here]({filename}/notebooks/Timestamp+demonstration.html), but for the sake of the article I'm going to be brief.  Imagine that you have a dataframe with one million dates and a second one with one million timestamps.  Let's call them `date_df` and `timestamp_df`, respectively.  In order to demonstrate this issue, we need to perform some actions on them.  Let's pretend we have the following code:
+You can see the [full notebook here]({static}/notebooks/Timestamp+demonstration.html), but for the sake of the article I'm going to be brief.  Imagine that you have a dataframe with one million dates and a second one with one million timestamps.  Let's call them `date_df` and `timestamp_df`, respectively.  In order to demonstrate this issue, we need to perform some actions on them.  Let's pretend we have the following code:
 
 ```python
 def date_identity(some_date):
@@ -72,7 +72,7 @@ Breaking Apart the Marshalling and Unmarshalling
 
 What we want to do is to time how long it takes to convert date->int, int->date, timestamp->int, and int->timestamp.  If any of these pop out at us, then we will be able to narrow down our performance problem.
 
-If you're interested in the code used to test each part of the process, I suggest you take a look at [the notebook]({filename}/notebooks/Timestamp+demonstration.html) that was used to run the test.  Here are the results I came up with:
+If you're interested in the code used to test each part of the process, I suggest you take a look at [the notebook]({static}/notebooks/Timestamp+demonstration.html) that was used to run the test.  Here are the results I came up with:
 
 *  date->int:  0.619 sec, baseline
 *  int->date:  1.889 sec, ~200% increase
@@ -86,7 +86,7 @@ There are a few conclusions we can draw here:
 
 The last thing that I'd like to present is a screenshot of `htop`.  During the date operations, all cores are busy.  Here's what it looks like during the timestamp operations:
 
-![y u no use all coares, Spark?!]({filename}/images/pyspark-underutilization.png "Underutilized cores")
+![y u no use all coares, Spark?!]({static}/images/pyspark-underutilization.png "Underutilized cores")
 
 This is a clear sign of contention.
 

@@ -6,7 +6,7 @@ Moving my GIS Project to my Linode
 :tags: GIS, Linode
 :slug: moving-my-gis-project-to-my-linode
 
-In my `last post <{filename}my-first-machine-in-the-cloud-linode.rst/>`__,
+In my `last post <{static}my-first-machine-in-the-cloud-linode.rst/>`__,
 I wrote about the `Linode <http://linode.com>`__ that I won as a door
 prize at the `Central PA Open Source Conference <http://cposc.org>`__.
  After the initial setup, I wasn't quite sure what to do with it.  After

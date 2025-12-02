@@ -210,12 +210,12 @@ Poster <http://www.brianstempin.com/wp-content/uploads/2010/04/Future-Of-Computi
 Screenshot|\ |me and my poster|
 
 .. |Traffic Router 1| image:: {static}/images/Poster1-300x141.png
-   :target: {filename}/images/Poster1.png
+   :target: {static}/images/Poster1.png
 .. |Traffic Router 2| image:: {static}/images/Poster2-300x141.png
-   :target: {filename}/images/Poster2.png
+   :target: {static}/images/Poster2.png
 .. |Traffic Router 3| image:: {static}/images/Poster3-300x144.png
-   :target: {filename}/images/Poster3.png
+   :target: {static}/images/Poster3.png
 .. |QGIS Screenshot| image:: {static}/images/Poster4-300x189.png
-   :target: {filename}/images/Poster4.png
+   :target: {static}/images/Poster4.png
 .. |me and my poster| image:: {static}/images/SS4_3038-300x200.jpg
-   :target: {filename}/images/SS4_3038.jpg
+   :target: {static}/images/SS4_3038.jpg

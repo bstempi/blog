@@ -26,4 +26,4 @@ Most of my initial tasks had to do with rolling out their new website,
 which runs on `WordPress <http://wordpress.org>`__ (still in
 development).  I also work on some of the back-end web systems.
 
-.. |Wildfire Games| image:: {filename}/images/wildfire_games_logo.jpg
+.. |Wildfire Games| image:: {static}/images/wildfire_games_logo.jpg

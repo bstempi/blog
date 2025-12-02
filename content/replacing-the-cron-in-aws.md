@@ -32,10 +32,10 @@ How would I trigger this thing, though?  Well, it turns out that Lambda and Clou
 3.  Click on "Add event source" and select the "CloudWatch Evnets - Schedule" option.  This will prompt you to create a CloudWatch rule with a `cron`-like syntax that triggers your Lambda function on a regular schedule.
 
 Here's the dialog to schedule the event:
-![CloudWatch Events - Schedule dialog]({filename}/images/lambda-add-event-source-screenshot.png)
+![CloudWatch Events - Schedule dialog]({static}/images/lambda-add-event-source-screenshot.png)
 
 Here's a screenshot of the rule in CloudWatch:
-![CouldWatch rule]({filename}/images/lambda-screenshot.png)
+![CouldWatch rule]({static}/images/lambda-screenshot.png)
 
 Fortunately for the user, Lambda will have links to the CloudWatch rule and vice versa.  This makes management pretty easy.  By this point, I had some Lambda that could tell my app to start processes that needed to run on a regular basis.
 

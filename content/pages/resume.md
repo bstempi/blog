@@ -21,11 +21,21 @@ In my free time, I'm a pilot and skydiver. I try to spend as much time in the sk
 Employment
 -----------
 
-### Senior Data Engineer, Disney Streaming (contract via Korn Ferry) ###
-#### October 2023 - Current ####
-I currently operate on a team that is responsible for collecting, sanitizing, aggregating, and reporting on Disney Streaming's messaging efforts. I'm responsible for developing and overseeing part of our message reporting pipeline.
+### Owner, Head Engineer, Unfamiliar Labs ###
+#### March 2023 - Present ####
+Unfamiliar Labs is my LLC for working on skunkworks and special projects. These projects are a mix of paid contracting work and starting up SaaS applications.
 
-I did this using Python, Spark, and Snowflake as the base of our systems. This all runs on AWS using S3 and Databricks.
+Most of the paid contracting work so far has included building temporary data pipelines, mass data conversion and migration, and BI/reporting. My common stack for dealing with these types of challenges includes Python, SQL, S3, Polars, Luigi, and Jupyter.
+
+The SaaS applications that I'm working on span a few different verticals including aviation, law, and art. I use a mix of traditional object-oriented and functional design patters to manage complex interactions. My usual stack for these kinds of applications include Python, Django, DRF, PostgreSQL, and Docker.
+
+I also have a series of projects that are more maker/art oriented. Most of these projects involve some combination of Raspberry Pis, microcontrollers, and addressable LEDs in order to create light displays that can react to internet published data or a user's input.
+
+### Senior Data Engineer, Disney Streaming (contract via Korn Ferry) ###
+#### October 2023 - March 2024 ####
+I was a contractor operating on a team that is responsible for collecting, sanitizing, aggregating, and reporting on Disney Streaming's messaging efforts. Every day, Disney Streaming is responsible for sending push notifications and emails on behalf of Disney+, Hulu, and ESPN+, totaling tens of millions of messages per month. Our work was to track these messages and to provide meaningful statistics to the business so they could track and measure the efficacy of their templates, marketing offers, and transactional interactions. This involved ingesting messaging events that were stored in a datalake on S3 using Spark via Databricks to provide filtering, aggregation, and classification at scale. Our pipeline would ultimately output to Snowflake, which is where the business's BI tools would look for data to further filter and display in graphical form.
+
+This work was primarily using Python, Spark, Databricks, AWS, and Delta Lake.
 
 ### Senior Data Engineer, Even Financial (now Engine by MoneyLion) ###
 #### May 2022 - March 2023 ####

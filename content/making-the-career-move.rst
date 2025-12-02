@@ -48,4 +48,4 @@ Feels good, man.
 
 |image0|
 
-.. |image0| image:: {filename}/images/feels-good-man-thumb.jpg
+.. |image0| image:: {static}/images/feels-good-man-thumb.jpg
